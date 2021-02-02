@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Myapp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- tailwind-railsの公式ドキュメントに記載されていたように準備 -->
+    <%= stylesheet_link_tag 'tailwind' %>
+    <%= stylesheet_link_tag 'inter-font' %>
+
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+  </head>
+
+  <body class="mx-5">
+    <%= render  "layouts/header" %>
+    <div>
+      <!-- フラッシュメッセージを追加 -->
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+    <%= render  "layouts/footer" %> 
+  </body>
+</html>

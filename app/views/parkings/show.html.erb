@@ -1,0 +1,21 @@
+<% if flash[:notice] %>
+  <div><%= flash[:notice] %></div>
+<% end %>
+
+<div id="favorites_buttons<%= @parking.id %>">
+ <%= render partial: 'favorites/favorite', locals: { parking: @parking, favorite: @favorite} %>
+</div>
+
+
+
+<div class="text-center mx-auto ">
+  <h2 class="text-2xl my-10"><%= @parking.name %><%= link_to '（編集）', edit_parking_path(@parking), class: "text-lg" %><%= link_to "（削除）" , @parking, data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "text-lg" %></h4>
+    <%= image_tag @parking.image.url , class: "mx-auto" %>
+  <ul>
+    <li class="my-5">住所：<%= @parking.address %></li>
+    <li class="my-5">駐輪料金：<%= @parking.fee %></li>
+    <li class="my-5">収容台数：<%= @parking.capacity %></li>
+    <li class="my-5">備考：<%= @parking.others %></li>
+    <li class="my-5">投稿者：<%= @parking.user_id %></li>
+  </ul>
+</div>

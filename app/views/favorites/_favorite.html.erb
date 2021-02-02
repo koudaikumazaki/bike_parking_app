@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+
+  <% unless @parking.favorite_user(current_user.id).blank? %>
+    <%= link_to parking_favorites_path(parking_id: @parking.id, id: @parking.favorites[0].id), method: :delete, remote: true do %>
+      <div class="vertical_favorite">
+        <p>お気に入りを解除</p>
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to parking_favorites_path(@parking.id), method: :post, remote: true do %>
+      <div class="vertical_favorite">
+        <p>お気に入りに追加</p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

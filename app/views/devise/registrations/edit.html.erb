@@ -1,0 +1,54 @@
+<main class="text-center">
+  <h1 class="text-2xl my-10">ユーザー情報</h1>
+
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div>
+      <h2>ユーザー名の変更</h2>
+        <%= f.text_field :username, class: "border" %>
+      </div>
+
+      <div>
+        <h2>メールアドレスの変更</h2>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border" %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div>
+        <h2>パスワードの変更</h2>
+        <%= f.password_field :password, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（６文字以上）" %>
+      </div><br>
+
+      <div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（確認用）" %>
+      </div>
+
+      <div class="my-5">
+        <h2>変更を保存する</h2>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "border", placeholder: "現在のパスワード" %>
+      </div>
+      <%= f.submit "更新", class: "p-2" %>
+  <% end %>
+
+      <div class="my-5">
+        <h2>アカウントを削除したい方</h2>
+        <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "p-2" %></p>
+      </div>
+
+      <div class="my-5">
+        <h2>投稿した駐輪場</h2> 
+        <div class="flex flex-wrap justify-between">
+          <% @user.parkings.each do |parking| %>
+            <% if parking.image? %>
+              <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
+            <% else %>
+              <%= link_to image_tag(src="/assets/default_thumb_image.png"), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
+            <% end %>
+          <% end %>
+        </div>
+          
+      </div>
+</main>

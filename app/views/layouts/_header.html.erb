@@ -1,0 +1,21 @@
+<header class="flex justify-between border-b border-current">
+  <div>
+    <%= link_to "bike_parking_search", root_path, id: "logo", class: "text-3xl" %>
+  </div>
+  <nav>
+    <% if user_signed_in? %>
+      <ul class="flex justify-end space-x-3 py-3">
+        <li><%= link_to  "ユーザー情報", edit_user_registration_path %></li>
+        <li><%= link_to  "お気に入りの駐輪場", '/parkings/favorites' %></li>
+        <li><%= link_to  "駐輪場の投稿", "/parkings/new" %></li>
+        <li><%= link_to  "ログアウト", destroy_user_session_path, method: :delete %></li>
+      </ul>
+    <% else %>
+      <ul class="flex justify-end space-x-3 py-3">
+        <li><%= link_to  "新規登録", new_user_registration_path %></li>
+        <li><%= link_to  "ログイン", new_user_session_path %></li>
+        <li><%= link_to  "簡単ログイン", users_guest_sign_in_path, method: :post %></li>
+      </ul>
+    <% end %>
+  </nav>
+</header>

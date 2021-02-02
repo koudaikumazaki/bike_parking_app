@@ -1,0 +1,30 @@
+<div class="text-center">
+  <h2 class="text-2xl my-10">ログイン</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %><br />
+      <%= f.email_field :email, placeholder: 'メールアドレスを入力してください', autofocus: true, autocomplete: "email", class: "border" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, "パスワード（6文字以上）" %><br />
+      <%= f.password_field :password, placeholder: 'パスワードを入力してください', autocomplete: "current-password", class: "border" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field my-5">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, "情報を記憶しますか？" %>
+      </div>
+    <% end %>
+
+    <div class="actions my-5">
+      <%= f.submit "ログイン", class: "p-2" %>
+    </div>
+  <% end %>
+</div>
+
+
+
+<%= render "devise/shared/links" %>

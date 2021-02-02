@@ -1,0 +1,25 @@
+<div class="text-center">
+  <h2 class="text-2xl my-5">パスワード変更画面</h2>
+
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, role: "form" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
+    <div>
+        <h2>〜パスワードの変更〜</h2>
+        <%= f.password_field :password, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（６文字以上）" %>
+      </div><br>
+
+      <div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（確認用）" %>
+      </div><br><br>
+
+      <div>
+        <h2>〜変更を保存する〜</h2>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "border", placeholder: "現在のパスワード" %>
+      </div>
+    <%= f.submit "更新", class: "p-2 my-5" %>
+  <% end %>
+</div>
+
+
+<%= render "devise/shared/links" %>

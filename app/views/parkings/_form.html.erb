@@ -1,0 +1,40 @@
+<% if @parking.errors.any? %>
+    <div class="alert alert-danger">
+        <ul>
+            <% @parking.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<%= form_for @parking do |f| %>
+    <div class="text-center">
+      <div>
+        <h2>駐輪場名</h2>
+        <%= f.text_field :name, placeholder: '駐輪場名を入力してください。', class: 'border' %>
+      </div>
+      <div>
+        <h2>住所</h2>
+        <%= f.text_field :address, placeholder: '住所名を入力してください。', class: 'border' %>
+      </div>
+      <div>
+        <h2>駐輪料金</h2>
+        <%= f.text_field :fee, placeholder: '駐輪料金を入力してください。', class: 'border' %>
+      </div>
+      <div>
+        <h2>収容台数</h2>
+        <%= f.text_field :capacity, placeholder: '収容台数を入力してください。', class: 'border' %>
+      </div>
+      <div>
+        <h2>その他備考</h2>
+        <%= f.text_field :others, placeholder: 'その他備考を入力してください。', class: 'border' %>
+      </div>
+      <div>
+        <h2>駐輪場の画像</h2>
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+      <%= f.submit '投稿', class: 'p-2 my-5' %>
+    </div>
+  <% end %>
