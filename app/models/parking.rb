@@ -26,7 +26,11 @@ class Parking < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   validates :name, presence: true, length: { maximum: 30 }
-  validates :address, presence: true, length: { maximum: 50 }
+  validates :address, presence: true, length: { maximum: 100 }
+  validates :fee, presence: true, length: { maximum: 20 }
+  validates :capacity, presence: true, length: { maximum: 20 }
+  validates :others, length: { maximum: 150 }
+  validates :user_id, presence: true
 
   def favorite_user(user_id)
     favorites.find_by(user_id: user_id)

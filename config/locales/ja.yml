@@ -8,6 +8,8 @@ ja:
       truncate: ・・・
   activerecord:
     attributes:
+      user:
+        username: ユーザー名
       parking:
         name: 駐輪場名
         address: 住所
