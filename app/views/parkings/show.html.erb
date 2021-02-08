@@ -2,16 +2,27 @@
   <div><%= flash[:notice] %></div>
 <% end %>
 
-<div id="favorites_buttons<%= @parking.id %>">
- <%= render partial: 'favorites/favorite', locals: { parking: @parking, favorite: @favorite} %>
-</div>
-
-
-
 <div class="text-center mx-auto ">
-  <h2 class="text-2xl my-10"><%= @parking.name %><%= link_to '（編集）', edit_parking_path(@parking), class: "text-lg" %><%= link_to "（削除）" , @parking, data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "text-lg" %></h4>
-    <%= image_tag @parking.image.url , class: "mx-auto" %>
+  <h2 class="text-2xl my-10 text-center">
+    <%= @parking.name %>
+  </h2>
+  <ul class="flex text-center justify-center my-10">
+    <li class="mx-5">
+      <%= link_to edit_parking_path(@parking) do %>
+        <span class="fas fa-edit fa-2x"></span>
+      <% end %>
+    </li>
+    <li class="mx-5">
+      <%= link_to @parking, data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete do %>
+        <span class="fas fa-trash-alt fa-2x"></span>
+      <% end %>
+    </li>
+    <li id="favorites_buttons<%= @parking.id %>" class="mx-5">
+      <%= render partial: 'favorites/favorite', locals: { parking: @parking, favorite: @favorite} %>
+    </li>
+  </ul>
   <ul>
+    <%= image_tag @parking.image.url , class: "mx-auto" %>
     <li class="my-5">住所：<%= @parking.address %></li>
     <li class="my-5">駐輪料金：<%= @parking.fee %></li>
     <li class="my-5">収容台数：<%= @parking.capacity %></li>

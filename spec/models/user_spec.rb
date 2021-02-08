@@ -14,19 +14,19 @@ RSpec.describe User, type: :model do
     @user.valid?
     expect(@user.errors[:username]).to include("を入力してください")
   end
-  
+
   it "メールアドレスがなければ無効な状態である" do
     @user.email = nil
     @user.valid?
     expect(@user.errors[:email]).to include("を入力してください")
   end
-  
+
   it "パスワードがなければ無効な状態である" do
     @user.password = nil
     @user.valid?
     expect(@user.errors[:password]).to include("を入力してください")
   end
-  
+
   it "メールアドレスが重複していれば無効な状態である" do
     create(:user, email: "tester@example.com")
     user = build(:user, email: "tester@example.com")
@@ -68,19 +68,19 @@ RSpec.describe User, type: :model do
                    example.user@foo.foo@bar_baz.com
                    foo@bar+baz.com
                    foo@bar..com]
-    
+
     addresses.each do |invalid_address|
       expect(build(:user, email: invalid_address)).to be_invalid
     end
   end
 
   it "メールアドレスが100文字以下で有効な状態である" do
-    @user.email = 'a' * 88 + '@example.com'
+    @user.email = "#{'a' * 88}@example.com"
     expect(@user).to be_valid
   end
 
   it "メールアドレスが101文字以上でエラーが出る" do
-    @user.email = 'a' * 89 + '@example.com'
+    @user.email = "#{'a' * 89}@example.com"
     @user.valid?
     expect(@user.errors[:email]).to include("は100文字以内で入力してください")
   end

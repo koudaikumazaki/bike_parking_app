@@ -14,7 +14,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def default_url(*_args)
-    "/images/" + [version_name, "default.png"].compact.join('_')
+    "/images/#{[version_name, 'default.png'].compact.join('_')}"
   end
 
   process resize_to_fill: [500, 500, "Center"]
@@ -22,5 +22,4 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :thumb do
     process resize_to_fill: [250, 250, "Center"]
   end
-
 end

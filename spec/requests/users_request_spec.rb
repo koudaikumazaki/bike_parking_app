@@ -5,11 +5,17 @@ RSpec.describe "UserAuthentications", type: :request do
     @user = create(:user)
     @guest_user = create(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf")
   end
-  
+
+  # guest_user用のfactory作ろうとしたが、uninitialized constant GuestUserと出てきたのでやめた。
   let(:user_params) { attributes_for(:user) }
   let(:invalid_user_params) { attributes_for(:user, username: "") }
   let(:guest_user_params) { attributes_for(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
-  let(:new_user_params) { attributes_for(:user, username: "after_update") }
+  let(:new_user_params) { attributes_for(:user, username: "after_update", current_password: 'password') }
+  let(:invalid_new_user_params) { attributes_for(:user, username: nil, current_password: 'password') }
+  let(:new_guest_user_params) do
+    attributes_for(:user, username: "after_update", email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf",
+                          current_password: "fhjdashfuirhagldjfkajlsf")
+  end
 
   describe "GET /users/sign_up" do
     it "新規登録画面の表示に成功すること" do
@@ -78,7 +84,7 @@ RSpec.describe "UserAuthentications", type: :request do
 
   describe "POST /users/sign_in" do
     context "有効なパラメータの場合" do
-    it "ログインに成功すること" do
+      it "ログインに成功すること" do
         post user_session_path, params: { user: user_params }
         expect(response).to have_http_status(200)
       end
@@ -127,20 +133,44 @@ RSpec.describe "UserAuthentications", type: :request do
       context "値が有効の場合" do
         it "更新が成功する" do
           patch user_registration_path, params: { user: new_user_params }
-          # binding.pry
           @user.reload
           expect(@user.username).to eq "after_update"
         end
       end
       context "値が無効の場合" do
-        
+        it "更新が失敗する" do
+          patch user_registration_path, params: { user: invalid_new_user_params }
+          @user.reload
+          expect(@user.username).to eq "test_user"
+        end
+        it "編集画面を読み込む" do
+          patch user_registration_path, params: { user: invalid_new_user_params }
+          @user.reload
+          expect(response).to render_template 'devise/registrations/edit'
+        end
       end
     end
     context "ゲストユーザーとしてログインしている場合" do
-      
+      before do
+        @guest_user.confirm
+        sign_in @guest_user
+      end
+      it "編集が失敗する" do
+        patch user_registration_path, params: { user: new_guest_user_params }
+        @guest_user.reload
+        expect(@user.username).to eq "test_user"
+      end
+      it "トップページにリダイレクトされる" do
+        patch user_registration_path, params: { user: new_guest_user_params }
+        @guest_user.reload
+        expect(response).to redirect_to root_path
+      end
     end
     context "ログインしていない場合" do
-      
+      it "サインイン画面にリダイレクトされる" do
+        patch user_registration_path, params: { user: new_user_params }
+        expect(response).to redirect_to new_user_session_path
+      end
     end
   end
 
@@ -148,9 +178,9 @@ RSpec.describe "UserAuthentications", type: :request do
     it "ユーザーの削除に成功すること" do
       @user.confirm
       sign_in @user
-      expect {
+      expect do
         delete user_registration_path
-      }.to change(User, :count).from(2).to(1)
+      end.to change(User, :count).from(2).to(1)
     end
   end
 

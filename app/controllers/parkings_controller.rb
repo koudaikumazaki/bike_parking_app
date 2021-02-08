@@ -1,7 +1,7 @@
 class ParkingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update]
   before_action :permit_update_delete, only: [:destroy, :update]
-  
+
   def index
     @parkings = Parking.page(params[:page])
   end

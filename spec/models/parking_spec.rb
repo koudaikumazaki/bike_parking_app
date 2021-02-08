@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Parking, type: :model do
-  
   before do
     @parking = create(:parking)
   end
@@ -50,7 +49,7 @@ RSpec.describe Parking, type: :model do
     @parking.valid?
     expect(@parking.errors[:fee]).to include("を入力してください")
   end
-  
+
   it "駐輪料金が20文字以下の場合投稿できる" do
     @parking.fee = 'a' * 20
     expect(@parking).to be_valid
@@ -95,5 +94,4 @@ RSpec.describe Parking, type: :model do
     @parking.valid?
     expect(@parking.errors[:others]).to include("は150文字以内で入力してください")
   end
-
 end

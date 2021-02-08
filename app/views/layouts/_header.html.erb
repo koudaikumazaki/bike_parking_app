@@ -5,16 +5,44 @@
   <nav>
     <% if user_signed_in? %>
       <ul class="flex justify-end space-x-3 py-3">
-        <li><%= link_to  "ユーザー情報", edit_user_registration_path %></li>
-        <li><%= link_to  "お気に入りの駐輪場", '/parkings/favorites' %></li>
-        <li><%= link_to  "駐輪場の投稿", "/parkings/new" %></li>
-        <li><%= link_to  "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <span class="fas fa-user"> ユーザー情報</span>
+          <% end %>
+        </li> 
+        <li>
+          <%= link_to '/parkings/favorites' do %>
+            <span class="fas fa-star white"> お気に入りの駐輪場</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "/parkings/new" do %>
+            <span class="fas fa-map-marker-alt"> 駐輪場の投稿</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete  do %>
+            <span class="fas fa-sign-out-alt"> ログアウト</span>
+          <% end %>
+        </li>
       </ul>
     <% else %>
       <ul class="flex justify-end space-x-3 py-3">
-        <li><%= link_to  "新規登録", new_user_registration_path %></li>
-        <li><%= link_to  "ログイン", new_user_session_path %></li>
-        <li><%= link_to  "簡単ログイン", users_guest_sign_in_path, method: :post %></li>
+        <li>
+          <%= link_to new_user_registration_path do %>
+            <span class="fas fa-user-plus"> 新規登録</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_path do %>
+            <span class="fas fa-sign-in-alt"> ログイン</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_guest_sign_in_path, method: :post do %>
+            <span class="fas fa-sign-in-alt"> 簡単ログイン</span>
+          <% end %>
+        </li>
       </ul>
     <% end %>
   </nav>

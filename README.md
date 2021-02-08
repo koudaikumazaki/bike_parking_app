@@ -11,7 +11,6 @@ docker-compose up
 ```
 
 ## テストコードの流し方
-まだテストコードを書いていないので、実装しておりません。
 
 ```
 docker-compose run web bin/rspec

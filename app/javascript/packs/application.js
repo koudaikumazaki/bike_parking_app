@@ -8,7 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "../css/tailwindcss.scss";
-// import '../css/application.css';
+
 
 
 Rails.start()
@@ -17,4 +17,4 @@ ActiveStorage.start()
 require("jquery")
 
 
-// require("stylesheets/application.scss")
+

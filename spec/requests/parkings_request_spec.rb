@@ -7,7 +7,7 @@ RSpec.describe "Parkings", type: :request do
     @parking = create(:parking, user_id: @user.id)
     @other_user = create(:user)
   end
-  
+
   # before do ~ end を使うとparking_paramsと
   # invalid_parking_paramsが定義できなかったのでletを使った。
   let(:parking_params) { attributes_for(:parking) }
@@ -56,20 +56,20 @@ RSpec.describe "Parkings", type: :request do
       end
       context "有効な属性値の場合" do
         it "投稿が成功する" do
-          expect {
+          expect do
             post parkings_url, params: { parking: parking_params }
-          }.to change(Parking, :count).from(1).to(2)
+          end.to change(Parking, :count).from(1).to(2)
         end
         it "トップページにリダイレクトされる" do
-          post parkings_url, params: { parking: parking_params}
+          post parkings_url, params: { parking: parking_params }
           expect(response).to redirect_to root_path
         end
       end
       context "無効な属性値の場合" do
         it "投稿が失敗する" do
-          expect {
+          expect do
             post parkings_url, params: { parking: invalid_parking_params }
-          }.to_not change(Parking, :count)
+          end.to_not change(Parking, :count)
         end
         it "新規投稿ページを読み込む" do
           post parkings_url, params: { parking: invalid_parking_params }
@@ -160,9 +160,9 @@ RSpec.describe "Parkings", type: :request do
           sign_in @user
         end
         it "削除に成功する" do
-          expect {
+          expect do
             delete parking_url(@parking)
-          }.to change(Parking, :count).from(1).to(0)
+          end.to change(Parking, :count).from(1).to(0)
         end
         it "トップページにリダイレクトする" do
           delete parking_url(@parking)
@@ -176,9 +176,9 @@ RSpec.describe "Parkings", type: :request do
           sign_in @other_user
         end
         it "削除に失敗する" do
-          expect {
+          expect do
             delete parking_url(@parking)
-          }.to_not change(Parking, :count)
+          end.to_not change(Parking, :count)
         end
         it "トップページにリダイレクトする" do
           delete parking_url(@parking)
@@ -188,9 +188,9 @@ RSpec.describe "Parkings", type: :request do
     end
     context "ログインしていない場合" do
       it "削除に失敗する" do
-        expect {
+        expect do
           delete parking_url(@parking)
-        }.to_not change(Parking, :count)
+        end.to_not change(Parking, :count)
       end
       it "サインイン画面にリダイレクトする" do
         delete parking_url(@parking)
