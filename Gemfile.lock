@@ -189,6 +189,8 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -225,6 +227,8 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     public_suffix (4.0.6)
     puma (5.1.1)
       nio4r (~> 2.0)
@@ -251,6 +255,10 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.0)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -389,13 +397,16 @@ DEPENDENCIES
   image_processing
   jbuilder (~> 2.7)
   kaminari
+  launchy
   listen (~> 3.3)
   mini_magick
   mysql2 (~> 0.5)
   pry-byebug
+  pry-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.0)
+  rails-controller-testing
   rails_12factor
   rspec-rails
   rubocop

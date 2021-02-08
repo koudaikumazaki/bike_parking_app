@@ -50,7 +50,7 @@ class User < ApplicationRecord
   # 簡単ログイン用、ユーザー作成
   def self.guest
     find_or_create_by!(email: GUEST_EMAIL) do |user|
-      user.password = SecureRandom.urlsafe_base64
+      user.password = "fhjdashfuirhagldjfkajlsf"
       user.confirmed_at = Time.zone.now
     end
   end

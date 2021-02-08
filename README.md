@@ -1,4 +1,4 @@
-# BIKE_PAEKING_APP
+# BIKE_PARKING_APP
 
 ## URL https://limitless-coast-61712.herokuapp.com/
 
@@ -12,3 +12,7 @@ docker-compose up
 
 ## テストコードの流し方
 まだテストコードを書いていないので、実装しておりません。
+
+```
+docker-compose run web bin/rspec
+```

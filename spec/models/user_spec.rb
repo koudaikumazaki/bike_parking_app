@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user = FactoryBot.build(:user)
+    @user = build(:user)
   end
 
   it "名前、メールアドレス、パスワードがあれば有効な状態である" do
@@ -28,8 +28,8 @@ RSpec.describe User, type: :model do
   end
   
   it "メールアドレスが重複していれば無効な状態である" do
-    FactoryBot.create(:user, email: "tester@example.com")
-    user = FactoryBot.build(:user, email: "tester@example.com")
+    create(:user, email: "tester@example.com")
+    user = build(:user, email: "tester@example.com")
     user.valid?
     expect(user.errors[:email]).to include("はすでに存在します")
   end
@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
                    foo@bar..com]
     
     addresses.each do |invalid_address|
-      expect(FactoryBot.build(:user, email: invalid_address)).to be_invalid
+      expect(build(:user, email: invalid_address)).to be_invalid
     end
   end
 

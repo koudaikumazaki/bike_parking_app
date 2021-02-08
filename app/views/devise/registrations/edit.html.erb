@@ -42,11 +42,7 @@
         <h2>投稿した駐輪場</h2> 
         <div class="flex flex-wrap justify-between">
           <% @user.parkings.each do |parking| %>
-            <% if parking.image? %>
-              <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
-            <% else %>
-              <%= link_to image_tag(src="/assets/default_thumb_image.png"), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
-            <% end %>
+            <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
           <% end %>
         </div>
           

@@ -1,8 +1,10 @@
 class FavoritesController < ApplicationController
+  # before_action :authenticate_user!, only: [:create, :destroy]
   before_action :set_parking, only: [:create, :destroy]
 
   def create
     @favorite = Favorite.create(user_id: current_user.id, parking_id: @parking.id)
+    @favorite.save
   end
 
   def destroy

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Parking, type: :model do
   
   before do
-    @parking = FactoryBot.create(:parking)
+    @parking = create(:parking)
   end
 
   it "駐輪場名、住所、駐輪料金、駐輪台数、投稿者名が存在すれば投稿できる" do

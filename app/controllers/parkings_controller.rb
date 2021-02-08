@@ -1,6 +1,6 @@
 class ParkingsController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :destroy, :update]
-  before_action :permit_edit_delete, only: [:edit, :destroy, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update]
+  before_action :permit_update_delete, only: [:destroy, :update]
   
   def index
     @parkings = Parking.page(params[:page])
@@ -16,9 +16,9 @@ class ParkingsController < ApplicationController
 
     if @parking.save
       flash[:notice] = "「#{@parking.name}」の情報が投稿されました!"
-      redirect_to parkings_path
+      redirect_to root_path
     else
-      render 'parkings/new'
+      render '/parkings/new'
     end
   end
 
@@ -34,10 +34,10 @@ class ParkingsController < ApplicationController
     @parking = Parking.find(params[:id])
     @parking.update(parking_params)
     if @parking.save
-      flash[:notice] = "「#{@parking.name}」の情報が投稿されました!"
-      redirect_to parkings_path
+      flash[:notice] = "「#{@parking.name}」の情報が更新されました!"
+      redirect_to root_path
     else
-      render 'parkings/edit'
+      render "/parkings/edit"
     end
   end
 
@@ -45,7 +45,7 @@ class ParkingsController < ApplicationController
     parking = Parking.find(params[:id])
     parking.delete
     flash[:notice] = "「#{parking.name}」の情報を削除しました!"
-    redirect_to parkings_path
+    redirect_to root_path
   end
 
   def favorites
@@ -58,7 +58,7 @@ class ParkingsController < ApplicationController
     params.require(:parking).permit(:name, :address, :fee, :capacity, :others, :image, :image_cache)
   end
 
-  def permit_edit_delete
+  def permit_update_delete
     parking = Parking.find(params[:id])
     unless parking.user_id == current_user.id
       flash[:notice] = "投稿者以外の編集・削除はできません。"
