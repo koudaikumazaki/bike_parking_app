@@ -1,4 +1,4 @@
-<div class="flex flex-wrap justify-between">
+<div class="flex flex-wrap justify-between w-11/12 mx-auto">
   <% @parkings.each do |parking| %>
     <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
   <% end %> 

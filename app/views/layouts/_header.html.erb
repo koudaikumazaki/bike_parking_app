@@ -1,11 +1,13 @@
-<header class="flex justify-between px-5">
+<header class="flex justify-between px-5 py-5 sticky top-0">
   <div>
-    <%= link_to "bike_parking_search", root_path, id: "logo", class: "text-3xl" %>
+    <%= link_to root_path, id: "logo", class: "text-3xl" do %>
+      <span class="fas fa-search-location"> bike_parking_search</span>
+    <% end %>
   </div>
-  <nav>
+  <nav class="hidden lg:block">
     <% if user_signed_in? %>
-      <ul class="flex justify-end space-x-3 py-3">
-        <li>
+      <ul class="flex justify-end space-x-3 leading-9">
+        <li class="align-center">
           <%= link_to edit_user_registration_path do %>
             <span class="fas fa-user"> ユーザー情報</span>
           <% end %>
@@ -46,4 +48,55 @@
       </ul>
     <% end %>
   </nav>
+  <button class="lg:hidden">
+    <span class="fas fa-bars fa-2x open"></span>
+  </button>
 </header>
+
+<div class="sp_navi">
+  <span class="fas fa-times fa-2x close absolute"></span>
+  <nav class="mt-20">
+    <% if user_signed_in? %>
+      <ul class="leading-9 text-center">
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <span class="fas fa-user"> ユーザー情報</span>
+          <% end %>
+        </li> 
+        <li>
+          <%= link_to '/parkings/favorites' do %>
+            <span class="fas fa-star white"> お気に入りの駐輪場</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "/parkings/new" do %>
+            <span class="fas fa-map-marker-alt"> 駐輪場の投稿</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete  do %>
+            <span class="fas fa-sign-out-alt"> ログアウト</span>
+          <% end %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="leading-9 text-center">
+        <li>
+          <%= link_to new_user_registration_path do %>
+            <span class="fas fa-user-plus"> 新規登録</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_path do %>
+            <span class="fas fa-sign-in-alt"> ログイン</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_guest_sign_in_path, method: :post do %>
+            <span class="fas fa-sign-in-alt"> 簡単ログイン</span>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </nav>
+</div>

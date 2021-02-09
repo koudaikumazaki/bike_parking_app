@@ -27,3 +27,42 @@ body {
 .fa-edit, .fa-trash-alt {
   color: #9e9e9e;
 }
+
+// ハンバーガーメニューの設定
+
+// viewに書いたらtransitionが動作しなかったのでscssにposition等を記載。
+.sp_navi {
+  background: #9e9e9e;
+  color: #f5f5f5;
+  opacity: 0;
+  transition: opacity .6s;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  .close {
+    top: 20px;
+    right: 23px;
+    color: #f5f5f5;
+    cursor: pointer;
+  }
+}
+
+// これはネストするとcssが適用されなくなったので上のcssにはネストしていない。
+.sp_navi.show {
+  opacity: 0.9;
+  pointer-events: auto;
+}
+
+// 駐輪場カードのレイアウト
+
+.parking_card {
+  box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.3);
+  :hover {
+    box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.3);
+  }
+}
+
+

@@ -15,6 +15,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 require("jquery")
+require("packs/hamburger_menu")
 
 
 

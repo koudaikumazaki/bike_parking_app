@@ -1,9 +1,9 @@
 <h1 class="text-2xl text-center my-10">投稿一覧</h1>
 
 
-<div class="flex flex-wrap justify-between">
+<div class="flex flex-wrap justify-between w-11/12 mx-auto">
   <% @parkings.each do |parking| %>
-    <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
+    <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_card' %>
   <% end %> 
 </div>
 
