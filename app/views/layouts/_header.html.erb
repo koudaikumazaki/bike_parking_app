@@ -1,13 +1,13 @@
 <header class="flex justify-between px-5 py-5 sticky top-0">
   <div>
-    <%= link_to root_path, id: "logo", class: "text-3xl" do %>
-      <span class="fas fa-search-location"> bike_parking_search</span>
+    <%= link_to root_path, class: "text-3xl" do %>
+      <span class="fas fa-search-location"> <span class="logo_typo">bike_parking_search</span></span>
     <% end %>
   </div>
   <nav class="hidden lg:block">
     <% if user_signed_in? %>
       <ul class="flex justify-end space-x-3 leading-9">
-        <li class="align-center">
+        <li>
           <%= link_to edit_user_registration_path do %>
             <span class="fas fa-user"> ユーザー情報</span>
           <% end %>
@@ -53,9 +53,9 @@
   </button>
 </header>
 
-<div class="sp_navi">
+<div class="sp_navi fixed inset-0">
   <span class="fas fa-times fa-2x close absolute"></span>
-  <nav class="mt-20">
+  <nav class="mt-20 text-3xl">
     <% if user_signed_in? %>
       <ul class="leading-9 text-center">
         <li>
