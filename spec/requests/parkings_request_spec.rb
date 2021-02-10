@@ -1,15 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Parkings", type: :request do
-  before do
-    @user = create(:user)
-    # associationでリンクしていたはずだが、updateアクションでテストが通らなかったので関連づけを行った。
-    @parking = create(:parking, user_id: @user.id)
-    @other_user = create(:user)
-  end
 
-  # before do ~ end を使うとparking_paramsと
-  # invalid_parking_paramsが定義できなかったのでletを使った。
+  # parkingに関してはdestroyアクションをテストする前にデータが保存されていないと
+  # エラーが出たため、let!とした。
+  let(:user) { create(:user) }
+  let!(:parking) { create(:parking, user_id: user.id) }
+  let(:other_user) { create(:user) }
   let(:parking_params) { attributes_for(:parking) }
   let(:invalid_parking_params) { attributes_for(:parking, name: nil) }
   let(:new_parking_params) { attributes_for(:parking, name: 'after_update') }
@@ -23,7 +20,7 @@ RSpec.describe "Parkings", type: :request do
 
   describe "GET /show" do
     it "正常にレスポンスを返すこと" do
-      get parking_url(@parking)
+      get parking_url(parking)
       expect(response).to have_http_status(200)
     end
   end
@@ -31,8 +28,8 @@ RSpec.describe "Parkings", type: :request do
   describe "GET /new" do
     context "ログインユーザーの場合" do
       before do
-        @user.confirm
-        sign_in @user
+        user.confirm
+        sign_in user
       end
       it "正常にレスポンスを返すこと" do
         get new_parking_url
@@ -51,8 +48,8 @@ RSpec.describe "Parkings", type: :request do
   describe "POST /create" do
     context "ログインユーザーの場合" do
       before do
-        @user.confirm
-        sign_in @user
+        user.confirm
+        sign_in user
       end
       context "有効な属性値の場合" do
         it "投稿が成功する" do
@@ -88,18 +85,18 @@ RSpec.describe "Parkings", type: :request do
   describe "GET /edit" do
     context "ログインユーザーの場合" do
       before do
-        @user.confirm
-        sign_in @user
+        user.confirm
+        sign_in user
       end
       it "正常にレスポンスを返すこと" do
-        get edit_parking_url(@parking)
+        get edit_parking_url(parking)
         expect(response).to have_http_status(200)
       end
     end
 
     context "ログインしていない場合" do
       it "サインイン画面にリダイレクトすること" do
-        get edit_parking_url(@parking)
+        get edit_parking_url(parking)
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -108,80 +105,80 @@ RSpec.describe "Parkings", type: :request do
   describe "PATCH /update" do
     context "投稿者本人の場合" do
       before do
-        @user.confirm
-        sign_in @user
+        user.confirm
+        sign_in user
       end
       context "更新内容が有効な場合" do
         it "投稿が成功する" do
-          patch parking_path(@parking), params: { parking: new_parking_params }
-          @parking.reload
-          expect(@parking.name).to eq "after_update"
+          patch parking_path(parking), params: { parking: new_parking_params }
+          parking.reload
+          expect(parking.name).to eq "after_update"
         end
         it "トップページにリダイレクトする" do
-          patch parking_url(@parking), params: { parking: new_parking_params }
+          patch parking_url(parking), params: { parking: new_parking_params }
           expect(response).to redirect_to root_path
         end
       end
       context "更新内容が無効の場合" do
         it "投稿が失敗する" do
-          patch parking_url(@parking), params: { parking: invalid_parking_params }
+          patch parking_url(parking), params: { parking: invalid_parking_params }
         end
         it "編集ページを読み込む" do
-          patch parking_url(@parking), params: { parking: invalid_parking_params }
+          patch parking_url(parking), params: { parking: invalid_parking_params }
           expect(response).to render_template 'parkings/edit'
         end
       end
     end
     context "投稿者以外の場合" do
       before do
-        @other_user.confirm
-        sign_in @other_user
+        other_user.confirm
+        sign_in other_user
       end
       it "投稿が失敗する" do
-        patch parking_url(@parking), params: { parking: new_parking_params }
-        expect(@parking.name).to eq "parking"
+        patch parking_url(parking), params: { parking: new_parking_params }
+        expect(parking.name).to eq "parking"
         expect(response).to redirect_to root_path
       end
     end
     context "ログインしていない場合" do
       it "サインイン画面にリダイレクトすること" do
-        patch parking_url(@parking), params: { parking: new_parking_params }
-        expect(@parking.name).to eq "parking"
+        patch parking_url(parking), params: { parking: new_parking_params }
+        expect(parking.name).to eq "parking"
         expect(response).to redirect_to new_user_session_path
       end
     end
   end
 
-  describe "DELETE /update" do
+  describe "DELETE /destroy" do
     context "ログインしている場合" do
       context "投稿者の場合" do
         before do
-          @user.confirm
-          sign_in @user
+          user.confirm
+          sign_in user
         end
         it "削除に成功する" do
           expect do
-            delete parking_url(@parking)
+            delete parking_url(parking)
           end.to change(Parking, :count).from(1).to(0)
         end
         it "トップページにリダイレクトする" do
-          delete parking_url(@parking)
+          delete parking_url(parking)
           expect(response).to redirect_to root_path
         end
       end
 
       context "投稿者じゃない場合" do
         before do
-          @other_user.confirm
-          sign_in @other_user
+          other_user.confirm
+          sign_in other_user
         end
         it "削除に失敗する" do
           expect do
-            delete parking_url(@parking)
+            delete parking_url(parking)
           end.to_not change(Parking, :count)
         end
         it "トップページにリダイレクトする" do
-          delete parking_url(@parking)
+          delete parking_url(parking)
           expect(response).to redirect_to root_path
         end
       end
@@ -189,11 +186,11 @@ RSpec.describe "Parkings", type: :request do
     context "ログインしていない場合" do
       it "削除に失敗する" do
         expect do
-          delete parking_url(@parking)
+          delete parking_url(parking)
         end.to_not change(Parking, :count)
       end
       it "サインイン画面にリダイレクトする" do
-        delete parking_url(@parking)
+        delete parking_url(parking)
         expect(response).to redirect_to new_user_session_path
       end
     end
