@@ -1,15 +1,16 @@
 <main class="text-center">
-  <h1 class="text-2xl my-10">ユーザー情報</h1>
+  <h1 class="text-3xl my-10">ユーザー情報</h1>
+  <h2 class="text-2xl my-5">ユーザー情報の編集</h2>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
       <div>
-      <h2>ユーザー名の変更</h2>
+      <h3>ユーザー名の変更</h2>
         <%= f.text_field :username, class: "border" %>
       </div>
 
       <div>
-        <h2>メールアドレスの変更</h2>
+        <h3>メールアドレスの変更</h2>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border" %>
       </div>
 
@@ -18,7 +19,7 @@
       <% end %>
 
       <div>
-        <h2>パスワードの変更</h2>
+        <h3>パスワードの変更</h2>
         <%= f.password_field :password, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（６文字以上）" %>
       </div><br>
 
@@ -27,24 +28,26 @@
       </div>
 
       <div class="my-5">
-        <h2>変更を保存する</h2>
+        <h3>変更を保存する</h2>
         <%= f.password_field :current_password, autocomplete: "current-password", class: "border", placeholder: "現在のパスワード" %>
       </div>
-      <%= f.submit "更新", class: "p-2" %>
+      <%= f.submit "更新", class: "p-2 button" %>
   <% end %>
 
-      <div class="my-5">
-        <h2>アカウントを削除したい方</h2>
-        <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "p-2" %></p>
+      <div class="my-10">
+        <h2 class="text-2xl my-5">アカウントを削除したい方</h2>
+        <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "p-2 button" %></p>
       </div>
 
-      <div class="my-5">
-        <h2>投稿した駐輪場</h2> 
-        <div class="flex flex-wrap justify-between">
-          <% @user.parkings.each do |parking| %>
-            <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
+      <div class="my-10">
+        <h2 class="text-2xl">投稿した駐輪場</h2> 
+        <div class="flex flex-wrap justify-between" id="parking_paginate" >
+          <% @parkings.each do |parking| %>
+            <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 mx-auto parking_card' %>
           <% end %>
         </div>
-          
+        <%= paginate @parkings %>
       </div>
+      
+
 </main>

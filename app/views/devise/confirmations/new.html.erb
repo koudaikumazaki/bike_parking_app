@@ -1,5 +1,5 @@
 <div class="text-center">
-  <h2 class="text-2xl my-10">本人確認用のメールを再送信します。</h2>
+  <h2 class="text-3xl my-10">本人確認用のメールを再送信します。</h2>
 
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="actions my-5">
-      <%= f.submit "本人確認用メールを再送信する。", class: "p-2" %>
+      <%= f.submit "本人確認用メールを再送信する。", class: "p-2 button" %>
     </div>
   <% end %>
 </div>

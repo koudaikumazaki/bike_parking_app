@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="text-center mx-auto ">
-  <h2 class="text-2xl my-10 text-center">
+  <h2 class="text-3xl my-10 text-center">
     <%= @parking.name %>
   </h2>
   <ul class="flex text-center justify-center my-10">
@@ -17,12 +17,14 @@
         <span class="fas fa-trash-alt fa-2x"></span>
       <% end %>
     </li>
-    <li id="favorites_buttons<%= @parking.id %>" class="mx-5">
-      <%= render partial: 'favorites/favorite', locals: { parking: @parking, favorite: @favorite} %>
-    </li>
+    <% if user_signed_in? %>
+      <li id="favorites_buttons<%= @parking.id %>" class="mx-5">
+        <%= render partial: 'favorites/favorite', locals: { parking: @parking, favorite: @favorite} %>
+      </li>
+    <% end %>
   </ul>
   <ul>
-    <%= image_tag @parking.image.url , class: "mx-auto" %>
+    <%= image_tag @parking.image.url , class: "mx-auto parking_card" %>
     <li class="my-5">住所：<%= @parking.address %></li>
     <li class="my-5">駐輪料金：<%= @parking.fee %></li>
     <li class="my-5">収容台数：<%= @parking.capacity %></li>

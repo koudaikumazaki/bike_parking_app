@@ -3,7 +3,7 @@ class ParkingsController < ApplicationController
   before_action :permit_update_delete, only: [:destroy, :update]
 
   def index
-    @parkings = Parking.page(params[:page])
+    @parkings = Parking.page(params[:page]).per(10)
   end
 
   def new
@@ -50,6 +50,7 @@ class ParkingsController < ApplicationController
 
   def favorites
     @parkings = current_user.favorite_parkings.includes(:user)
+    @parkings = @parkings.page(params[:page]).per(10)
   end
 
   private
