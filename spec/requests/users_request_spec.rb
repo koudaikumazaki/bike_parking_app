@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "UserAuthentications", type: :request do
-  before do
-    @user = create(:user)
-    @guest_user = create(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf")
-  end
 
   # guest_user用のfactory作ろうとしたが、uninitialized constant GuestUserと出てきたのでやめた。
+  let(:user) { create(:user) }
   let(:user_params) { attributes_for(:user) }
   let(:invalid_user_params) { attributes_for(:user, username: "") }
+  let(:guest_user) { create(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
   let(:guest_user_params) { attributes_for(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
   let(:new_user_params) { attributes_for(:user, username: "after_update", current_password: 'password') }
   let(:invalid_new_user_params) { attributes_for(:user, username: nil, current_password: 'password') }
@@ -99,8 +97,8 @@ RSpec.describe "UserAuthentications", type: :request do
 
   describe "DELETE /users/sign_out" do
     it "ログアウトに成功すること" do
-      @user.confirm
-      sign_in @user
+      user.confirm
+      sign_in user
       delete destroy_user_session_path
       expect(response).to redirect_to root_path
     end
@@ -110,8 +108,8 @@ RSpec.describe "UserAuthentications", type: :request do
     subject { get edit_user_registration_path }
     context 'ログインしている場合' do
       before do
-        @user.confirm
-        sign_in @user
+        user.confirm
+        sign_in user
       end
       it 'リクエストが成功すること' do
         is_expected.to eq 200
@@ -127,42 +125,42 @@ RSpec.describe "UserAuthentications", type: :request do
   describe 'PATCH edit' do
     context "ログインユーザーの場合" do
       before do
-        @user.confirm
-        sign_in @user
+        user.confirm
+        sign_in user
       end
       context "値が有効の場合" do
         it "更新が成功する" do
           patch user_registration_path, params: { user: new_user_params }
-          @user.reload
-          expect(@user.username).to eq "after_update"
+          user.reload
+          expect(user.username).to eq "after_update"
         end
       end
       context "値が無効の場合" do
         it "更新が失敗する" do
           patch user_registration_path, params: { user: invalid_new_user_params }
-          @user.reload
-          expect(@user.username).to eq "test_user"
+          user.reload
+          expect(user.username).to eq "test_user"
         end
         it "編集画面を読み込む" do
           patch user_registration_path, params: { user: invalid_new_user_params }
-          @user.reload
+          user.reload
           expect(response).to render_template 'devise/registrations/edit'
         end
       end
     end
     context "ゲストユーザーとしてログインしている場合" do
       before do
-        @guest_user.confirm
-        sign_in @guest_user
+        guest_user.confirm
+        sign_in guest_user
       end
       it "編集が失敗する" do
         patch user_registration_path, params: { user: new_guest_user_params }
-        @guest_user.reload
-        expect(@user.username).to eq "test_user"
+        guest_user.reload
+        expect(user.username).to eq "test_user"
       end
       it "トップページにリダイレクトされる" do
         patch user_registration_path, params: { user: new_guest_user_params }
-        @guest_user.reload
+        guest_user.reload
         expect(response).to redirect_to root_path
       end
     end
@@ -176,11 +174,11 @@ RSpec.describe "UserAuthentications", type: :request do
 
   describe "DELETE /users/registrations#destroy" do
     it "ユーザーの削除に成功すること" do
-      @user.confirm
-      sign_in @user
+      user.confirm
+      sign_in user
       expect do
         delete user_registration_path
-      end.to change(User, :count).from(2).to(1)
+      end.to change(User, :count).from(1).to(0)
     end
   end
 
