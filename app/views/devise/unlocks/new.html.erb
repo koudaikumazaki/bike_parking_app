@@ -1,5 +1,5 @@
 <div class="text-center">
-  <h2 class="text-3xl my-10">アカウント解除用のメールを送信する</h2>
+  <h2 class="text-2xl sm:text-3xl my-10">アカウント解除用のメールを送信する</h2>
 
   <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
