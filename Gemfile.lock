@@ -164,8 +164,14 @@ GEM
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
     formatador (0.2.5)
+    geocoder (1.6.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
+      multi_json
+      request_store (>= 1.0)
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
@@ -276,6 +282,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.8.2)
+    request_store (1.5.0)
+      rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -380,6 +388,8 @@ DEPENDENCIES
   fog-aws
   fog-core
   font-awesome-sass
+  geocoder
+  gon
   image_processing
   jbuilder (~> 2.7)
   kaminari

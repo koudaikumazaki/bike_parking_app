@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 
-  <% unless @parking.favorite_user(current_user.id).blank? %>
+  <% if @parking.favorited_by?(current_user) %>
     <%= link_to parking_favorites_path(parking_id: @parking.id, id: @parking.favorites[0].id), method: :delete, remote: true do %>
       <div class="vertical_favorite">
         <i class="fas fa-star fa-2x"></i>

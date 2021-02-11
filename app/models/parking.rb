@@ -7,6 +7,8 @@
 #  capacity   :string(191)
 #  fee        :string(191)
 #  image      :string(191)
+#  latitude   :float(24)
+#  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
 #  created_at :datetime         not null
@@ -25,6 +27,8 @@ class Parking < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :user
   has_many :favorites, dependent: :destroy
+  # geocoded_by :address
+  # after_validation :geocode
   validates :name, presence: true, length: { maximum: 30 }
   validates :address, presence: true, length: { maximum: 100 }
   validates :fee, presence: true, length: { maximum: 20 }
@@ -32,7 +36,11 @@ class Parking < ApplicationRecord
   validates :others, length: { maximum: 150 }
   validates :user_id, presence: true
 
-  def favorite_user(user_id)
-    favorites.find_by(user_id: user_id)
+  # def favorite_user(user_id)
+  #   favorites.find_by(user_id: user_id)
+  # end
+
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
   end
 end
