@@ -27,18 +27,17 @@ class Parking < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :user
   has_many :favorites, dependent: :destroy
-  # geocoded_by :address
-  # after_validation :geocode
+  geocoded_by :address
+  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
   validates :name, presence: true, length: { maximum: 30 }
-  validates :address, presence: true, length: { maximum: 100 }
   validates :fee, presence: true, length: { maximum: 20 }
   validates :capacity, presence: true, length: { maximum: 20 }
   validates :others, length: { maximum: 150 }
   validates :user_id, presence: true
-
-  # def favorite_user(user_id)
-  #   favorites.find_by(user_id: user_id)
-  # end
+  validates :latitude, presence: true
+  validates :longitude, presence: true
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?

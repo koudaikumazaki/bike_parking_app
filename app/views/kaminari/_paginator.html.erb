@@ -1,5 +1,5 @@
 <%= paginator.render do %>
-  <ul class="paginate flex mx-auto justify-center">
+  <ul class="paginate flex mx-auto justify-center my-10">
     <%= first_page_tag unless current_page.first? %>
     <%= prev_page_tag unless current_page.first? %>
     <% each_page do |page| %>

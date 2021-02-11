@@ -10,52 +10,24 @@
 
 <%= form_for @parking do |f| %>
     <div class="text-center">
+      <div class="input-field my-5">
+        <%= f.text_field :address, class: "block mx-auto my-5", id: "address", placeholder: "地名、施設名などを入力するか、地図をクリックしてマーカーを立ててください。" %>
+        <a class="button p-2" onclick="codeAddress()">地図検索</a>
+        <a id="del" class="button p-2 marker-delete right" onclick="deleteMarker()">
+          <i class="fas fa-map-marker-alt fas-2x" style="color:red"></i>削除
+        </a>
+      </div>
       
-      <button id="del" class="button p-2" onclick="deleteMarker();">マーカー削除</button>
       <div id="map" class="my-5">
+        <%= render "map" %>
+      </div>
+      <div>
         <%= f.hidden_field :latitude %>
         <%= f.hidden_field :longitude %>
-        <script>
-          let map
-
-          function initMap(){
-            map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: 40.7828, lng:-73.9653},
-              zoom: 12,
-            });
-
-            // marker = new google.maps.Marker({
-            //   position:  {lat: 40.7828, lng:-73.9653},
-            //   map: map
-            // });
-          }
-
-          function codeAddress(){
-            let inputAddress = document.getElementById('address').value;
-
-            geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-              if (status == 'OK') {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-                display.textContent = "検索結果：" + results[ 0 ].geometry.location
-              } else {
-                alert('該当する結果がありませんでした：' + status);
-              }
-            });   
-          }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjNTpL1BqrIYRoPaDAH4njcuErg04Nnxk&callback=initMap" async defer></script>
       </div>
       <div>
         <h2>駐輪場名</h2>
         <%= f.text_field :name, placeholder: '駐輪場名を入力してください。', class: 'border' %>
-      </div>
-      <div>
-        <h2>住所</h2>
-        <%= f.text_field :address, placeholder: '住所名を入力してください。', class: 'border' %>
       </div>
       <div>
         <h2>駐輪料金</h2>
