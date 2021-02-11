@@ -52,6 +52,8 @@
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
   </div>
+  <button class="button p-2 my-5"><a href="https://www.google.com/maps/search/?api=1&query=<%= @parking.latitude %>,<%= @parking.longitude %>">GoogleMapでルートを検索</a></button> 
+  
   <ul>
     <li class="my-5">所在地：<%= @parking.address %></li>
     <li class="my-5">駐輪料金：<%= @parking.fee %></li>
