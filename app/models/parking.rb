@@ -33,6 +33,7 @@ class Parking < ApplicationRecord
   after_validation :reverse_geocode
   validates :name, presence: true, length: { maximum: 30 }
   validates :fee, presence: true, length: { maximum: 20 }
+  validates :address, presence: true, length: { maximum: 100 }
   validates :capacity, presence: true, length: { maximum: 20 }
   validates :others, length: { maximum: 150 }
   validates :user_id, presence: true

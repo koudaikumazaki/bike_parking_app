@@ -29,7 +29,7 @@ RSpec.describe Parking, type: :model do
 
   let(:parking) { create(:parking) }
 
-  it "駐輪場名、住所、駐輪料金、駐輪台数、投稿者名が存在すれば投稿できる" do
+  it "駐輪場名、住所、駐輪料金、駐輪台数、投稿者名、緯度、経度が存在すれば投稿できる" do
     parking.others = nil
     expect(parking).to be_valid
   end
@@ -117,5 +117,17 @@ RSpec.describe Parking, type: :model do
     parking.others = 'a' * 151
     parking.valid?
     expect(parking.errors[:others]).to include("は150文字以内で入力してください")
+  end
+
+  it '緯度が空欄の場合、投稿が失敗する' do
+    parking.latitude = nil
+    parking.valid?
+    expect(parking.errors[:latitude]).to include("を入力してください")
+  end
+
+  it '経度が空欄の場合、投稿が失敗する' do
+    parking.latitude = nil
+    parking.valid?
+    expect(parking.errors[:longitude]).to include("を入力してください")
   end
 end

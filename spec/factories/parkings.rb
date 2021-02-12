@@ -30,6 +30,8 @@ FactoryBot.define do
     fee      { '200円' }
     capacity { '５台' }
     others   { '特になし' }
+    latitude { '35.6812362' }
+    longitude { '139.7649361' }
     association :user
   end
 end
