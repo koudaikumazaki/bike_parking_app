@@ -197,6 +197,7 @@ RSpec.describe "Parkings", type: :request do
     end
   end
 
+  # 新規追加分
   describe 'GoogleMapAPIのテスト' do
     before do
       user.confirm

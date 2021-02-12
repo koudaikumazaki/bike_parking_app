@@ -125,6 +125,12 @@ li {
   height: 300px;
   width: 300px;
   margin: 0 auto;
+  @media(min-width: 700px) {
+    height: 500px;
+    width: 600px;
+  }
 }
+
+
 
 
