@@ -42,6 +42,7 @@
               'region': 'jp'
               }, function(results, status) {
               if (status == 'OK') {
+                document.getElementById('address').innerHTML = results[0].formatted_address.replace(/^日本, /, '');
                 map.setCenter(results[0].geometry.location);
                 map_result = results[0].geometry.location;
                 map_lat.value = map_result.lat();
@@ -49,11 +50,12 @@
                 marker.setPosition(new google.maps.LatLng(map_result.lat(), map_result.lng()));
                 marker.setMap(map);
                 console.log(map_lat.value,map_lng.value);
+                // document.getElementById('address').innerHTML = results[0].formatted_address
               } else {
                 alert('該当する結果がありませんでした');
                 initMap();
               }
-            });   
+            });
           }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>

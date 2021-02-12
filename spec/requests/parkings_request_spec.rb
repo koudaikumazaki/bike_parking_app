@@ -10,6 +10,7 @@ RSpec.describe "Parkings", type: :request do
   let(:parking_params) { attributes_for(:parking) }
   let(:invalid_parking_params) { attributes_for(:parking, name: nil) }
   let(:new_parking_params) { attributes_for(:parking, name: 'after_update') }
+  let(:api_new_parking_params) { attributes_for(:parking, latitude: '35.630152', longitude: '139.74044') }
 
   describe "GET /index" do
     it "正常にレスポンスを返すこと" do
@@ -194,5 +195,22 @@ RSpec.describe "Parkings", type: :request do
         expect(response).to redirect_to new_user_session_path
       end
     end
+  end
+
+  describe 'GoogleMapAPIのテスト' do
+    before do
+      user.confirm
+      sign_in user
+    end
+    it '緯度と経度が設定された状態で投稿すると、所在地のカラムが緯度と経度由来の物になる' do
+      post parkings_url, params: { parking: parking_params }
+      expect(parking.address).to eq '日本、〒100-0005 東京都千代田区丸の内１丁目９'
+    end
+    it '編集時に緯度と経度を更新すると、所在地も更新される' do
+      patch parking_path(parking), params: { parking: api_new_parking_params }
+      parking.reload
+      expect(parking.address).to eq "日本、〒108-0075 東京都港区港南１丁目９−３６ アレア品川"
+    end
+    
   end
 end

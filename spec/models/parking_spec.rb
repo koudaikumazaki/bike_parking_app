@@ -29,8 +29,9 @@ RSpec.describe Parking, type: :model do
 
   let(:parking) { create(:parking) }
 
-  it "駐輪場名、住所、駐輪料金、駐輪台数、投稿者名、緯度、経度が存在すれば投稿できる" do
+  it "駐輪場名、駐輪料金、駐輪台数、投稿者名、緯度、経度が存在すれば投稿できる" do
     parking.others = nil
+    parking.address = nil
     expect(parking).to be_valid
   end
 
@@ -51,22 +52,23 @@ RSpec.describe Parking, type: :model do
     expect(parking.errors[:name]).to include("は30文字以内で入力してください")
   end
 
-  it "住所が存在しない場合投稿が失敗する" do
-    parking.address = nil
-    parking.valid?
-    expect(parking.errors[:address]).to include("を入力してください")
-  end
+  # 住所は必須情報ではなくなったので、バリデーションから外した。
+  # it "所在地が存在しない場合投稿が失敗する" do
+  #   parking.address = nil
+  #   parking.valid?
+  #   expect(parking.errors[:address]).to include("を入力してください")
+  # end
 
-  it "住所が100文字以下の場合投稿できる" do
-    parking.address = 'a' * 100
-    expect(parking).to be_valid
-  end
+  # it "所在地が100文字以下の場合投稿できる" do
+  #   parking.address = 'a' * 100
+  #   expect(parking).to be_valid
+  # end
 
-  it "住所が101文字以上の場合投稿が失敗する" do
-    parking.address = 'a' * 101
-    parking.valid?
-    expect(parking.errors[:address]).to include("は100文字以内で入力してください")
-  end
+  # it "所在地が101文字以上の場合投稿が失敗する" do
+  #   parking.address = 'a' * 101
+  #   parking.valid?
+  #   expect(parking.errors[:address]).to include("は100文字以内で入力してください")
+  # end
 
   it "駐輪料金が存在しない場合投稿が失敗する" do
     parking.fee = nil
@@ -118,6 +120,8 @@ RSpec.describe Parking, type: :model do
     parking.valid?
     expect(parking.errors[:others]).to include("は150文字以内で入力してください")
   end
+
+  # 新規追加テスト
 
   it '緯度が空欄の場合、投稿が失敗する' do
     parking.latitude = nil
