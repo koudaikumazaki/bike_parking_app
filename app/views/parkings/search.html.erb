@@ -1,0 +1,17 @@
+<h1 class="text-2xl sm:text-3xl text-center my-10">検索結果<br><span class="text-lg sm:text-2xl">(検索ワードの地点から半径１km以内を表示)</span></h1>
+<div class="text-center">
+  <%= form_tag(search_path, :method => 'get') do %>
+    <%= text_field_tag :location, '', placeholder: "住所や行きたい場所を入力してください。" %>
+    <%= submit_tag '検索', class: "button p-2" %>
+  <% end %>
+</div>
+
+<div class="flex flex-wrap justify-between w-11/12 mx-auto">
+  <% if @parkings.any? %>
+    <% @parkings.each do |parking| %>
+      <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_card mx-auto' %>
+    <% end %>
+  <% else %>
+    <p class="text-2xl sm:text-3xl mx-auto my-10">検索結果は見つかりませんでした。</p>
+  <% end %>
+</div>

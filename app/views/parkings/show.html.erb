@@ -52,12 +52,13 @@
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
   </div>
-  <!-- Googleマップにリンクを飛ばしたのは、そちらの方がルート検索機能が充実していて使いやすいため-->
-  <button class="button p-2 my-5"><a href="https://www.google.com/maps/search/?api=1&query=<%= @parking.latitude %>,<%= @parking.longitude %>">GoogleMapでルートを検索</a></button> 
   
+  <% if user_signed_in? %>
+    <!-- Googleマップにリンクを飛ばしたのは、そちらの方がルート検索機能が充実していて使いやすいため-->
+    <button class="button p-2 my-5"><a href="https://www.google.com/maps/search/?api=1&query=<%= @parking.latitude %>,<%= @parking.longitude %>">GoogleMapでルートを検索</a></button>
+  <% end %>
   <ul>
   <!-- ローカル環境では所在地をうまく取得できないが、本番環境では取得できている、、-->
-
     <li class="my-5">所在地：<%= @parking.address %></li> 
     <li class="my-5">駐輪料金：<%= @parking.fee %></li>
     <li class="my-5">収容台数：<%= @parking.capacity %></li>
