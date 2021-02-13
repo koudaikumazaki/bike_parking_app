@@ -212,6 +212,5 @@ RSpec.describe "Parkings", type: :request do
       parking.reload
       expect(parking.address).to eq "日本、〒108-0075 東京都港区港南１丁目９−３６ アレア品川"
     end
-    
   end
 end

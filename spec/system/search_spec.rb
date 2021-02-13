@@ -1,0 +1,45 @@
+require 'rails_helper'
+
+RSpec.describe 'Search', type: :system do
+  let(:user) { create(:user) }
+  let!(:parking) { create(:parking, user_id: user.id) }
+  describe '検索機能の確認', js:true do
+    context 'ログインしたとき' do
+      before do
+        visit new_user_session_path
+        fill_in 'user[email]', with: user.email
+        fill_in 'user[password]', with: user.password
+        click_button 'ログイン'
+      end
+      it 'トップページに検索フォームが表示されている' do
+        visit '/'
+        expect(page).to have_selector 'form'
+      end
+      context '検索フォームに文字が入っているとき' do
+        context '検索に引っ掛かった場合' do
+          it '検索結果が表示される' do
+            fill_in 'location', with: '東京駅'
+            click_button '検索'
+            expect(page).to have_content '#detail-1'
+          end
+        end
+        context '検索に引っかからなかった場合' do
+          it '検索結果はなかったとメッセージが表示される' do
+            fill_in '検索フォーム', with: '北海道'
+            click_button '検索'
+            expect(page).to have_content 'p', text: '検索結果は見つかりませんでした'
+          end
+        end
+      end
+      context '検索フォームに文字が入っていないとき' do
+        
+      end
+    end
+    context 'ログインしていないとき' do
+      it 'サインイン画面にリダイレクトされる' do
+        visit '/search'
+        redirect_to root_path
+      end
+    end
+  end
+end

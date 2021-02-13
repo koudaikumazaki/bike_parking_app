@@ -21,8 +21,12 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
 gem 'geocoder'
+
 gem 'gon'
+
+gem 'ransack'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -75,6 +79,9 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'webdrivers'
+  gem 'selenium-webdriver'
   gem 'database_cleaner-active_record'
   gem 'rspec-rails'
   gem 'factory_bot_rails'

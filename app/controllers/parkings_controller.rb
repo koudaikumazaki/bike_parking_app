@@ -1,5 +1,5 @@
 class ParkingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search]
   before_action :permit_update_delete, only: [:destroy, :update]
 
   def index
@@ -51,6 +51,16 @@ class ParkingsController < ApplicationController
   def favorites
     @parkings = current_user.favorite_parkings.includes(:user)
     @parkings = @parkings.page(params[:page]).per(10)
+  end
+
+  def search
+    results = Geocoder.search(params[:location])
+    if results.empty?
+      flash[:notice] = "検索フォームに文字を入力してください!"
+      redirect_to root_path
+    else
+      @parkings = Parking.near(results.first.coordinates, 1)
+    end
   end
 
   private
