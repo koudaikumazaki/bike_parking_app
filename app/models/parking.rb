@@ -11,6 +11,7 @@
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
+#  time       :string(191)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -38,6 +39,7 @@ class Parking < ApplicationRecord
   validates :user_id, presence: true
   validates :latitude, presence: true
   validates :longitude, presence: true
+  validates :time, presence: true, length: { maximum: 20 }
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
