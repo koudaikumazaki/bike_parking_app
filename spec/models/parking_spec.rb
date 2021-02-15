@@ -11,6 +11,7 @@
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
+#  time       :string(191)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -130,8 +131,25 @@ RSpec.describe Parking, type: :model do
   end
 
   it '経度が空欄の場合、投稿が失敗する' do
-    parking.latitude = nil
+    parking.longitude = nil
     parking.valid?
     expect(parking.errors[:longitude]).to include("を入力してください")
+  end
+
+  it '単位時間が空欄の場合、投稿が失敗する' do
+    parking.time = nil
+    parking.valid?
+    expect(parking.errors[:time]).to include("を入力してください")
+  end
+
+  it "単位時間が20文字以下の場合投稿できる" do
+    parking.time = 'a' * 20
+    expect(parking).to be_valid
+  end
+
+  it "駐輪台数が21文字以上の場合投稿が失敗する" do
+    parking.time = 'a' * 21
+    parking.valid?
+    expect(parking.errors[:time]).to include("は20文字以内で入力してください")
   end
 end

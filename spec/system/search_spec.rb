@@ -18,21 +18,25 @@ RSpec.describe 'Search', type: :system do
       context '検索フォームに文字が入っているとき' do
         context '検索に引っ掛かった場合' do
           it '検索結果が表示される' do
-            fill_in 'location', with: '東京駅'
+            fill_in 'parking[location]', with: '東京駅'
             click_button '検索'
             expect(page).to have_content '#detail-1'
           end
         end
         context '検索に引っかからなかった場合' do
           it '検索結果はなかったとメッセージが表示される' do
-            fill_in '検索フォーム', with: '北海道'
+            fill_in 'parking[location]', with: '北海道'
             click_button '検索'
             expect(page).to have_content 'p', text: '検索結果は見つかりませんでした'
           end
         end
       end
       context '検索フォームに文字が入っていないとき' do
-        
+        it 'ホーム画面にリダイレクトされる' do
+          fill_in 'parking[location]', with: ''
+          click_button '検索'
+          redirect_to root_path
+        end
       end
     end
     context 'ログインしていないとき' do

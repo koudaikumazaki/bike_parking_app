@@ -11,6 +11,7 @@
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
+#  time       :string(191)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -28,6 +29,7 @@ FactoryBot.define do
     name     { 'parking' }
     address  { 'address' }
     fee      { '200円' }
+    time      { '30分' }
     capacity { '５台' }
     others   { '特になし' }
     latitude { '35.6812362' }

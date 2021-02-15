@@ -54,7 +54,7 @@ class ParkingsController < ApplicationController
   end
 
   def search
-    results = Geocoder.search(params[:location])
+    results = Geocoder.search(search_params)
     if results.empty?
       flash[:notice] = "検索フォームに文字を入力してください!"
       redirect_to root_path
@@ -66,7 +66,7 @@ class ParkingsController < ApplicationController
   private
 
   def parking_params
-    params.require(:parking).permit(:name, :address, :fee, :capacity, :others, :image, :image_cache, :latitude, :longitude)
+    params.require(:parking).permit(:name, :address, :fee, :time, :capacity, :others, :image, :image_cache, :latitude, :longitude)
   end
 
   def permit_update_delete
@@ -75,5 +75,9 @@ class ParkingsController < ApplicationController
       flash[:notice] = "投稿者以外の編集・削除はできません。"
       redirect_to root_path
     end
+  end
+
+  def search_params
+    params.require(:parking).permit(:location)
   end
 end
