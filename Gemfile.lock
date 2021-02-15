@@ -173,6 +173,10 @@ GEM
       sassc (>= 1.11)
     formatador (0.2.5)
     geocoder (1.6.5)
+    geokit (1.13.1)
+    geokit-rails (2.3.2)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gon (6.4.0)
@@ -286,10 +290,6 @@ GEM
       thor (~> 1.0)
     rainbow (3.0.0)
     rake (13.0.3)
-    ransack (2.4.2)
-      activerecord (>= 5.2.4)
-      activesupport (>= 5.2.4)
-      i18n
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -413,6 +413,7 @@ DEPENDENCIES
   fog-core
   font-awesome-sass
   geocoder
+  geokit-rails
   gon
   image_processing
   jbuilder (~> 2.7)
@@ -427,7 +428,6 @@ DEPENDENCIES
   rails (~> 6.1.0)
   rails-controller-testing
   rails_12factor
-  ransack
   rspec-rails
   rubocop
   rubocop-rails

@@ -26,8 +26,7 @@ gem 'geocoder'
 
 gem 'gon'
 
-gem 'ransack'
-
+gem 'geokit-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
