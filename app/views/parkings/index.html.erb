@@ -1,11 +1,11 @@
 <h1 class="text-2xl sm:text-3xl text-center my-10">駐輪場一覧</h1>
 <div class="text-center">
-<%= form_with url: search_path, :method => 'get', model: @parkings do |f| %>
-  <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。" %>
-  <%= f.submit '検索', class: "button p-2" %>
-<% end %>
+  <%= form_with url: search_path, :method => 'get', model: @parkings do |f| %>
+    <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。" %>
+    <%= f.submit '検索', class: "button p-2" %>
+  <% end %>
+  <button id="practice-oneclick">Find!!</button>
 </div>
-
 
 <div class="flex flex-wrap justify-between w-11/12 mx-auto">
   <% @parkings.each do |parking| %>
@@ -16,3 +16,42 @@
 </div>
 
 <%= paginate @parkings %>
+
+<script>
+    var button = document.getElementById("practice-oneclick");
+    // 現在地を取得する関数
+    button.onclick = function () {
+        //相互フォローなら
+
+        // Geolocationが使用可能かチェック
+        var dfd = $.Deferred();
+        if (!window.navigator.geolocation) dfd.reject();
+
+        // 現在地の取得
+        window.navigator.geolocation.getCurrentPosition(
+            // Success
+            function (position) {
+              alert('現在地から近いコートが複数個、候補として出ますので該当のテニスコートを確認の上、決定ボタンをクリックしてください')
+                dfd.resolve(position);
+                var params = getParameter();
+                params['latitude'] = position.coords.latitude;
+                params['longitude'] = position.coords.longitude;
+                var url = location.pathname.split('/');
+                params['id'] = url[2];
+                window.location.href = setParameter(params);
+            },
+            // Error
+            function (error) {
+                alert('ご使用中のブラウザは現在地検索に対応されておりません。')
+                dfd.reject();
+            },
+            // Options
+            {
+                enableHighAccuracy: true, //位置情報の精度を高く
+                timeout: 10000, //10秒でタイムアウト
+                maximumAge: 600000 //10分間有効
+            }
+        );
+        return dfd.promise();
+    };
+</script>

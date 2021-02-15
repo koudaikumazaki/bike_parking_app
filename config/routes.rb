@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   end
 
   get 'search', to: 'parkings#search'
+  get 'current_spot_search', to: 'parkings#search'
 
 end
