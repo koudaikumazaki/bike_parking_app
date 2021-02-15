@@ -1,5 +1,5 @@
 class ParkingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites]
   before_action :permit_update_delete, only: [:destroy, :update]
 
   def index
@@ -56,7 +56,7 @@ class ParkingsController < ApplicationController
   def search
     results = Geocoder.search(search_params)
     if results.empty?
-      flash[:notice] = "検索フォームに文字を入力してください!"
+      flash[:notice] = "検索フォームに文字が入っていないか、位置情報を取得できる値でない可能性があります。"
       redirect_to root_path
     else
       @parkings = Parking.near(results.first.coordinates, 1)
