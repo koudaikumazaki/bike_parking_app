@@ -66,7 +66,7 @@ class ParkingsController < ApplicationController
   def current_spot_search
     latitude = params[:latitude]
     longitude = params[:longitude]
-    @parkings = Parking.near(2, origin: [latitude, longitude])
+    @parkings = Parking.near("#{latitude}, #{longitude}", 1)
   end
 
   private
@@ -86,4 +86,8 @@ class ParkingsController < ApplicationController
   def search_params
     params.require(:parking).permit(:location)
   end
+
+  # def current_spot_search_params
+  #   params.require(:parking).permit(:latitude, :longitude)
+  # end
 end

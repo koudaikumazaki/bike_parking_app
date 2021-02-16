@@ -1,61 +1,63 @@
-        <script>
-          var marker
-          var myLatLng
-          var map
-          var map_lat
-          var map_lng
+<script>
+  let marker
+  let myLatLng
+  let map
+  let map_lat
+  let map_lng
 
-          function initMap(){
-            myLatLng = {lat: 35.68090045006303, lng: 139.76690798417752}
-            marker = new google.maps.Marker();
-            map_lat = document.getElementById('parking_latitude')
-            map_lng = document.getElementById('parking_longitude')
-            map = new google.maps.Map(document.getElementById('map'), {
-            center: myLatLng,
-            zoom: 12
-            });
+  function initMap(){
+    // myLatLngはデフォルトの地図の位置を示している。
+    myLatLng = {lat: 35.68090045006303, lng: 139.76690798417752}
+    marker = new google.maps.Marker();
+    map_lat = document.getElementById('parking_latitude')
+    map_lng = document.getElementById('parking_longitude')
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
+      zoom: 12
+    });
 
-          google.maps.event.addListener(map, 'click', mylistener);
+    // google.maps.event.addListener(map, 'click', mylistener);
+    google.maps.event.addListener(map, 'click', mylistener);
 
-              //クリックしたときの処理
-            function mylistener(event){
-              //markerの位置を設定
-              //event.latLng.lat()でクリックしたところの緯度を取得
-              marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
-              //marker設置
-              marker.setMap(map);    
-              map_lat.value = event.latLng.lat();
-              map_lng.value = event.latLng.lng();
-            }
-          }
-          function deleteMarker(){
-            marker.setMap(null);
-            map_lat.value = "";
-            map_lng.value = "";
-          }
+  //クリックしたときの処理
+  function mylistener(event){
+    //markerの位置を設定
+    //event.latLng.lat()でクリックしたところの緯度を取得
+    marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+    //marker設置
+    marker.setMap(map);    
+    map_lat.value = event.latLng.lat();
+    map_lng.value = event.latLng.lng();
+    }
+  }
+  function deleteMarker(){
+    marker.setMap(null);
+    map_lat.value = "";
+    map_lng.value = "";
+  }
 
-          function codeAddress(){
-            geocoder = new google.maps.Geocoder()
-            let inputAddress = document.getElementById('address').value;
-            geocoder.geocode( { 
-              'address': inputAddress,
-              'region': 'jp'
-              }, function(results, status) {
-              if (status == 'OK') {
-                document.getElementById('address').innerHTML = results[0].formatted_address.replace(/^日本, /, '');
-                map.setCenter(results[0].geometry.location);
-                map_result = results[0].geometry.location;
-                map_lat.value = map_result.lat();
-                map_lng.value = map_result.lng();
-                marker.setPosition(new google.maps.LatLng(map_result.lat(), map_result.lng()));
-                marker.setMap(map);
-                console.log(map_lat.value,map_lng.value);
-                // document.getElementById('address').innerHTML = results[0].formatted_address
-              } else {
-                alert('該当する結果がありませんでした');
-                initMap();
-              }
-            });
-          }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+  function codeAddress(){
+    geocoder = new google.maps.Geocoder()
+    const inputAddress = document.getElementById('address').value;
+    geocoder.geocode( { 
+      'address': inputAddress,
+      'region': 'jp'
+      }, function(results, status) {
+      if (status == 'OK') {
+        document.getElementById('address').innerHTML = results[0].formatted_address.replace(/^日本, /, '');
+        map.setCenter(results[0].geometry.location);
+        map_result = results[0].geometry.location;
+        map_lat.value = map_result.lat();
+        map_lng.value = map_result.lng();
+        marker.setPosition(new google.maps.LatLng(map_result.lat(), map_result.lng()));
+        marker.setMap(map);
+        console.log(map_lat.value,map_lng.value);
+        // document.getElementById('address').innerHTML = results[0].formatted_address
+      } else {
+        alert('該当する結果がありませんでした');
+        initMap();
+        }
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>

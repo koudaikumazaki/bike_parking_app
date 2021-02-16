@@ -1,4 +1,4 @@
-<h1 class="text-2xl sm:text-3xl text-center my-10">検索結果<br><span class="text-lg sm:text-2xl">(検索ワードの地点から半径１km以内を表示)</span></h1>
+<h1 class="text-2xl sm:text-3xl text-center my-10">検索結果<br><span class="text-lg sm:text-2xl">(現在地から半径１km以内を表示)</span></h1>
 <div class="text-center">
   <%= form_with url: search_path, :method => 'get', model: @parkings do |f| %>
   <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。" %>
