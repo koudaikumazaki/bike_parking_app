@@ -16,7 +16,6 @@
       zoom: 12
     });
 
-    // google.maps.event.addListener(map, 'click', mylistener);
     google.maps.event.addListener(map, 'click', mylistener);
 
   //クリックしたときの処理
@@ -52,7 +51,6 @@
         marker.setPosition(new google.maps.LatLng(map_result.lat(), map_result.lng()));
         marker.setMap(map);
         console.log(map_lat.value,map_lng.value);
-        // document.getElementById('address').innerHTML = results[0].formatted_address
       } else {
         alert('該当する結果がありませんでした');
         initMap();
@@ -60,4 +58,5 @@
     });
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+
+ <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script> 

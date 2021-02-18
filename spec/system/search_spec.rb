@@ -19,6 +19,7 @@ RSpec.describe 'Search', type: :system do
       context '検索フォームに文字が入っているとき' do
         context '検索に引っ掛かった場合' do
           it '検索結果が表示される' do
+            allow(@parkings).to receive(:search).and_return(parking)
             fill_in 'parking[location]', with: '東京駅'
             click_button '検索'
             expect(current_path).to eq search_path
@@ -27,6 +28,7 @@ RSpec.describe 'Search', type: :system do
         end
         context '検索に引っかからなかった場合' do
           it '検索結果はなかったとメッセージが表示される' do
+            allow(@parkings).to receive(:search).and_return('')
             fill_in 'parking[location]', with: '北海道'
             click_button '検索'
             expect(current_path).to eq search_path
@@ -36,6 +38,7 @@ RSpec.describe 'Search', type: :system do
       end
       context '検索フォームに文字が入っていないとき' do
         it 'ホーム画面にリダイレクトされる' do
+          allow(@parkings).to receive(:search).and_return(parking)
           fill_in 'parking[location]', with: ''
           click_button '検索'
           redirect_to root_path
@@ -49,4 +52,5 @@ RSpec.describe 'Search', type: :system do
       end
     end
   end
+
 end
