@@ -8,6 +8,7 @@
 
 <div class="flex flex-wrap justify-between w-11/12 mx-auto">
   <% if @parkings.any? %>
+  <p>検索結果が見つかりました。</p>
     <% @parkings.each do |parking| %>
       <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 mx-auto' %>
     <% end %>

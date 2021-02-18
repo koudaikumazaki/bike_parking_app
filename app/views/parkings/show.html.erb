@@ -26,20 +26,20 @@
   <div id="map" class="my-5">
     <script>
       function initMap() {
-          let test ={lat: <%= @parking.latitude %>, lng: <%= @parking.longitude %>};
-          let map = new google.maps.Map(document.getElementById('map'), {
+        let test ={lat: <%= @parking.latitude %>, lng: <%= @parking.longitude %>};
+        let map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 15, 
                     center: test
-                    });
-          let transitLayer = new google.maps.TransitLayer();
-          transitLayer.setMap(map);
+                  });
+        let transitLayer = new google.maps.TransitLayer();
+        transitLayer.setMap(map);
 
-          let contentString = '住所：<%= @parking.address %>';
-          let infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
+        let contentString = '住所：<%= @parking.address %>';
+        let infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
 
-          let marker = new google.maps.Marker({
+        let marker = new google.maps.Marker({
                         position:test,
                         map: map,
                         title: contentString
@@ -48,9 +48,6 @@
           marker.addListener('click', function() {
             infowindow.open(map, marker);
           });
-          // marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-          //   infowindow.open(map, marker)
-          // });
         }
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>

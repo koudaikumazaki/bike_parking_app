@@ -1,5 +1,5 @@
 class ParkingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites, :current_spot_search]
   before_action :permit_update_delete, only: [:destroy, :update]
 
   def index
@@ -86,8 +86,4 @@ class ParkingsController < ApplicationController
   def search_params
     params.require(:parking).permit(:location)
   end
-
-  # def current_spot_search_params
-  #   params.require(:parking).permit(:latitude, :longitude)
-  # end
 end

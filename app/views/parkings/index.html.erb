@@ -22,14 +22,9 @@
 
 <script>
   function geoFindMe() {
-
-    // const current_spot = document.querySelector('#current_spot');
-    // const current_spot = document.querySelector('#parking_location');
-
     function success(position) {
       const latitude  = position.coords.latitude;
       const longitude = position.coords.longitude;
-      // current_spot.textContent = `${latitude}, ${longitude}`;
       window.location.href = `/current_spot_search?latitude=${latitude}&longitude=${longitude}`
     }
 
@@ -42,7 +37,6 @@
     } else {
       navigator.geolocation.getCurrentPosition(success, error);
     }
-
   }
 
   document.querySelector('#get_current_spot').addEventListener('click', geoFindMe);
