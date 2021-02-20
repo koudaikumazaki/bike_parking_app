@@ -11,6 +11,7 @@
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
+#  price      :bigint
 #  time       :string(191)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -34,6 +35,7 @@ FactoryBot.define do
     others   { '特になし' }
     latitude { '35.6812362' }
     longitude { '139.7649361' }
+    price { 400 }
     association :user
   end
 end

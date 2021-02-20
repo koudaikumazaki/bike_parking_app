@@ -1,11 +1,15 @@
 <h1 class="text-2xl sm:text-3xl text-center my-10">駐輪場一覧</h1>
 <div class="text-center">
-  <%= form_with url: search_path, :method => 'get', model: @parkings do |f| %>
+  <%= form_with url: search_path, :method => 'get' do |f| %>
+
     <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。" %>
+    <%= f.select :keyword, [
+      ['距離が近い順', 'near'],
+      ['１時間当たりの駐輪料金が安い順', 'inexpensive']
+    ] %>
     <%= f.submit '検索', class: "button p-2" %>
   <% end %>
-  <button id="get_current_spot" type="button" class="button p-2">現在地を取得</button>
-  <p id="current_spot"></p>
+  <button id="get_current_spot" type="button" class="button p-2">現在地から近い順に駐輪場を取得</button>
 </div>
 
 <div class="flex flex-wrap justify-between w-11/12 mx-auto">
@@ -25,7 +29,8 @@
     function success(position) {
       const latitude  = position.coords.latitude;
       const longitude = position.coords.longitude;
-      window.location.href = `/current_spot_search?latitude=${latitude}&longitude=${longitude}`
+      // window.location.href = `/current_spot_search?latitude=${latitude}&longitude=${longitude}`
+      document.getElementById('location').value = `${latitude},${longitude}`;
     }
 
     function error() {

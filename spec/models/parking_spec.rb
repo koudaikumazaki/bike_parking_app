@@ -11,6 +11,7 @@
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
+#  price      :bigint
 #  time       :string(191)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

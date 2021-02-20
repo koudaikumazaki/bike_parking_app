@@ -198,24 +198,42 @@ RSpec.describe "Parkings", type: :request do
   end
 
   # 新規追加分
-  describe 'GET /current_spot_search' do
+  describe 'GET /search' do
     context 'ログインしている場合' do
       before do
         user.confirm
         sign_in user
       end
-      # デバッグしたら@parkingsがnilになっていたが、元々検索する前は@parkingsはnilだから問題ない？
-      it '現在地周辺の駐輪場を表示する' do
-        allow(@parkings).to receive(:current_spot_search).and_return(parking)
-        get current_spot_search_path
-        expect(response).to have_http_status(200)
-        # 下のテストを書いたら、@parkingはnilのままだった。しかし、システムスペックの方はちゃんとした結果になってそう、、、
-        # expect(@parkings).to receive(:current_spot_search).with(parking)
+      context '検索フォームに文字が入っている場合' do
+        context '検索に引っ掛かった場合' do
+          it '検索結果が表示される' do
+            # @parkingがnilだと怒られた。ただ、しっかりテストは通っているので問題ない？
+            allow(@parkings).to receive(:search).and_return(parking)
+            get search_path, params: { location: '東京駅'}
+            expect(response).to have_http_status(200)
+            expect(response.body).to include '検索結果が見つかりました。'
+          end
+        end
+        context '検索に引っ掛からなかった場合' do
+          it '検索結果はなかったと表示される' do
+            allow(@parkings).to receive(:search).and_return("")
+            get search_path, params: { location: '北海道' }
+            expect(response).to have_http_status(200)
+            expect(response.body).to include '検索結果は見つかりませんでした。'
+          end
+        end
+      end
+      context '検索フォームに文字が入っていない場合' do
+        it 'ホーム画面にリダイレクトされる' do
+          allow(@parkings).to receive(:search).and_return("")
+          get search_path
+          expect(response).to redirect_to root_path
+        end
       end
     end
     context 'ログインしていない場合' do
       it 'サインイン画面にリダイレクトされる' do
-        get current_spot_search_path
+        get search_path
         expect(response).to redirect_to new_user_session_path
       end
     end

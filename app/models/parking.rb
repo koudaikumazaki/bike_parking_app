@@ -11,6 +11,7 @@
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
+#  price      :bigint
 #  time       :string(191)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -25,6 +26,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Parking < ApplicationRecord
+  attr_accessor :distance
   mount_uploader :image, ImageUploader
   belongs_to :user
   has_many :favorites, dependent: :destroy
@@ -32,8 +34,9 @@ class Parking < ApplicationRecord
   after_validation :reverse_geocode
   validates :name, presence: true, length: { maximum: 30 }
   validates :fee, presence: true, length: { maximum: 20 }
+  validates :price, presence: true, length: { maximum: 20 }
   # 住所は必須情報でなくなったので、バリデーションから外した。
-  # validates :address, presence: true, length: { maximum: 100 }
+  validates :address, presence: true, length: { maximum: 100 }
   validates :capacity, presence: true, length: { maximum: 20 }
   validates :others, length: { maximum: 150 }
   validates :user_id, presence: true
@@ -45,4 +48,12 @@ class Parking < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
+  class << self
+    def within_box(distance, latitude, longitude)
+      distance = distance
+      center_point = [latitude, longitude]
+      box = Geocoder::Calculations.bounding_box(center_point, distance)
+      self.within_bounding_box(box)
+    end
+  end
 end

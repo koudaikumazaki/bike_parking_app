@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_034446) do
+ActiveRecord::Schema.define(version: 2021_02_19_065801) do
 
   create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_034446) do
     t.float "latitude"
     t.float "longitude"
     t.string "time"
+    t.bigint "price"
     t.index ["user_id"], name: "index_parkings_on_user_id"
   end
 
