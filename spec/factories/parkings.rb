@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  address    :text(65535)
+#  approval   :integer
 #  capacity   :string(191)
 #  fee        :string(191)
 #  image      :string(191)
@@ -36,6 +37,7 @@ FactoryBot.define do
     latitude { '35.6812362' }
     longitude { '139.7649361' }
     price { 400 }
+    approve { 'approve' }
     association :user
   end
 end

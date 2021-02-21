@@ -197,7 +197,6 @@ RSpec.describe "Parkings", type: :request do
     end
   end
 
-  # 新規追加分
   describe 'GET /search' do
     context 'ログインしている場合' do
       before do

@@ -1,10 +1,9 @@
 class ParkingsController < ApplicationController
-  require 'geokit-rails'
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites, :current_spot_search]
-  before_action :permit_update_delete, only: [:destroy, :update]
+  before_action :permit_update_delete, only: [:edit, :destroy, :update]
 
   def index
-    @parkings = Parking.page(params[:page]).per(10)
+    @parkings = Parking.where(approval: 1).page(params[:page]).per(10)
   end
 
   def new
@@ -17,6 +16,7 @@ class ParkingsController < ApplicationController
 
     if @parking.save
       flash[:notice] = "「#{@parking.name}」の情報が投稿されました!"
+      flash[:notice] = "管理者に承認されるまでは表示されません。承認されるまでに編集・削除を行う場合にはユーザー情報の、投稿した駐輪場から操作をお願いいたします。"
       redirect_to root_path
     else
       render '/parkings/new'
@@ -25,6 +25,10 @@ class ParkingsController < ApplicationController
 
   def show
     @parking = Parking.find(params[:id])
+    if @parking.user_id != current_user.id && @parking.approval != 'approval'
+      flash[:notice] = '投稿が未承認のため、閲覧できません。'
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -51,7 +55,7 @@ class ParkingsController < ApplicationController
 
   def favorites
     @parkings = current_user.favorite_parkings.includes(:user)
-    @parkings = @parkings.page(params[:page]).per(10)
+    @parkings = @parkings.where(approval: 1).page(params[:page]).per(10)
   end
 
   def search
@@ -63,7 +67,7 @@ class ParkingsController < ApplicationController
       selection = params[:keyword]
       latitude = results.first.coordinates[0]
       longitude = results.first.coordinates[1]
-      parkings = Parking.within_box(20, latitude, longitude)
+      parkings = Parking.where(approval: 1).within_box(20, latitude, longitude)
       case selection
       when 'near'
         get_distance_parkings = parkings.each { |parking| parking.distance_from([latitude, longitude]) }
