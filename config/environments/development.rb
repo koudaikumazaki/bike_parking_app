@@ -89,5 +89,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   # mailer setting
 
-  config.web_console.whitelisted_ips = '172.19.0.1'
+  # 以前は172.19.0.1を許可しろとメッセージが出ていたが、メッセージが変更されたため直した。
+  # config.web_console.whitelisted_ips = '172.19.0.1'
+  config.web_console.whitelisted_ips = '172.24.0.1'
 end
