@@ -5,15 +5,15 @@
 #  id         :bigint           not null, primary key
 #  address    :text(65535)
 #  approval   :integer
-#  capacity   :string(191)
-#  fee        :string(191)
+#  capacity   :integer
+#  fee        :integer
 #  image      :string(191)
 #  latitude   :float(24)
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
-#  price      :bigint
-#  time       :string(191)
+#  price      :integer
+#  time       :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -122,8 +122,6 @@ RSpec.describe Parking, type: :model do
     expect(parking.errors[:others]).to include("は150文字以内で入力してください")
   end
 
-  # 新規追加テスト
-
   it '緯度が空欄の場合、投稿が失敗する' do
     parking.latitude = nil
     parking.valid?
@@ -152,4 +150,10 @@ RSpec.describe Parking, type: :model do
     parking.valid?
     expect(parking.errors[:time]).to include("は20文字以内で入力してください")
   end
+
+   it '１時間当たりの駐輪料金が空欄の場合、投稿が失敗する' do
+     parking.price = nil
+     parking.valid?
+     expect(parking.errors[:price]).to include("を入力してください")
+   end
 end

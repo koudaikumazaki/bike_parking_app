@@ -1,0 +1,10 @@
+<%= form_with url: search_path, :method => 'get' do |f| %>
+  <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。" %>
+  <%= f.select :keyword, [
+    ['距離が近い順', 'near'],
+    ['１時間当たりの駐輪料金が安い順', 'inexpensive'],
+    ['収容台数が多い順', 'capacity']
+  ] %>
+  <%= f.submit '検索', class: "button p-2" %>
+<% end %>
+<button id="get_current_spot" type="button" class="button p-2">現在地を取得</button>

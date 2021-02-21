@@ -54,14 +54,14 @@ ActiveRecord::Schema.define(version: 2021_02_20_070715) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
-    t.string "fee"
-    t.string "capacity"
+    t.integer "fee"
+    t.integer "capacity"
     t.text "others"
     t.string "image"
     t.float "latitude"
     t.float "longitude"
-    t.string "time"
-    t.bigint "price"
+    t.integer "time"
+    t.integer "price"
     t.integer "approval"
     t.index ["user_id"], name: "index_parkings_on_user_id"
   end

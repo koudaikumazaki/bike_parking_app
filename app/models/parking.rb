@@ -5,15 +5,15 @@
 #  id         :bigint           not null, primary key
 #  address    :text(65535)
 #  approval   :integer
-#  capacity   :string(191)
-#  fee        :string(191)
+#  capacity   :integer
+#  fee        :integer
 #  image      :string(191)
 #  latitude   :float(24)
 #  longitude  :float(24)
 #  name       :text(65535)
 #  others     :text(65535)
-#  price      :bigint
-#  time       :string(191)
+#  price      :integer
+#  time       :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint

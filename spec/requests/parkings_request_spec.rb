@@ -11,18 +11,62 @@ RSpec.describe "Parkings", type: :request do
   let(:invalid_parking_params) { attributes_for(:parking, name: nil) }
   let(:new_parking_params) { attributes_for(:parking, name: 'after_update') }
   let(:api_new_parking_params) { attributes_for(:parking, latitude: '35.630152', longitude: '139.74044') }
-
+  let(:unapproval_parking_params) { attributes_for(:parking, approval: nil) }
+  
   describe "GET /index" do
     it "正常にレスポンスを返すこと" do
       get parkings_url
       expect(response).to have_http_status(200)
+      expect(response.body).to include '駐輪場一覧'
     end
   end
 
   describe "GET /show" do
-    it "正常にレスポンスを返すこと" do
-      get parking_url(parking)
-      expect(response).to have_http_status(200)
+    context 'ユーザー本人の投稿の場合、かつ投稿が承認されていない場合' do
+      before do
+        user.confirm
+        sign_in user
+      end
+      it '正常にレスポンスを返すこと' do
+        parking.approval = nil
+        get parking_url(parking)
+        expect(response).to have_http_status(200)
+      end
+    end
+    context '投稿者と閲覧者が違うユーザーの場合' do
+      before do
+        other_user.confirm
+        sign_in other_user
+      end
+      context '投稿が承認されている場合' do
+        it '正常にレスポンスを返すこと' do
+          get parking_url(parking)
+          expect(response).to have_http_status(200)
+        end
+      end
+      context '投稿が承認されていない場合' do
+        it 'ホーム画面にリダイレクトされること' do
+          parking.update(approval: nil)
+          get parking_url(parking)
+          expect(response).to have_http_status(302)
+        end
+      end
+    end
+    context 'ログインしていない場合' do
+      context '投稿が承認されている場合' do
+        it '正常にレスポンスを返すこと' do
+          get parking_url(parking)
+          expect(response).to have_http_status(200)
+        end
+      end
+      context '投稿が承認されていない場合' do
+        it 'ホーム画面にリダイレクトされること' do
+          # DBの値を変更するため、updateが必要。
+          parking.update(approval: nil)
+          get parking_url(parking)
+          expect(response).to have_http_status(302)
+        end
+      end
     end
   end
 
