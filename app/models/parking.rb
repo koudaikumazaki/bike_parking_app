@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  address    :text(65535)
+#  approval   :integer
 #  capacity   :string(191)
 #  fee        :string(191)
 #  image      :string(191)
@@ -35,7 +36,6 @@ class Parking < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :fee, presence: true, length: { maximum: 20 }
   validates :price, presence: true, length: { maximum: 20 }
-  # 住所は必須情報でなくなったので、バリデーションから外した。
   validates :address, presence: true, length: { maximum: 100 }
   validates :capacity, presence: true, length: { maximum: 20 }
   validates :others, length: { maximum: 150 }
@@ -43,6 +43,9 @@ class Parking < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :time, presence: true, length: { maximum: 20 }
+  enum approval:{
+    approval:1,
+  }
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
