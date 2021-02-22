@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    parkings_path
+    if resource.is_a?(AdminUser)
+      admin_dashboard_path
+    else
+      parkings_path
+    end
   end
 
   private

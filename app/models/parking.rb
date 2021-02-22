@@ -4,7 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  address    :text(65535)
-#  approval   :integer
+#  approval   :boolean          default(FALSE)
 #  capacity   :integer
 #  fee        :integer
 #  image      :string(191)
@@ -43,9 +43,6 @@ class Parking < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :time, presence: true, length: { maximum: 20 }
-  enum approval:{
-    approval:1,
-  }
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?

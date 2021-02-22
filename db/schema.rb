@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_070715) do
+ActiveRecord::Schema.define(version: 2021_02_21_113940) do
 
   create_table "active_admin_comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "namespace"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_070715) do
     t.float "longitude"
     t.integer "time"
     t.integer "price"
-    t.integer "approval"
+    t.boolean "approval", default: false
     t.index ["user_id"], name: "index_parkings_on_user_id"
   end
 

@@ -4,7 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  address    :text(65535)
-#  approval   :integer
+#  approval   :boolean          default(FALSE)
 #  capacity   :integer
 #  fee        :integer
 #  image      :string(191)
