@@ -4,7 +4,7 @@ class ParkingsController < ApplicationController
   before_action :permit_show, only: [:show]
 
   def index
-    @parkings = Parking.where(approval: 1).page(params[:page]).per(10)
+    @parkings = Parking.where(approval: true).page(params[:page]).per(10)
   end
 
   def new
@@ -54,7 +54,7 @@ class ParkingsController < ApplicationController
 
   def favorites
     @parkings = current_user.favorite_parkings.includes(:user)
-    @parkings = @parkings.where(approval: 1).page(params[:page]).per(10)
+    @parkings = @parkings.where(approval: true).page(params[:page]).per(10)
   end
 
   def search
@@ -66,10 +66,10 @@ class ParkingsController < ApplicationController
       selection = params[:keyword]
       latitude = results.first.coordinates[0]
       longitude = results.first.coordinates[1]
-      parkings = Parking.where(approval: 1).within_box(20, latitude, longitude)
+      parkings = Parking.where(approval: true).within_box(20, latitude, longitude)
       case selection
       when 'near'
-        @parkings = Parking.where(approval: 1).near(results.first.coordinates, 20).page(params[:page]).per(10)
+        @parkings = Parking.where(approval: true).near(results.first.coordinates, 20).page(params[:page]).per(10)
       when 'inexpensive'
         @parkings = parkings.order(price: :asc).page(params[:page]).per(10)
       when 'capacity'
@@ -83,7 +83,7 @@ class ParkingsController < ApplicationController
   private
 
   def parking_params
-    params.require(:parking).permit(:name, :address, :fee, :time, :capacity, :others, :image, :image_cache, :latitude, :longitude, :price)
+    params.require(:parking).permit(:name, :address, :fee, :time, :capacity, :others, :image, :image_cache, :latitude, :longitude, :price, :approval)
   end
 
   def permit_update_delete
@@ -96,10 +96,10 @@ class ParkingsController < ApplicationController
 
   def permit_show
     @parking = Parking.find(params[:id])
-    if user_signed_in? && @parking.user_id != current_user.id && @parking.approval != 'approval'
+    if user_signed_in? && @parking.user_id != current_user.id && @parking.approval != true
       flash[:notice] = '投稿が未承認のため、閲覧できません。'
       redirect_to root_path
-    elsif !user_signed_in? && @parking.approval != 'approval'
+    elsif !user_signed_in? && @parking.approval != true
       flash[:notice] = '投稿が未承認のため、閲覧できません。'
       redirect_to root_path
     end

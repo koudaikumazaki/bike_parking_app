@@ -28,7 +28,7 @@ RSpec.describe "Parkings", type: :request do
         sign_in user
       end
       it '正常にレスポンスを返すこと' do
-        parking.approval = nil
+        parking.update(approval: false)
         get parking_url(parking)
         expect(response).to have_http_status(200)
       end
@@ -46,7 +46,7 @@ RSpec.describe "Parkings", type: :request do
       end
       context '投稿が承認されていない場合' do
         it 'ホーム画面にリダイレクトされること' do
-          parking.update(approval: nil)
+          parking.update(approval: false)
           get parking_url(parking)
           expect(response).to have_http_status(302)
         end
@@ -62,7 +62,7 @@ RSpec.describe "Parkings", type: :request do
       context '投稿が承認されていない場合' do
         it 'ホーム画面にリダイレクトされること' do
           # DBの値を変更するため、updateが必要。
-          parking.update(approval: nil)
+          parking.update(approval: false)
           get parking_url(parking)
           expect(response).to have_http_status(302)
         end

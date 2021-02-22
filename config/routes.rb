@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  get '/admin/login', to: redirect("/admin")
+  
+
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
