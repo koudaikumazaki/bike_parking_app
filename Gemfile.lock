@@ -157,6 +157,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
+    env (0.3.0)
     erubi (1.10.0)
     excon (0.79.0)
     factory_bot (6.1.0)
@@ -443,6 +444,7 @@ DEPENDENCIES
   database_cleaner-active_record
   devise
   dotenv-rails
+  env
   factory_bot_rails
   fog-aws
   fog-core
