@@ -1,25 +1,45 @@
 <h1 class="text-2xl sm:text-3xl text-center my-10">検索結果<br><span class="text-lg sm:text-2xl">(検索ワードの地点から半径１km以内を表示)</span></h1>
 <div class="text-center">
-  <%= render 'search_form' %>
+  <%= form_with url: search_path, :method => 'get' do |f| %>
+    <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。" %>
+    <%= f.select :keyword, [
+      ['距離が近い順', 'near'],
+      ['１時間当たりの駐輪料金が安い順', 'inexpensive']
+    ] %>
+    <%= f.submit '検索', class: "button p-2" %>
+  <% end %>
+  <button id="get_current_spot" type="button" class="button p-2">現在地を取得</button>
 </div>
 
   <% if @parkings.any? %>
-    <p class="text-center text-2xl sm:text-3xl my-10">検索結果が見つかりました。</p>
-    <div class="flex flex-wrap justify-between w-11/12 mx-auto">
-      <% @parkings.each do |parking| %>
-        <div class="parking_card my-5 mx-auto">
-          <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s %>
-        </div>
-      <% end %>
+  <p class="text-center">検索結果が見つかりました。</p>
+  <div class="flex flex-wrap justify-between w-11/12 mx-auto">
+    <% @parkings.each do |parking| %>
+      <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 mx-auto parking-card' %>
+    <% end %>
   <% else %>
-      <p class="text-2xl sm:text-3xl my-10 text-center">検索結果は見つかりませんでした。</p>
-    </div>
+      <p class="text-2xl sm:text-3xl mx-auto my-10">検索結果は見つかりませんでした。</p>
   <% end %>
+  </div>
 
-  <%= paginate @parkings %>
+<script>
+  function geoFindMe() {
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    document.getElementById('location').value = `${latitude},${longitude}`;
+  }
 
-  <%
-=begin%>
- <%= javascript_pack_tag 'getcurrentlocation' %> 
-<%
-=end%>
+  function error() {
+    alert('エラーが発生しました。')
+  }
+
+  if(!navigator.geolocation) {
+     alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+}
+
+document.querySelector('#get_current_spot').addEventListener('click', geoFindMe);
+</script>
