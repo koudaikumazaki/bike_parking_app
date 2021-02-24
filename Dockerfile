@@ -5,6 +5,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 
 RUN apt-get update -qq && apt-get install -y yarn
 RUN apt-get install -y nodejs npm && npm install n -g && n 12.13.0
+RUN apt-get install -y vim
 RUN apt-get -y install imagemagick
 RUN apt-get update && apt-get install -y unzip && \
     CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
