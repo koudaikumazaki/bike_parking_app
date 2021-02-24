@@ -75,3 +75,26 @@ jobs:
     - store_artifacts:
         path: /tmp/test-results
         destination: test-results
+
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Heroku への master のデプロイ
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
+  workflows:
+    version: 2
+    build-deploy:
+      jobs:
+
+        - build
+        - deploy:
+            requires:
+              - build
+            filters:
+              branches:
+                only: master
