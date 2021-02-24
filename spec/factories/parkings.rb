@@ -30,9 +30,9 @@ FactoryBot.define do
   factory :parking do
     name     { 'parking' }
     address  { 'address' }
-    fee      { '200円' }
-    time      { '30分' }
-    capacity { '５台' }
+    fee      { 200 }
+    time      { 30 }
+    capacity { 5 }
     others   { '特になし' }
     latitude { '35.6812362' }
     longitude { '139.7649361' }

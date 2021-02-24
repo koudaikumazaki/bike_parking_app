@@ -43,6 +43,7 @@ docker-compose run web bin/rspec
 - CircleCIの導入
 - インフラをAWS化
 - Vue.jsを用いてのアプリケーションのSPA化
+- 投稿数に応じてポイントを付与する。
 
 
 ## 開発背景

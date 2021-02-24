@@ -20,6 +20,7 @@ class ParkingsController < ApplicationController
       flash[:notice] = "管理者に承認されるまでは表示されません。承認されるまでに編集・削除を行う場合にはユーザー情報の、投稿した駐輪場から操作をお願いいたします。"
       redirect_to root_path
     else
+      # 機能してない、、、
       render '/parkings/new'
     end
   end
@@ -41,6 +42,7 @@ class ParkingsController < ApplicationController
       flash[:notice] = "「#{@parking.name}」の情報が更新されました!"
       redirect_to root_path
     else
+      # これも機能していない、、、
       render "/parkings/edit"
     end
   end

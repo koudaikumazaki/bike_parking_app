@@ -78,12 +78,12 @@ RSpec.describe Parking, type: :model do
   end
 
   it "駐輪料金が20文字以下の場合投稿できる" do
-    parking.fee = 'a' * 20
+    parking.fee = '1' * 20
     expect(parking).to be_valid
   end
 
   it "駐輪料金が21文字以上の場合投稿が失敗する" do
-    parking.fee = 'a' * 21
+    parking.fee = '1' * 21
     parking.valid?
     expect(parking.errors[:fee]).to include("は20文字以内で入力してください")
   end
@@ -95,12 +95,12 @@ RSpec.describe Parking, type: :model do
   end
 
   it "駐輪台数が20文字以下の場合投稿できる" do
-    parking.capacity = 'a' * 20
+    parking.capacity = '1' * 20
     expect(parking).to be_valid
   end
 
   it "駐輪台数が21文字以上の場合投稿が失敗する" do
-    parking.capacity = 'a' * 21
+    parking.capacity = '1' * 21
     parking.valid?
     expect(parking.errors[:capacity]).to include("は20文字以内で入力してください")
   end
@@ -141,12 +141,12 @@ RSpec.describe Parking, type: :model do
   end
 
   it "単位時間が20文字以下の場合投稿できる" do
-    parking.time = 'a' * 20
+    parking.time = '1' * 20
     expect(parking).to be_valid
   end
 
-  it "駐輪台数が21文字以上の場合投稿が失敗する" do
-    parking.time = 'a' * 21
+  it "単位時間が21文字以上の場合投稿が失敗する" do
+    parking.time = '1' * 21
     parking.valid?
     expect(parking.errors[:time]).to include("は20文字以内で入力してください")
   end
@@ -156,4 +156,15 @@ RSpec.describe Parking, type: :model do
      parking.valid?
      expect(parking.errors[:price]).to include("を入力してください")
    end
+
+   it "１時間当たりの駐輪料金が20文字以内の場合、投稿が失敗する" do
+    parking.time = '1' * 20
+    expect(parking).to be_valid
+  end
+
+  it "１時間当たりの駐輪料金21文字以上の場合、投稿が失敗する" do
+    parking.time = '1' * 21
+    parking.valid?
+    expect(parking.errors[:time]).to include("は20文字以内で入力してください")
+  end
 end
