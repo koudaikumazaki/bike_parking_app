@@ -79,8 +79,6 @@ jobs:
   deploy:
     docker:
       - image: buildpack-deps:trusty
-        environment:
-          - RAILS_ENV: 'production'
     steps:
       - checkout
       - run:
