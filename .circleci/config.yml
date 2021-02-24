@@ -52,7 +52,8 @@ jobs:
            bundle exec rake db:create
            bundle exec rake db:schema:load
   
-    - run: bundle exec bin/webpack
+    # - run: bundle exec bin/webpack
+    - run: bundle exec rails webpacker:compile
 
     # run tests!
     - run:
