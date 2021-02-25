@@ -10,11 +10,11 @@ jobs:
           name: docker-compose build
           command: docker-compose build
       - run:
-          name: docker-compose up
-          command: docker-compose up
+          name: docker-compose up -d
+          command: docker-compose up -d
       - run:
           name: sleep for waiting launch db
-          command: sleep 1
+          command: sleep 10
       - run:
           name: rake rspec:spring ./spec/
           command: docker-compose exec web rake rspec:spring ./spec/ 
