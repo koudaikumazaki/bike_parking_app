@@ -15,7 +15,7 @@ jobs:
       - run:
           name: sleep for waiting launch db
           command: sleep 10
-       - run:
+      - run:
           name: Rubocop修正
           command: docker-compose run app bundle exec rubocop --auto-correct
       - run:
