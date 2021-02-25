@@ -17,7 +17,7 @@ jobs:
           command: sleep 10
       - run:
           name: Rubocop修正
-          command: docker-compose run app bundle exec rubocop --auto-correct
+          command: docker-compose run web bundle exec rubocop --auto-correct
       - run:
           name: 自動テスト
           command: docker-compose run web rspec 
