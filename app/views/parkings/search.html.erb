@@ -15,31 +15,13 @@
   <p class="text-center">検索結果が見つかりました。</p>
   <div class="flex flex-wrap justify-between w-11/12 mx-auto">
     <% @parkings.each do |parking| %>
-      <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 mx-auto parking-card' %>
+      <div class="text-center my-5 mx-auto parking_card">
+        <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
+      </div>
     <% end %>
   <% else %>
       <p class="text-2xl sm:text-3xl mx-auto my-10">検索結果は見つかりませんでした。</p>
   <% end %>
   </div>
 
-<script>
-  function geoFindMe() {
-  function success(position) {
-    const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    document.getElementById('location').value = `${latitude},${longitude}`;
-  }
-
-  function error() {
-    alert('エラーが発生しました。')
-  }
-
-  if(!navigator.geolocation) {
-     alert('Geolocation is not supported by your browser');
-  } else {
-    navigator.geolocation.getCurrentPosition(success, error);
-  }
-}
-
-document.querySelector('#get_current_spot').addEventListener('click', geoFindMe);
-</script>
+<%= javascript_pack_tag 'getcurrentlocation' %>

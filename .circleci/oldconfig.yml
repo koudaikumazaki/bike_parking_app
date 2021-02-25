@@ -1,0 +1,104 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+    - image: circleci/ruby:2.6.6-node-browsers
+      environment:
+        # - BUNDLER_VERSION: 2.0.2
+        - RAILS_ENV: 'test'
+    - image: circleci/mysql:5.7
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        - MYSQL_ROOT_HOST: '127.0.0.1'
+
+    working_directory: ~/app  #自身のアプリディレクトリ名を設定  
+
+
+    steps:
+    - checkout
+
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-
+
+    - run:
+        name: install dependencies
+        command: |
+          gem install bundler
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+    
+    - restore_cache:
+          keys:
+            - rails-demo-yarn-{{ checksum "yarn.lock" }}
+            - rails-demo-yarn-
+
+    - run:
+          name: Yarnをinstall
+          command: yarn install --cache-folder ~/.cache/yarn
+
+    # Database setup
+    - run: mv ./config/database.yml.ci ./config/database.yml
+
+    # Database setup
+    - run:
+        name: Databasesetup
+        command: |
+           bundle exec rake db:create
+           bundle exec rake db:schema:load
+  
+    - run: bundle exec bin/webpack
+    # - run: bundle exec rails webpacker:install
+    # - run: bundle exec rails webpacker:compile
+
+    # run tests!
+    - run:
+        name: Run rspec
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+            circleci tests split --split-by=timings)"
+
+          bundle exec rspec \
+            --format progress \
+            --format RspecJunitFormatter \
+            --out /tmp/test-results/rspec.xml \
+            --format progress \
+            $TEST_FILES
+
+    # collect reports
+    - store_test_results:
+        path: /tmp/test-results
+    - store_artifacts:
+        path: /tmp/test-results
+        destination: test-results
+
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+        environment:
+          RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    steps:
+      - checkout
+      - run:
+          name: Heroku への master のデプロイ
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
