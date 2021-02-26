@@ -4,7 +4,7 @@ class ParkingsController < ApplicationController
   before_action :permit_show, only: [:show]
 
   def index
-    @parkings = Parking.where(approval: true).page(params[:page]).per(10)
+    @parkings = Parking.approval.paginate(params)
   end
 
   def new
@@ -54,7 +54,7 @@ class ParkingsController < ApplicationController
 
   def favorites
     @parkings = current_user.favorite_parkings.includes(:user)
-    @parkings = @parkings.where(approval: true).page(params[:page]).per(10)
+    @parkings = @parkings.approval.paginate(params)
   end
 
   def search
@@ -66,16 +66,16 @@ class ParkingsController < ApplicationController
       selection = params[:keyword]
       latitude = results.first.coordinates[0]
       longitude = results.first.coordinates[1]
-      parkings = Parking.where(approval: true).within_box(1, latitude, longitude)
+      parkings = Parking.approval.within_box(1, latitude, longitude)
       case selection
       when 'near'
-        @parkings = Parking.where(approval: true).near(results.first.coordinates, 1).page(params[:page]).per(10)
+        @parkings = Parking.approval.near(results.first.coordinates, 1).paginate(params)
       when 'inexpensive'
-        @parkings = parkings.order(price: :asc).page(params[:page]).per(10)
+        @parkings = parkings.order(price: :asc).paginate(params)
       when 'capacity'
-        @parkings = parkings.order(capacity: :desc).page(params[:page]).per(10)
+        @parkings = parkings.order(capacity: :desc).paginate(params)
       else
-        @parkings = parkings.page(params[:page]).per(10)
+        @parkings = parkings.paginate(params)
       end
     end
   end

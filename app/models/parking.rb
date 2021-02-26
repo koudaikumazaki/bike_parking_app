@@ -56,4 +56,7 @@ class Parking < ApplicationRecord
       self.within_bounding_box(box)
     end
   end
+
+  scope :approval, -> { where(approval: true) }
+  include Paginate
 end
