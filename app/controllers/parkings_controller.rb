@@ -96,10 +96,14 @@ class ParkingsController < ApplicationController
 
   def permit_show
     @parking = Parking.find(params[:id])
-    if user_signed_in? && @parking.user_id != current_user.id && @parking.approval != true
-      flash[:notice] = '投稿が未承認のため、閲覧できません。'
-      redirect_to root_path
-    elsif !user_signed_in? && @parking.approval != true
+    # if user_signed_in? && @parking.user_id != current_user.id && @parking.approval != true
+    #   flash[:notice] = '投稿が未承認のため、閲覧できません。'
+    #   redirect_to root_path
+    # elsif !user_signed_in? && @parking.approval != true
+    #   flash[:notice] = '投稿が未承認のため、閲覧できません。'
+    #   redirect_to root_path
+    # end
+    unless user_signed_in? && @parking.user_id == current_user.id || @parking.approval == true
       flash[:notice] = '投稿が未承認のため、閲覧できません。'
       redirect_to root_path
     end
