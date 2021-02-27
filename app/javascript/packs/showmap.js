@@ -7,15 +7,15 @@
 //   let transitLayer = new google.maps.TransitLayer();
 //   transitLayer.setMap(map);
 
-//   let contentString = '住所：<%= @parking.address %>';
+//   // let contentString = '住所：<%= @parking.address %>';
 //   let infowindow = new google.maps.InfoWindow({
-//     content: contentString
+//     // content: contentString
 //   });
 
 //   let marker = new google.maps.Marker({
 //                   position:test,
 //                   map: map,
-//                   title: contentString
+//                   // title: contentString
 //                 });
 
 //   marker.addListener('click', function() {

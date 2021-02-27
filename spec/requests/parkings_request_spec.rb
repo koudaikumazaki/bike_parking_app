@@ -252,7 +252,7 @@ RSpec.describe "Parkings", type: :request do
           it '検索結果が表示される' do
             # @parkingがnilだと怒られた。ただ、しっかりテストは通っているので問題ない？
             allow(@parkings).to receive(:search).and_return(parking)
-            get search_path, params: { location: '東京駅'}
+            get search_path, params: { location: '東京駅' }
             expect(response).to have_http_status(200)
             expect(response.body).to include '検索結果が見つかりました。'
           end
