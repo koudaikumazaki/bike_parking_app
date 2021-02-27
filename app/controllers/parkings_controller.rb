@@ -59,11 +59,13 @@ class ParkingsController < ApplicationController
 
   def search
     results = Geocoder.search(params[:location])
+    # [Hoge.new]
     if results.empty?
       flash[:notice] = "検索フォームに文字が入っていないか、位置情報を取得できる値でない可能性があります。"
       redirect_to root_path
     else
       selection = params[:keyword]
+      # インスタンスメソッド
       latitude = results.first.coordinates[0]
       longitude = results.first.coordinates[1]
       parkings = Parking.approval.within_box(1, latitude, longitude)
@@ -96,13 +98,6 @@ class ParkingsController < ApplicationController
 
   def permit_show
     @parking = Parking.find(params[:id])
-    # if user_signed_in? && @parking.user_id != current_user.id && @parking.approval != true
-    #   flash[:notice] = '投稿が未承認のため、閲覧できません。'
-    #   redirect_to root_path
-    # elsif !user_signed_in? && @parking.approval != true
-    #   flash[:notice] = '投稿が未承認のため、閲覧できません。'
-    #   redirect_to root_path
-    # end
     unless user_signed_in? && @parking.user_id == current_user.id || @parking.approval == true
       flash[:notice] = '投稿が未承認のため、閲覧できません。'
       redirect_to root_path
