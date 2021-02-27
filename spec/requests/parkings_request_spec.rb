@@ -250,16 +250,25 @@ RSpec.describe "Parkings", type: :request do
       context '検索フォームに文字が入っている場合' do
         context '検索に引っ掛かった場合' do
           it '検索結果が表示される' do
-            # @parkingがnilだと怒られた。ただ、しっかりテストは通っているので問題ない？
-            allow(@parkings).to receive(:search).and_return(parking)
-            get search_path, params: { location: '東京駅' }
+            geocoder_mock = double('Geocoder')
+            geocoder_mock_first = double('Geocoder_first')
+            allow(Geocoder).to receive(:search).and_return(geocoder_mock)
+            allow(geocoder_mock).to receive(:empty?).and_return(false)
+            allow(geocoder_mock).to receive(:first).and_return(geocoder_mock_first)
+            allow(geocoder_mock_first).to receive(:coordinates).and_return([35.68, 139.76])
+            get search_path, params: { location: '東京' }
             expect(response).to have_http_status(200)
             expect(response.body).to include '検索結果が見つかりました。'
           end
         end
         context '検索に引っ掛からなかった場合' do
           it '検索結果はなかったと表示される' do
-            allow(@parkings).to receive(:search).and_return("")
+            geocoder_mock = double('Geocoder')
+            geocoder_mock_first = double('Geocoder_first')
+            allow(Geocoder).to receive(:search).and_return(geocoder_mock)
+            allow(geocoder_mock).to receive(:empty?).and_return(false)
+            allow(geocoder_mock).to receive(:first).and_return(geocoder_mock_first)
+            allow(geocoder_mock_first).to receive(:coordinates).and_return([43.04, 141.20])
             get search_path, params: { location: '北海道' }
             expect(response).to have_http_status(200)
             expect(response.body).to include '検索結果は見つかりませんでした。'
@@ -268,7 +277,7 @@ RSpec.describe "Parkings", type: :request do
       end
       context '検索フォームに文字が入っていない場合' do
         it 'ホーム画面にリダイレクトされる' do
-          allow(@parkings).to receive(:search).and_return("")
+          allow(Geocoder).to receive(:search).and_return("")
           get search_path
           expect(response).to redirect_to root_path
         end
