@@ -4,9 +4,9 @@
       <span class="fas fa-search-location"> <span class="logo_typo">bike_parking_search</span></span>
     <% end %>
   </div>
-  <nav class="hidden lg:block">
+  <nav class="hidden xl:block">
     <% if user_signed_in? %>
-      <ul class="flex justify-end space-x-3 leading-9">
+      <ul class="flex justify-end space-x-8 leading-9">
         <li>
           <%= link_to edit_user_registration_path do %>
             <span class="fas fa-user"> ユーザー情報</span>
@@ -29,7 +29,7 @@
         </li>
       </ul>
     <% else %>
-      <ul class="flex justify-end space-x-3 py-3">
+      <ul class="flex justify-end space-x-8 py-3">
         <li>
           <%= link_to new_user_registration_path do %>
             <span class="fas fa-user-plus"> 新規登録</span>
@@ -48,7 +48,7 @@
       </ul>
     <% end %>
   </nav>
-  <button class="lg:hidden">
+  <button class="xl:hidden">
     <span class="fas fa-bars fa-2x open"></span>
   </button>
 </header>
