@@ -7,10 +7,6 @@
     <%= link_to "本人確認用のメールが届いていない場合は", new_confirmation_path(resource_name) %><br />
   <% end %>
 
-  <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-    <%= link_to "アカウントがロックされてしまった場合は？", new_unlock_path(resource_name) %><br />
-  <% end %>
-
   <%- if devise_mapping.omniauthable? %>
     <%- resource_class.omniauth_providers.each do |provider| %>
       <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />

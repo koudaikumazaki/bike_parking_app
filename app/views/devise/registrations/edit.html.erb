@@ -1,43 +1,47 @@
 <main class="text-center">
   <h1 class="text-2xl sm:text-3xl my-10">ユーザー情報</h1>
   <h2 class="text-xl sm:text-2xl my-5">ユーザー情報の編集</h2>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <div>
+    <div class="text-left w-11/12 sm:w-1/2 mx-auto my-10">
+      <div class="my-5">
       <h3>ユーザー名の変更</h2>
-        <%= f.text_field :username, class: "border" %>
+        <%= f.text_field :username, class: "border form w-full", placeholder: 'ユーザー名を入力してください。' %>
       </div>
 
-      <div>
+      <div class="my-5">
         <h3>メールアドレスの変更</h2>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border form w-full", placeholder: 'メールアドレスを入力してください。' %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-      <div>
+      <div class="my-5">
         <h3>パスワードの変更</h2>
-        <%= f.password_field :password, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（６文字以上）" %>
-      </div><br>
-
-      <div>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border", placeholder: "新しいパスワード（確認用）" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "border form w-full", placeholder: "新しいパスワード（６文字以上）" %>
+        <div>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border form w-full", placeholder: "新しいパスワード（確認用）" %>
+        </div>
       </div>
+
 
       <div class="my-5">
         <h3>変更を保存する</h2>
-        <%= f.password_field :current_password, autocomplete: "current-password", class: "border", placeholder: "現在のパスワード" %>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "border form w-full", placeholder: "現在のパスワード" %>
       </div>
-      <%= f.submit "更新", class: "p-2 button" %>
+      <%= f.submit "更新", class: "button w-full" %>
+      
+      <div class="my-20">
+        <h2 class="text-center text-xl sm:text-2xl my-5">アカウントを削除したい方</h2>
+        <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "button w-full" %></p>
+      </div>
+    </div>
+    
   <% end %>
 
-      <div class="my-10">
-        <h2 class="text-xl sm:text-2xl my-5">アカウントを削除したい方</h2>
-        <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "p-2 button" %></p>
-      </div>
 
       <div class="my-10">
         <h2 class="text-xl sm:text-2xl">投稿した駐輪場</h2> 
