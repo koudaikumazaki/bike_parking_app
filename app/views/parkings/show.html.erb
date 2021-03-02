@@ -8,15 +8,15 @@
   </h2>
   
   <% if user_signed_in? %>
-    <ul class="flex text-center justify-center my-10">
+    <ul class="flex justify-center my-10">
       <li class="mx-5">
         <%= link_to edit_parking_path(@parking) do %>
-          <span class="fas fa-edit fa-2x"></span>
+          <i class="fas fa-edit show_icon"></i><span class="lightgray hidden sm:inline"> 投稿を編集</span>
         <% end %>
       </li>
       <li class="mx-5">
         <%= link_to @parking, data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete do %>
-          <span class="fas fa-trash-alt fa-2x"></span>
+          <i class="fas fa-trash-alt show_icon"></i><span class="lightgray hidden sm:inline"> 投稿を削除</span>
         <% end %>
       </li>
       <li id="favorites_buttons<%= @parking.id %>" class="mx-5">
@@ -31,11 +31,11 @@
   <% if user_signed_in? %>
     <!-- Googleマップにリンクを飛ばしたのは、そちらの方がルート検索機能が充実していて使いやすいため-->
     <div class="text-center">
-      <button class="button p-2 my-5"><a href="https://www.google.com/maps/search/?api=1&query=<%= @parking.latitude %>,<%= @parking.longitude %>">GoogleMapでルートを検索</a></button>
+      <button class="button my-5"><a href="https://www.google.com/maps/search/?api=1&query=<%= @parking.latitude %>,<%= @parking.longitude %>">GoogleMapでルートを検索</a></button>
     </div>
   <% end %>
   
-  <ul class="text-center">
+  <ul class="text-left sm:w-2/3 w-11/12 mx-auto">
     <li class="my-5">所在地：<%= @parking.address %></li> 
     <li class="my-5">駐輪料金：<%= @parking.fee %>円/<%= @parking.time %>分</li>
     <li class="my-5">１時間当たりの駐輪料金：<%= @parking.price %>円</li>

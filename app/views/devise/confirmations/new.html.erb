@@ -3,15 +3,18 @@
 
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
+    
+    <div class="text-left w-11/12 sm:w-1/2 mx-auto my-10">
+      <div>
+        <%= f.label :email, 'メールアドレス' %><br />
+        <%= f.email_field :email, placeholder: 'メールアドレスを入力してください。', class: "border form w-full", autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+      </div>
 
-    <div class="field">
-      <%= f.label :email, 'メールアドレス' %><br />
-      <%= f.email_field :email, placeholder: 'メールアドレスを入力してください。', class: "border", autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+      <div class="my-5">
+        <%= f.submit "本人確認用メールを再送信する。", class: "button w-full" %>
+      </div>
     </div>
 
-    <div class="actions my-5">
-      <%= f.submit "本人確認用メールを再送信する。", class: "p-2 button" %>
-    </div>
   <% end %>
 </div>
 
