@@ -93,6 +93,9 @@ jobs:
       - run:
           name: heroku db migrate
           command: heroku run rails db:migrate --app ${HEROKU_APP_NAME}
+      # - run:
+      #     name: プリコンパイル
+      #     command: heroku run rails assets:precompile ENV=produciton
       - run:
           name: heroku maintenance off
           command: heroku maintenance:off --app ${HEROKU_APP_NAME}
