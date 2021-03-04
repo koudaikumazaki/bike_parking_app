@@ -56,8 +56,8 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['DARABASE_NAME'] %>
-  username: <%= ENV['DARABASE_USER'] %>
+  database: bike_parking_app_production
+  username: root
   password: <%= ENV['DARABASE_PASSWORD'] %>
   host: <%= ENV['DARABASE_HOST'] %>
   # password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
