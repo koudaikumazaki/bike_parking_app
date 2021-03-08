@@ -1,3 +1,7 @@
+# # 追記部分
+# app_dir = File.expand_path("../..", __FILE__)
+# bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+
 # # Puma can serve each request in a thread from an internal thread pool.
 # # The `threads` method setting takes two numbers: a minimum and maximum.
 # # Any libraries that use thread pools should be configured to match
@@ -39,25 +43,29 @@
 # #
 # # preload_app!
 
-# # 追記部分
-# app_dir = File.expand_path("../..", __FILE__)
-# bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+
 
 # # Allow puma to be restarted by `rails restart` command.
 # plugin :tmp_restart
 
-# アプリケーションディレクトリ
-app_dir = File.expand_path("../../", __FILE__)
-# ソケット通信を図る為bindでURI指定
+# # # アプリケーションディレクトリ
+# # app_dir = File.expand_path("../../", __FILE__)
+# # # ソケット通信を図る為bindでURI指定
+# # bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+# # # PIDファイル所在(プロセスID)
+# # pidfile "#{app_dir}/tmp/pids/puma.pid"
+# # # stateファイルはpumactlコマンドでサーバーを操作する。その所在。
+# # state_path "#{app_dir}/tmp/pids/puma.state"
+# # # 標準出力/標準エラーを出力するファイルの所在。
+# # stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
+# # threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+# # threads threads_count, threads_count
+# # #port ENV.fetch("PORT") { 3000 }
+# # environment ENV.fetch("RAILS_ENV") { "development" }
+# # plugin :tmp_restart
+
+app_dir = File.expand_path("../..", __FILE__)
 bind "unix://#{app_dir}/tmp/sockets/puma.sock"
-# PIDファイル所在(プロセスID)
 pidfile "#{app_dir}/tmp/pids/puma.pid"
-# stateファイルはpumactlコマンドでサーバーを操作する。その所在。
 state_path "#{app_dir}/tmp/pids/puma.state"
-# 標準出力/標準エラーを出力するファイルの所在。
 stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
-threads threads_count, threads_count
-#port ENV.fetch("PORT") { 3000 }
-environment ENV.fetch("RAILS_ENV") { "development" }
-plugin :tmp_restart
