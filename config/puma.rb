@@ -1,6 +1,6 @@
 # # 追記部分
-# app_dir = File.expand_path("../..", __FILE__)
-bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
+app_dir = File.expand_path("../..", __FILE__)
+bind "unix://#{app_dir}/tmp/sockets/puma.sock"
 daemonize
 
 # Puma can serve each request in a thread from an internal thread pool.
