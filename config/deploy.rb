@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.16.0"
 
-set :application, "bike_parking_search"
+set :application, "parking_search"
 set :repo_url, "git@github.com:koudaikumazaki/bike_parking_app.git"
 # set :repo_url, "git@example.com:me/my_repo.git"
 

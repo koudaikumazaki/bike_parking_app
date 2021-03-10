@@ -1,7 +1,7 @@
-server "52.199.67.65", user: "kuma", roles: %w{app db web}
+server "18.176.2.43", user: "kuma", roles: %w{app db web}
 
 set :ssh_options, {
-  keys: %w(~/.ssh/bike_parking_search.pem),
+  keys: %w(~/.ssh/parking_search.pem),
   forward_agent: true,
   auth_methods: %w(publickey),
 }
