@@ -1,7 +1,11 @@
 # # 追記部分
-app_dir = File.expand_path("../..", __FILE__)
-bind "unix://#{app_dir}/tmp/sockets/puma.sock"
-daemonize
+if Rails.env.production?
+  app_dir = File.expand_path("../..", __FILE__)
+  bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+  daemonize
+else
+  port ENV.fetch("PORT") { 3000 }
+end
 
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
