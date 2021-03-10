@@ -61,9 +61,7 @@ test:
 #
 production:
   <<: *default
-  database: bike_parking_search_production
-  # username: kuma
+  database: parking_search_production
   username: root
   password: <%= Rails.application.credentials.db[:password] %>
   host: <%= Rails.application.credentials.db[:hostname] %>
-  # password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
