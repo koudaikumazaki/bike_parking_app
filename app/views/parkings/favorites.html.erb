@@ -6,6 +6,7 @@
         <%= parking.name %>
         <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img' %>
       </div>
+    </div>  
   <% end %> 
   <%= paginate @parkings %>
 </div>
