@@ -12,7 +12,6 @@ jobs:
 
     working_directory: ~/app
 
-
     steps:
     - checkout
 
@@ -70,38 +69,24 @@ jobs:
     - store_artifacts:
         path: /tmp/test-results
         destination: test-results
-  
+
+  add_ssh_keys:
+      fingerprints:
+        - "e8:14:aa:07:ec:76:ab:13:66:63:08:bc:04:ac:80:b3"
+
   deploy:
-    machine:
-      image: circleci/classic:edge
-    steps:
-      - checkout
-      - run:
-          name: "build docker image"
-          command: docker build --rm=false -t registry.heroku.com/${HEROKU_APP_NAME}/web .
-      - run:
-          name: setup heroku command
-          command: bash .circleci/setup_heroku.sh
-      - run:
-          name: heroku maintenance on
-          command: heroku maintenance:on --app ${HEROKU_APP_NAME}
-      - run:
-          name: "push container to registry.heroku.com"
-          command: |
-            docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-            docker push registry.heroku.com/${HEROKU_APP_NAME}/web
-      - run:
-          name: heroku db migrate
-          command: heroku run rails db:migrate --app ${HEROKU_APP_NAME}
-      - run:
-          name: heroku maintenance off
-          command: heroku maintenance:off --app ${HEROKU_APP_NAME}
+    - run:
+        name: Capistrano deploy
+        command: bundle exec cap production deploy
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
+      - add_ssh_keys:
+          requires:
+            - build
       - deploy:
           requires:
             - build

@@ -1,7 +1,8 @@
 server "18.176.2.43", user: "kuma", roles: %w{app db web}
 
 set :ssh_options, {
-  keys: %w(~/.ssh/parking_search.pem),
+  # keys: %w(~/.ssh/parking_search.pem),
+  keys: [ENV.fetch('PRODUCTION_SSH_KEY').to_s],
   forward_agent: true,
   auth_methods: %w(publickey),
 }
