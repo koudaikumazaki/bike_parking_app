@@ -16,8 +16,11 @@
   <div class="flex flex-wrap justify-between w-11/12 mx-auto">
     <% @parkings.each do |parking| %>
       <div class="text-center my-5 mx-auto parking_card">
-        <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5' %>
+      <div class="truncate">
+        <%= parking.name %>
+        <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img' %>
       </div>
+    </div>
     <% end %>
   <% else %>
       <p class="text-2xl sm:text-3xl mx-auto my-10 text-center">検索結果は見つかりませんでした。</p>
