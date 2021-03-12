@@ -27,6 +27,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Parking < ApplicationRecord
+  default_scope { order("updated_at ASC") }
   attr_accessor :distance
   mount_uploader :image, ImageUploader
   belongs_to :user

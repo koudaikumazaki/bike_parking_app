@@ -1,14 +1,6 @@
 <h1 class="text-2xl sm:text-3xl text-center my-10">検索結果<br><span class="text-lg sm:text-2xl">(検索ワードの地点から半径１km以内を表示)</span></h1>
 <div class="text-center">
-  <%= form_with url: search_path, :method => 'get' do |f| %>
-    <%= f.text_field :location, placeholder: "住所や行きたい場所を入力してください。", class: 'form' %>
-    <%= f.select :keyword, [
-      ['距離が近い順', 'near'],
-      ['１時間当たりの駐輪料金が安い順', 'inexpensive']
-    ], {}, class: "form" %>
-    <%= f.submit '検索', class: "button" %>
-  <% end %>
-  <button id="get_current_spot" type="button" class="button my-5">現在地を取得</button>
+  <%= render 'search_form' %>
 </div>
 
   <% if @parkings.any? %>
