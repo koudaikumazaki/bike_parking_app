@@ -4,7 +4,7 @@ class ParkingsController < ApplicationController
   before_action :permit_show, only: [:show]
 
   def index
-    @parkings = Parking.approval.paginate(params)
+    @parkings = Parking.approval.paginate(params).order("updated_at DESC")
   end
 
   def new
@@ -54,7 +54,7 @@ class ParkingsController < ApplicationController
 
   def favorites
     @parkings = current_user.favorite_parkings.includes(:user)
-    @parkings = @parkings.approval.paginate(params)
+    @parkings = @parkings.approval.paginate(params).order("updated_at DESC")
   end
 
   def search
