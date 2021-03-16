@@ -1,5 +1,13 @@
 # BIKE_PARKING_APP
 
+## アプリ概要
+バイクの駐輪場検索を便利にするサービスです。
+検索したワードから緯度経度を算出し、その周辺1km以内の駐輪場を検索できます。
+また、現在地周辺の駐輪場も検索できるので、外出先での急な駐輪場検索にも対応しております。
+※完全に独学で開発致しました。
+
+<img src="/README_images/screen_shot.png">
+
 ## URL 
 https://parking-search.com/
 
@@ -18,11 +26,23 @@ docker-compose run web bin/rspec
 ```
 
 ## 使用技術
-- Ruby: 2.6.6, Rails: 6.1.0
-- MySQL: ５.7
-- Docker: 20.10.2
-- AWS(EC2・RDS・S3・ACM・VPC・Route53)
-- CircleCI: 2.0
+- フロントエンド
+  - HTML/CSS
+  - Javascript
+  - tailwind
+- バックエンド
+  - Ruby: 2.6.6
+  - Rails: 6.1.0
+- インフラ・開発環境
+  - MySQL: ５.7
+  - Nginx
+  - Puma
+  - Docker/docker-compose
+  - AWS(EC2・RDS・S3・ACM・VPC・Route53・ALB)
+  - CircleCI（CI/CD）
+- テスト・静的コード解析
+  - Rspec
+  - Rubocop
 
 ## 機能一覧
 - ログイン機能（devise）
@@ -42,6 +62,9 @@ docker-compose run web bin/rspec
 - 管理者による投稿承認機能(ActiveAdmin)
 - 検索ワードで取得した投稿の並び替え
 - 現在地の取得機能
+
+## インフラ設計図
+<img src= '/README/infra.png' >
 
 ## 今後の開発予定
 - Vue.jsを用いてのアプリケーションのSPA化
