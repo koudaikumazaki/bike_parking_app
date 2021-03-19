@@ -82,6 +82,15 @@ body {
 }
 
 // 駐輪場カードのレイアウト
+.parking_cards {
+  max-width: 580px;
+  @media(min-width: 1024px){
+    max-width: 870px;
+  }
+  @media(max-width: 580px){
+    max-width: 290px;
+  }
+}
 
 .parking_card {
   box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.3);
@@ -91,6 +100,9 @@ body {
   :hover {
     box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in;
+  }
+  :after {
+
   }
 }
 
