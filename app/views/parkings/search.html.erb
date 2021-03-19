@@ -3,20 +3,22 @@
   <%= render 'search_form' %>
 </div>
 
-  <% if @parkings.any? %>
+<% if @parkings.any? %>
   <p class="text-center">検索結果が見つかりました。</p>
-  <div class="flex flex-wrap justify-between w-11/12 mx-auto">
-    <% @parkings.each do |parking| %>
-      <div class="text-center my-5 mx-auto parking_card">
-      <div class="truncate">
-        <%= parking.name %>
-        <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img' %>
-      </div>
+  <div class="w-11/12 mx-auto">
+    <div class="flex flex-wrap justify-start parking_cards mx-auto">
+      <% @parkings.each do |parking| %>
+        <div class="text-center my-5 mx-5 parking_card">
+          <div class="truncate">
+            <%= parking.name %>
+            <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img' %>
+          </div>
+        </div>
+      <% end %> 
     </div>
-    <% end %>
-  <% else %>
-      <p class="text-2xl sm:text-3xl mx-auto my-10 text-center">検索結果は見つかりませんでした。</p>
-  <% end %>
   </div>
+<% else %>
+    <p class="text-2xl sm:text-3xl mx-auto my-10 text-center">検索結果は見つかりませんでした。</p>
+<% end %>
 
 <%= javascript_pack_tag 'getcurrentlocation' %>

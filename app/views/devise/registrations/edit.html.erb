@@ -42,20 +42,20 @@
     
   <% end %>
 
-
-      <div class="my-10">
-        <h2 class="text-xl sm:text-2xl">投稿した駐輪場</h2> 
-        <div class="flex flex-wrap justify-between" id="parking_paginate" >
-          <% @user.parkings.each do |parking| %>
-            <div class="text-center my-5 mx-auto parking_card">
-              <div class="truncate">
-                <%= parking.name %>
-                <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img' %>
-              </div>
+  <div class="my-10">
+    <h2 class="text-xl sm:text-2xl">投稿した駐輪場</h2> 
+    <div class="w-11/12 mx-auto">
+      <div class="flex flex-wrap justify-start parking_cards mx-auto" id="parking_paginate" >
+        <% @user.parkings.each do |parking| %>
+          <div class="text-center my-5 mx-5 parking_card">
+            <div class="truncate">
+              <%= parking.name %>
+              <%= link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img' %>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
+    </div>
+  </div>
       
-
 </main>
