@@ -1,10 +1,10 @@
 
 <div class="text-center">
-  <h2 class="text-2xl sm:text-3xl my-10">パスワードの再設定</h2>
 
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, role: "form" }) do |f| %>
   
     <%= render "devise/shared/error_messages", resource: resource %>
+    <h2 class="text-2xl sm:text-3xl my-10">パスワードの再設定</h2>
     <div class="text-left w-11/12 sm:w-1/2 mx-auto my-10">
       <div>
         <%= f.label :email, "メールアドレス" %><br />
