@@ -3,6 +3,6 @@ module Paginate
   include Kaminari::PageScopeMethods
 
   included do
-    scope :paginate, ->(p) { page(p[:page]).per(10) }
+    scope :paginate, ->(p) { page(p[:page]).per(12) }
   end
 end
