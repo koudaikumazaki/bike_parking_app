@@ -1,7 +1,7 @@
-<h2 class="text-center text-2xl sm:text-3xl my-10">新規登録</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  <h2 class="text-center text-2xl sm:text-3xl my-10">新規登録</h2>
   <div class="text-left w-11/12 sm:w-1/2 mx-auto my-10">
     <div class="my-5">
       <%= f.label :username, "ユーザー名" %><br/>

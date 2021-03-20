@@ -191,11 +191,18 @@ li {
 // フラッシュメッセージとエラーメッセージのcss
 
 .notice {
-  padding: 1rem 0 0 1rem;
+  background-color: #DFF0D8;	
+  color: #659564;
+  line-height: 2rem;
+  text-align:center;
+  line-height: 2;
 }
 
 .alert {
-  padding-left: 1rem;
+  background: #f2dedd;
+  color: #c27f7d;
+  text-align: center;
+  line-height: 2;
 }
 
 // プレビュー部分のcss

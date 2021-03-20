@@ -1,4 +1,15 @@
 <div>
+  <% if @parking.errors.any? %>
+    <div class="alert">
+      <div class="w-11/12 sm:w-1/2 mx-auto">
+          <ul>
+              <% @parking.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+          </ul>
+      </div>
+    </div>
+  <% end %>
   <h1 class="text-center text-2xl sm:text-3xl my-10">駐輪場情報を編集する</h1>
   <div class="text-right">
       
