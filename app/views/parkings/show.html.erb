@@ -7,23 +7,23 @@
     <%= @parking.name %>
   </h2>
   
-  <% if user_signed_in? && current_user.id == @parking.user.id %>
     <ul class="flex justify-center my-10">
-      <li class="mx-5">
-        <%= link_to edit_parking_path(@parking) do %>
-          <i class="fas fa-edit show_icon"></i><span class="lightgray hidden sm:inline"> 投稿を編集</span>
-        <% end %>
+      <% if user_signed_in? && current_user.id == @parking.user.id %>
+        <li class="mx-5">
+          <%= link_to edit_parking_path(@parking) do %>
+            <i class="fas fa-edit show_icon"></i><span class="lightgray hidden sm:inline"> 投稿を編集</span>
+          <% end %>
+        </li>
+        <li class="mx-5">
+          <%= link_to @parking, data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete do %>
+            <i class="fas fa-trash-alt show_icon"></i><span class="lightgray hidden sm:inline"> 投稿を削除</span>
+          <% end %>
       </li>
-      <li class="mx-5">
-        <%= link_to @parking, data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete do %>
-          <i class="fas fa-trash-alt show_icon"></i><span class="lightgray hidden sm:inline"> 投稿を削除</span>
-        <% end %>
-      </li>
+      <% end %>
       <li id="favorites_buttons<%= @parking.id %>" class="mx-5">
         <%= render partial: 'favorites/favorite', locals: { parking: @parking, favorite: @favorite} %>
       </li>
     </ul>
-  <% end %>
 </div>
   
   <%= render "show_map" %>
@@ -41,6 +41,6 @@
     <li class="my-5">１時間当たりの駐輪料金：<%= @parking.price %>円</li>
     <li class="my-5">収容台数：<%= @parking.capacity %>台</li>
     <li class="my-5">備考：<%= @parking.others %></li>
-    <li class="my-5">投稿者：<%= @parking.user_id %></li>
+    <li class="my-5">投稿者：<%= @parking.user.username %></li>
   </ul>
 </div>
