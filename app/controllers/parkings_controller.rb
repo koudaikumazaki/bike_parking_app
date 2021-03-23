@@ -53,7 +53,7 @@ class ParkingsController < ApplicationController
   end
 
   def favorites
-    @parkings = current_user.favorite_parkings.includes(:user)
+    @parkings = current_user.favorite_parkings
     @parkings = @parkings.approval.paginate(params).order("updated_at DESC")
   end
 
