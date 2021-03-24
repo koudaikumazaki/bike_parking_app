@@ -5,7 +5,7 @@ ja:
         confirmation_sent_at: パスワード確認送信時刻
         confirmation_token: パスワード確認用トークン
         confirmed_at: パスワード確認時刻
-        created_at: 作成日
+        created_at: 作成日時
         current_password: 現在のパスワード
         current_sign_in_at: 現在のログイン時刻
         current_sign_in_ip: 現在のログインIPアドレス
@@ -24,9 +24,7 @@ ja:
         sign_in_count: ログイン回数
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
-        updated_at: 更新日
-    models:
-      user: ユーザー
+        updated_at: 更新日時
   devise:
     confirmations:
       confirmed: アカウントを登録しました。
