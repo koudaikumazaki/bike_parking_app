@@ -228,6 +228,9 @@ li {
   background-color: #fff;
   border-radius: 100%;
   animation: sk-scaleout 1.0s infinite ease-in-out;
+  @media(max-width: 500px){
+    margin: 200px auto;
+  }
 }
 /* ローディングアニメーション */
 @keyframes sk-scaleout {
