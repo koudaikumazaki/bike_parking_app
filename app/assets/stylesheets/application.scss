@@ -211,3 +211,40 @@ li {
   width: 50%;
   margin: 1.25rem auto;
 }
+
+// ローディング画面のcss
+
+.loading_zone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  color: #f5f5f5;
+}
+.spinner {
+  margin: 300px auto;
+  width: 200px;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 100%;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+/* ローディングアニメーション */
+@keyframes sk-scaleout {
+  0% {
+    transform: scale(0);
+  } 100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s;
+  background-color:gray;
+  opacity: 0.9;
+  z-index: 9999;
+  position: fixed;
+}
