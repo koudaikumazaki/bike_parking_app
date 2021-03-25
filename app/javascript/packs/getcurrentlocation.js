@@ -1,8 +1,11 @@
 function geoFindMe() {
+  const spinner = document.getElementsByClassName('loading_zone')[0];
+  spinner.classList.add('loading')
   function success(position) {
     const latitude  = position.coords.latitude;
     const longitude = position.coords.longitude;
     document.getElementById('location').value = `${latitude},${longitude}`;
+    spinner.classList.remove('loading'); 
   }
 
   function error() {
@@ -17,3 +20,4 @@ function geoFindMe() {
 }
 
 document.querySelector('#get_current_spot').addEventListener('click', geoFindMe);
+
