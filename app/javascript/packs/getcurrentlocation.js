@@ -10,6 +10,7 @@ function geoFindMe() {
 
   function error() {
     alert('エラーが発生しました。')
+    spinner.classList.remove('loading'); 
   }
 
   if(!navigator.geolocation) {
