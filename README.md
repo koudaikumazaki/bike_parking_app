@@ -66,9 +66,6 @@ docker-compose run web bin/rspec
 ## インフラ設計図
 <img src= '/README_images/infra.png' >
 
-## ER図
-<img src= '/README_images/ER.png' >
-
 ## 今後の開発予定
 - ページ遷移を早くするために、Vue.jsを用いてのアプリケーションのSPA化を行う
 - 投稿数に応じてポイントを付与する機能の実装（たまったポイントはバイク用品の購入時に使用できることを想定）
