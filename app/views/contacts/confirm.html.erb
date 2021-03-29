@@ -1,0 +1,29 @@
+<div class="text-left w-11/12 sm:w-2/3 mx-auto my-10">
+  <h2 class="text-2xl sm:text-3xl text-center my-10">お問い合わせ内容の確認</h2>
+
+  <ul class="text-left sm:w-2/3 w-11/12 mx-auto">
+    <li class="my-5">【お名前】<br><%= @contact.name %></li> 
+    <li class="my-5">【メールアドレス】<br><%= @contact.email %></li>
+    <li class="my-5">【お問い合わせ内容の種類】<br><%= @contact.genre %></li>
+    <li class="my-5">【タイトル】<br><%= @contact.title %></li>
+    <li class="my-5">【お問い合わせ内容】<br><%= @contact.content %></li>
+  </ul>
+
+  <%= form_for(@contact) do |f| %>
+    <%= f.hidden_field :name %>
+    <%= f.hidden_field :email %>
+    <%= f.hidden_field :genre %>
+    <%= f.hidden_field :title %>
+    <%= f.hidden_field :content %>
+    <div><%= f.submit '送信', class: 'my-5 button w-full' %></div>
+  <% end %>
+  <%= form_for @contact, url: back_path do |f| %>
+    <%= f.hidden_field :name %>
+    <%= f.hidden_field :email %>
+    <%= f.hidden_field :genre %>
+    <%= f.hidden_field :title %>
+    <%= f.hidden_field :content %>
+    <div><%= f.submit '入力画面に戻る', class: 'my-5 button w-full' %></div>
+  <% end %>
+</div>
+
