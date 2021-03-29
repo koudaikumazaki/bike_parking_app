@@ -1,3 +1,14 @@
+<% if @contact.errors.any? %>
+  <div class="alert">
+    <div>
+        <ul>
+          <% @contact.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+<% end %>
 <div class="text-left w-11/12 sm:w-2/3 mx-auto my-10">
   <h2 class="text-2xl sm:text-3xl text-center my-10">お問い合わせ</h2>
   <%= form_for(@contact, url: confirm_path) do |f| %>
