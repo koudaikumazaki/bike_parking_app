@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "UserAuthentications", type: :request do
 
-  # guest_user用のfactory作ろうとしたが、uninitialized constant GuestUserと出てきたのでやめた。
   let(:user) { create(:user) }
   let(:user_params) { attributes_for(:user) }
   let(:invalid_user_params) { attributes_for(:user, username: "") }
@@ -90,7 +89,7 @@ RSpec.describe "UserAuthentications", type: :request do
     context "無効なパラメータの場合" do
       it "ログインに失敗すること" do
         post user_session_path, params: { user: invalid_user_params }
-        expect(response.body).to include 'Eメールまたはパスワードが違います。'
+        expect(response.body).to include 'メールアドレスまたはパスワードが違います。'
       end
     end
   end

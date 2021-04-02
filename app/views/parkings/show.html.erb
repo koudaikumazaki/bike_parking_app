@@ -34,6 +34,10 @@
       <button class="button my-5"><a href="https://www.google.com/maps/search/?api=1&query=<%= @parking.latitude %>,<%= @parking.longitude %>">GoogleMapでルートを検索</a></button>
     </div>
   <% end %>
+
+  <div class="text-center">
+    <button class="button my-5"><%= link_to "駐輪場データの更新や削除を依頼する", new_contact_path %></button>
+  </div>
   
   <ul class="text-left sm:w-2/3 w-11/12 mx-auto">
     <li class="my-5">所在地：<%= @parking.address %></li> 
