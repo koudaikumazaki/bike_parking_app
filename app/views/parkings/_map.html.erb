@@ -59,4 +59,9 @@
     });
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.googleapikey %>&callback=initMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap"></script>
+<%
+=begin%>
+ <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.googleapikey %>&callback=initMap"></script> 
+<%
+=end%>
