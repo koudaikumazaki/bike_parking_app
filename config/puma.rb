@@ -1,11 +1,11 @@
 # # 追記部分
-if Rails.env.production?
-  app_dir = File.expand_path("../..", __FILE__)
-  bind "unix://#{app_dir}/tmp/sockets/puma.sock"
-  daemonize
-else
-  port ENV.fetch("PORT") { 3000 }
-end
+# if Rails.env.production?
+#   app_dir = File.expand_path("../..", __FILE__)
+#   bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+#   daemonize
+# else
+#   port ENV.fetch("PORT") { 3000 }
+# end
 
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
@@ -25,7 +25,7 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
 # コメントアウトしないと、puma.sockを参照しない可能性があるらしい。
-# port ENV.fetch("PORT") { 3000 }
+port ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
