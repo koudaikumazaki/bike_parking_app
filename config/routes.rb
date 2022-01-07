@@ -15,10 +15,14 @@ Rails.application.routes.draw do
 
   get '/users', to: redirect("/users/sign_up")
 
-  # 簡単ログイン用ルーティング
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
 
   get 'search', to: 'parkings#search'
+
+  resources :contacts, only: [:new, :create]
+  post 'contacts/confirm', to: 'contacts#confirm', as: 'confirm'
+  post 'contacts/back', to: 'contacts#back', as: 'back'
+  get 'done', to: 'contacts#done', as: 'done'
 end

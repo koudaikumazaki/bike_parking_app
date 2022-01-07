@@ -1,0 +1,44 @@
+<% if @contact.errors.any? %>
+  <div class="alert">
+    <div>
+        <ul>
+          <% @contact.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+<% end %>
+<div class="text-left w-11/12 sm:w-2/3 mx-auto my-10">
+  <h2 class="text-2xl sm:text-3xl text-center my-10">お問い合わせ</h2>
+  <%= form_for(@contact, url: confirm_path) do |f| %>
+    <div class="my-5">
+      <h2 class="align-text-top">お名前<span class="need">必須</span></h2>
+      <%= f.text_field :name, placeholder: 'お名前を入力してください。', class: 'border form w-full' %>
+    </div>
+
+    <div class="my-5">
+      <h2 class="align-text-top">メールアドレス<span class="need">必須</span></h2>
+      <%= f.text_field :email, placeholder: 'メールアドレスを入力してください。', class: 'border form w-full' %>
+    </div>
+
+    <div class="my-5">
+      <h2 class="align-text-top">お問い合わせの種類<span class="need">必須</span></h2>
+      <%= f.select :genre, [["駐輪場データについて", "駐輪場データについて"], ["サイトの不具合", "サイトの不具合"], ["その他", "その他"]], { include_blank: "選択してください" }, { class: "border form w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <h2 class="align-text-top">タイトル<span class="need">必須</span></h2>
+      <%= f.text_field :title, placeholder: 'タイトルを入力してください。', class: 'border form w-full' %>
+    </div>
+
+    <div class="my-5">
+      <h2 class="align-text-top">お問い合わせ内容<span class="need">必須</span></h2>
+      <%= f.text_area :content, placeholder: 'お問い合わせ内容を入力してください。', class: 'border form w-full h-60' %>
+    </div>
+          
+    <div>
+      <%= f.submit '入力内容確認' , class: 'my-5 button w-full'%>
+    </div>
+  <% end %>
+</div>
