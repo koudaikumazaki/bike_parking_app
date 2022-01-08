@@ -27,10 +27,12 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Parking < ApplicationRecord
-  attr_accessor :distance
+  include Paginate
   mount_uploader :image, ImageUploader
+
   belongs_to :user
   has_many :favorites, dependent: :destroy
+
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
 
@@ -44,19 +46,14 @@ class Parking < ApplicationRecord
   validates :time, length: { maximum: 20 }
 
   scope :approval, -> { where(approval: true) }
-  include Paginate
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
 
-  class << self
-    def within_box(distance, latitude, longitude)
-      # FIXME: これ不要では？
-      distance = distance
-      center_point = [latitude, longitude]
-      box = Geocoder::Calculations.bounding_box(center_point, distance)
-      self.within_bounding_box(box)
-    end
+  def self.within_box(distance, latitude, longitude)
+    center_point = [latitude, longitude]
+    box = Geocoder::Calculations.bounding_box(center_point, distance)
+    self.within_bounding_box(box)
   end
 end
