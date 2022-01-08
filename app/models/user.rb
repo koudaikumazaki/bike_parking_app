@@ -32,28 +32,24 @@
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
-  has_many :parkings, dependent: :destroy
-  has_many :favorites, dependent: :destroy
-  has_many :favorite_parkings, through: :favorites, source: :parking
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
-  validates :username, presence: true, length: { maximum: 30 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-  validates :email, presence: true, length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+  has_many :parkings, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_parkings, through: :favorites, source: :parking
 
-  # FIXME: 環境変数にしまう。
-  GUEST_EMAIL = 'guest@example.com'.freeze
+  validates :username, presence: true, length: { maximum: 30 }
+  validates :email, presence: true, length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
   # 簡単ログイン用、ユーザー作成
   def self.guest
-    find_or_create_by!(email: GUEST_EMAIL) do |user|
+    find_or_create_by!(email: ENV['GUEST_EMAIL']) do |user|
       user.username = "guest_user"
-      # FIXME: 環境変数にしまう。
-      user.password = "fhjdashfuirhagldjfkajlsf"
+      user.password = ENV['GUEST_PASSWORD']
       user.confirmed_at = Time.zone.now
     end
   end
