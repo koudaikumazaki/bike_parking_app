@@ -33,17 +33,18 @@ class Parking < ApplicationRecord
   has_many :favorites, dependent: :destroy
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
-  # FIXME: ここの行数を少なくする。
-  validates :name, presence: true, length: { maximum: 30 }
-  validates :fee, presence: true, length: { maximum: 20 }
-  validates :price, presence: true, length: { maximum: 20 }
-  validates :address, presence: true, length: { maximum: 100 }
-  validates :capacity, presence: true, length: { maximum: 20 }
+
+  validates :name, :fee, :price, :address, :capacity, :user_id, :latitude, :longitude, :time, presence: true
+  validates :name, length: { maximum: 30 }
+  validates :fee, length: { maximum: 20 }
+  validates :price, length: { maximum: 20 }
+  validates :address, length: { maximum: 100 }
+  validates :capacity, length: { maximum: 20 }
   validates :others, length: { maximum: 150 }
-  validates :user_id, presence: true
-  validates :latitude, presence: true
-  validates :longitude, presence: true
-  validates :time, presence: true, length: { maximum: 20 }
+  validates :time, length: { maximum: 20 }
+
+  scope :approval, -> { where(approval: true) }
+  include Paginate
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
@@ -58,7 +59,4 @@ class Parking < ApplicationRecord
       self.within_bounding_box(box)
     end
   end
-
-  scope :approval, -> { where(approval: true) }
-  include Paginate
 end
