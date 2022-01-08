@@ -56,8 +56,10 @@ Rails.application.configure do
     enable_starttls_auto: true,
     port: 587,
     domain: 'gmail.com',
-    user_name: ENV['GMAIL_ADDRESS'],
-    password: ENV['GMAIL_PASSWORD'],
+    user_name: "portforio.test.user@gmail.com",
+    password: "hasmoauqcpvodlfy",
+    # user_name: ENV['GMAIL_ADDRESS'],
+    # password: ENV['GMAIL_PASSWORD'],
     authentication: :plain
   }
 
