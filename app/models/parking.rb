@@ -33,6 +33,7 @@ class Parking < ApplicationRecord
   has_many :favorites, dependent: :destroy
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
+  # FIXME: ここの行数を少なくする。
   validates :name, presence: true, length: { maximum: 30 }
   validates :fee, presence: true, length: { maximum: 20 }
   validates :price, presence: true, length: { maximum: 20 }
@@ -50,6 +51,7 @@ class Parking < ApplicationRecord
 
   class << self
     def within_box(distance, latitude, longitude)
+      # FIXME: これ不要では？
       distance = distance
       center_point = [latitude, longitude]
       box = Geocoder::Calculations.bounding_box(center_point, distance)

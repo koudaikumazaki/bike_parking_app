@@ -45,12 +45,14 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
+  # FIXME: 環境変数にしまう。
   GUEST_EMAIL = 'guest@example.com'.freeze
 
   # 簡単ログイン用、ユーザー作成
   def self.guest
     find_or_create_by!(email: GUEST_EMAIL) do |user|
       user.username = "guest_user"
+      # FIXME: 環境変数にしまう。
       user.password = "fhjdashfuirhagldjfkajlsf"
       user.confirmed_at = Time.zone.now
     end

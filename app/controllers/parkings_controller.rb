@@ -3,6 +3,7 @@ class ParkingsController < ApplicationController
   before_action :permit_update_delete, only: [:edit, :destroy, :update]
   before_action :permit_show, only: [:show]
 
+  # FIXME: parkingメソッドにまとめる。インスタンス変数使わない。
   def index
     @parkings = Parking.approval.paginate(params).order("updated_at DESC")
   end
@@ -57,6 +58,7 @@ class ParkingsController < ApplicationController
     @parkings = @parkings.approval.paginate(params).order("updated_at DESC")
   end
 
+  # FIXME: クエリビルダーに切り出す。
   def search
     results = Geocoder.search(params[:location])
     if results.empty?
