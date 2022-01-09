@@ -1,0 +1,18 @@
+%h1.text-2xl.sm:text-3xl.text-center.my-10
+  検索結果
+  %br/
+  %span.text-lg.sm:text-2xl (検索ワードの地点から半径１km以内を表示)
+.text-center
+  = render 'search_form'
+- if @parkings.any?
+  %p.text-center 検索結果が見つかりました。
+  .mx-auto{:class => "w-11/12"}
+    .flex.flex-wrap.justify-start.parking_cards.mx-auto
+      - @parkings.each do |parking|
+        .text-center.my-5.mx-5.parking_card
+          .truncate
+            = parking.name
+            = link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img'
+- else
+  %p.text-2xl.sm:text-3xl.mx-auto.my-10.text-center 検索結果は見つかりませんでした。
+= javascript_pack_tag 'getcurrentlocation'

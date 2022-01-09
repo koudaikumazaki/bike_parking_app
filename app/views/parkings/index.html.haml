@@ -1,0 +1,14 @@
+%div
+  = image_tag asset_path("LP仮.jpg")
+%h1.text-2xl.sm:text-3xl.text-center.my-10 駐輪場一覧
+.text-center
+  = render 'search_form'
+.mx-auto{:class => "w-11/12"}
+  .flex.flex-wrap.justify-start.parking_cards.mx-auto
+    - @parkings.each do |parking|
+      .text-center.my-5.mx-5.parking_card
+        .truncate
+          = parking.name
+          = link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img'
+= paginate @parkings
+= javascript_pack_tag 'getcurrentlocation'

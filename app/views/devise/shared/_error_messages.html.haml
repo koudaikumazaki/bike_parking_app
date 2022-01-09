@@ -1,0 +1,5 @@
+- if resource.errors.any?
+  #error_explanation.alert
+    %ul
+      - resource.errors.full_messages.each do |message|
+        %li= message

@@ -1,6 +1,0 @@
-<p><%= @email %>様、初めまして！</p>
-
-<p>現在、あなたのアカウントは仮登録扱いとなっています。</p>
-<p>以下のリンクをクリックして本人認証後、登録完了となります。</p>
-
-<p><%= link_to '本人認証を行う', confirmation_url(@resource, confirmation_token: @token) %></p>
