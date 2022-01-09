@@ -73,7 +73,7 @@ class ParkingsController < ApplicationController
   end
 
   private
-  # 横に並べない。
+
   def parking_params
     params.require(:parking).permit(
       :name,
