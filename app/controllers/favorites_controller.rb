@@ -19,4 +19,7 @@ class FavoritesController < ApplicationController
   def set_parking
     @parking = Parking.find(params[:parking_id])
   end
+  # def set_parking
+  #   @parking = Parking.find(params[:parking_id])
+  # end
 end
