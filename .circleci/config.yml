@@ -22,11 +22,11 @@ jobs:
     docker:
     - image: circleci/ruby:2.6.6-node-browsers
       environment:
-        - RAILS_ENV: 'test'
+        RAILS_ENV: 'test'
     - image: circleci/mysql:5.7
       environment:
-        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-        - MYSQL_ROOT_HOST: '127.0.0.1'
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        MYSQL_ROOT_HOST: '127.0.0.1'
 
     working_directory: ~/app
 
