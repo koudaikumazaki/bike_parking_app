@@ -10,15 +10,14 @@
           %li
             = link_to edit_user_registration_path do
               %span.fas.fa-user ユーザー情報
-          -# パスにする。
           %li
-            = link_to '/parkings/favorites' do
+            = link_to favorites_parkings_path do
               %span.fas.fa-star.white お気に入りの駐輪場
           %li
-            = link_to "/parkings/new" do
+            = link_to new_parking_path do
               %span.fas.fa-map-marker-alt 駐輪場の投稿
           %li
-            = link_to destroy_user_session_path, method: :delete  do
+            = link_to destroy_user_session_path, method: :delete do
               %span.fas.fa-sign-out-alt ログアウト
       - else
         %ul.flex.justify-end.space-x-8.leading-9
@@ -42,13 +41,13 @@
             = link_to edit_user_registration_path do
               %span.fas.fa-user ユーザー情報
           %li
-            = link_to '/parkings/favorites' do
+            = link_to favorites_parkings_path do
               %span.fas.fa-star.white お気に入りの駐輪場
           %li
-            = link_to "/parkings/new" do
+            = link_to new_parking_path do
               %span.fas.fa-map-marker-alt 駐輪場の投稿
           %li
-            = link_to destroy_user_session_path, method: :delete  do
+            = link_to destroy_user_session_path, method: :delete do
               %span.fas.fa-sign-out-alt ログアウト
       - else
         %ul.leading-9.text-center
