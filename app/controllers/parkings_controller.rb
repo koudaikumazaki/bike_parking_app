@@ -1,5 +1,5 @@
 class ParkingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites, :current_spot_search]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites]
   before_action :permit_update_delete, only: [:edit, :destroy, :update]
   before_action :permit_show, only: [:show]
 
@@ -17,6 +17,7 @@ class ParkingsController < ApplicationController
     @parking.user_id = current_user.id
 
     if @parking.save
+      # 改行コード使えば良いのでは？？
       flash[:notice] = "「#{@parking.name}」の情報が投稿されました!"
       flash[:notice] = "管理者に承認されるまでは表示されません。承認されるまでに編集・削除を行う場合にはユーザー情報の、投稿した駐輪場から操作をお願いいたします。"
       redirect_to root_path
@@ -83,7 +84,7 @@ class ParkingsController < ApplicationController
   end
 
   private
-
+  # 横に並べない。
   def parking_params
     params.require(:parking).permit(:name, :address, :fee, :time, :capacity, :others, :image, :image_cache, :latitude, :longitude, :price, :approval)
   end
