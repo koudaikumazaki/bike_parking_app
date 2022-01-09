@@ -1,14 +1,30 @@
-version: 2
+version: 2.1
+
+orbs:
+  slack: circleci/slack@4.4.4
+
+commands:
+  notify_slack_pass:
+    steps:
+    - slack/notify:
+        event: pass
+        template: basic_success_1
+  notify_slack_fail:
+    steps:
+    - slack/notify:
+        event: fail
+        template: basic_fail_1
+
 jobs:
   build:
     docker:
     - image: circleci/ruby:2.6.6-node-browsers
       environment:
-        - RAILS_ENV: 'test'
+        RAILS_ENV: 'test'
     - image: circleci/mysql:5.7
       environment:
-        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-        - MYSQL_ROOT_HOST: '127.0.0.1'
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        MYSQL_ROOT_HOST: '127.0.0.1'
 
     working_directory: ~/app
 
@@ -73,3 +89,6 @@ jobs:
     - add_ssh_keys:
         fingerprints:
           - "e8:14:aa:07:ec:76:ab:13:66:63:08:bc:04:ac:80:b3"
+    
+    - notify_slack_fail
+    - notify_slack_pass
