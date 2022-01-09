@@ -14,8 +14,6 @@ class ParkingsController < ApplicationController
     parking.assign_attributes(parking_params)
     parking.user_id = current_user.id
     if parking.save
-      # 改行コード使えば良いのでは？？
-      flash[:notice] = "「#{parking.name}」の情報が投稿されました!"
       flash[:notice] = "管理者に承認されるまでは表示されません。承認されるまでに編集・削除を行う場合にはユーザー情報の、投稿した駐輪場から操作をお願いいたします。"
       redirect_to root_path
     else
