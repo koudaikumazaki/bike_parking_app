@@ -17,6 +17,8 @@ commands:
 
 jobs:
   build:
+    context:
+      - slack_notifiler
     docker:
     - image: circleci/ruby:2.6.6-node-browsers
       environment:
