@@ -1,0 +1,62 @@
+%body
+  %header.flex.justify-between.px-5.py-5.sticky.top-0
+    %div
+      = link_to root_path, class: "text-2xl sm:text-3xl" do
+        %span.fas.fa-search-location
+          %span.logo_typo bike_parking_search
+    %nav.hidden.lg:block.text-lg
+      - if user_signed_in?
+        %ul.flex.justify-end.space-x-8.leading-9
+          %li
+            = link_to edit_user_registration_path do
+              %span.fas.fa-user ユーザー情報
+          %li
+            = link_to '/parkings/favorites' do
+              %span.fas.fa-star.white お気に入りの駐輪場
+          %li
+            = link_to "/parkings/new" do
+              %span.fas.fa-map-marker-alt 駐輪場の投稿
+          %li
+            = link_to destroy_user_session_path, method: :delete  do
+              %span.fas.fa-sign-out-alt ログアウト
+      - else
+        %ul.flex.justify-end.space-x-8.leading-9
+          %li
+            = link_to new_user_registration_path do
+              %span.fas.fa-user-plus 新規登録
+          %li
+            = link_to new_user_session_path do
+              %span.fas.fa-sign-in-alt ログイン
+          %li
+            = link_to users_guest_sign_in_path, method: :post do
+              %span.fas.fa-sign-in-alt 簡単ログイン
+    %button.lg:hidden
+      %span.fas.fa-bars.fa-2x.open
+  .sp_navi.fixed.inset-0
+    %span.fas.fa-times.fa-2x.close.absolute
+    %nav.mt-20.text-2xl.lg:text-3xl
+      - if user_signed_in?
+        %ul.leading-9.text-center
+          %li
+            = link_to edit_user_registration_path do
+              %span.fas.fa-user ユーザー情報
+          %li
+            = link_to '/parkings/favorites' do
+              %span.fas.fa-star.white お気に入りの駐輪場
+          %li
+            = link_to "/parkings/new" do
+              %span.fas.fa-map-marker-alt 駐輪場の投稿
+          %li
+            = link_to destroy_user_session_path, method: :delete  do
+              %span.fas.fa-sign-out-alt ログアウト
+      - else
+        %ul.leading-9.text-center
+          %li
+            = link_to new_user_registration_path do
+              %span.fas.fa-user-plus 新規登録
+          %li
+            = link_to new_user_session_path do
+              %span.fas.fa-sign-in-alt ログイン
+          %li
+            = link_to users_guest_sign_in_path, method: :post do
+              %span.fas.fa-sign-in-alt 簡単ログイン

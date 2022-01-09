@@ -1,0 +1,9 @@
+%h2.text-2xl.sm:text-3xl.my-10.text-center お気に入りの駐輪場
+.mx-auto{:class => "w-11/12"}
+  .flex.flex-wrap.justify-start.parking_cards.mx-auto
+    - @favorite_parkings.each do |parking|
+      .text-center.my-5.mx-5.parking_card
+        .truncate
+          = parking.name
+          = link_to image_tag(parking.image.thumb.url), parking, id: "detail-" + parking.id.to_s, class: 'my-5 parking_img'
+= paginate @favorite_parkings

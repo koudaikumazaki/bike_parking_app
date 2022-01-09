@@ -1,0 +1,67 @@
+= form_for @parking do |f|
+  .text-center
+    .text-left.mx-auto.my-10{:class => "w-11/12 sm:w-2/3"}
+      .input-field.my-5
+        %h2.align-text-top
+          位置情報の登録
+          %span.need 必須
+        = f.text_field :address, class: "block mx-auto form w-full", id: "address", placeholder: "地名、施設名を入力するか、地図をクリックして下さい。"
+        .text-center.my-5
+          %a.button{:onclick => "codeAddress()"} 地図検索
+          %a#del.button.marker-delete.right{:onclick => "deleteMarker()"}
+            %i.fas.fa-map-marker-alt.fas-2x{:style => "color:red"}>
+            削除
+    #map.my-5
+      = render "map"
+    .text-left.mx-auto.my-10{:class => "w-11/12 sm:w-2/3"}
+      %div
+        = f.hidden_field :latitude
+        = f.hidden_field :longitude
+      .my-5
+        %h2.align-text-top
+          駐輪場名
+          %span.need 必須
+        = f.text_field :name, placeholder: '駐輪場名を入力してください。', class: 'border form w-full'
+      .my-5
+        %h2
+          駐輪料金
+          %span.need 必須
+        = f.number_field :fee, placeholder: '半角数字で入力してください。', class: 'border form w-full'
+      .my-5
+        %h2
+          駐輪時間
+          %span.need 必須
+        = f.number_field :time, placeholder: '半角数字で入力してください。', class: 'border form w-full'
+      .my-5
+        %h2
+          １時間当たりの駐輪料金
+          %span.need 必須
+        = f.number_field :price, placeholder: '半角数字で入力してください。', class: 'border form w-full'
+      .my-5
+        %h2
+          収容台数
+          %span.need 必須
+        = f.number_field :capacity, placeholder: '半角数字で入力してください。', class: 'border form w-full'
+      .my-5
+        %h2 その他備考
+        = f.text_field :others, placeholder: 'その他備考を入力してください。', class: 'border form w-full'
+      .my-5
+        %h2 駐輪場の画像
+        %p.text-sm.sm:text-base (未設定の場合は下の画像がセットされます。)
+        = f.file_field :image, onchange: "previewImage(preview)", class: "w-full my-5"
+        = f.hidden_field :image_cache
+        = image_tag @parking.image.url, id: "preview"
+      = f.submit '投稿', class: 'my-5 button w-full'
+:javascript
+  function previewImage(id) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      preview.src = reader.result;
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "";
+    }
+  }

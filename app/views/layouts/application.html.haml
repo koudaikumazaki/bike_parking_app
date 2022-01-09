@@ -1,0 +1,21 @@
+!!!
+%html.w-full
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title バイクの駐輪場検索アプリ bike_parking_search
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = include_gon
+    %link{:href => "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css", :rel => "stylesheet"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body.font-mono.text-base.sm:text-xl
+    .loading_zone
+      .spinner
+    = render  "layouts/header"
+    %div
+      %p.notice= notice
+      %p.alert= alert
+      = yield
+    = render  "layouts/footer"

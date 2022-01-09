@@ -1,0 +1,12 @@
+.text-center
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, role: "form" }) do |f|
+    = render "devise/shared/error_messages", resource: resource
+    %h2.text-2xl.sm:text-3xl.my-10 パスワードの再設定
+    .text-left.mx-auto.my-10{:class => "w-11/12 sm:w-1/2"}
+      %div
+        = f.label :email, "メールアドレス"
+        %br/
+        = f.email_field :email, class: 'border form w-full', placeholder: "メールアドレスを入力してください。", autofocus: true, autocomplete: "email"
+      .actions.my-5
+        = f.submit "パスワード再設定用のメールを送る", class: 'button w-full'
+= render "devise/shared/links"
