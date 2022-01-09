@@ -50,6 +50,7 @@ group :development do
   gem 'capistrano-rbenv-vars', '~> 0.1'
   gem 'capistrano3-puma', '4.0.0'
   gem 'bullet'
+  gem 'haml_lint'
 end
 
 group :test do
