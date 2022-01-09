@@ -27,18 +27,21 @@
         </div>
       </div>
 
-
       <div class="my-5">
         <h3>変更を保存する</h2>
         <%= f.password_field :current_password, autocomplete: "current-password", class: "border form w-full", placeholder: "現在のパスワード" %>
       </div>
       <%= f.submit "更新", class: "button w-full" %>
-      
-      <div class="my-20">
-        <h2 class="text-center text-xl sm:text-2xl my-5">アカウントを削除したい方</h2>
-        <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "button w-full" %></p>
-      </div>
     </div>
+
+    <%
+=begin%>
+ <div class="my-20">
+      <h2 class="text-center text-xl sm:text-2xl my-5">アカウントを削除したい方</h2>
+      <p><%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "button w-full" %></p>
+    </div> 
+<%
+=end%>
     
   <% end %>
 
