@@ -75,7 +75,20 @@ class ParkingsController < ApplicationController
   private
   # 横に並べない。
   def parking_params
-    params.require(:parking).permit(:name, :address, :fee, :time, :capacity, :others, :image, :image_cache, :latitude, :longitude, :price, :approval)
+    params.require(:parking).permit(
+      :name,
+      :address,
+      :fee,
+      :time,
+      :capacity,
+      :others,
+      :image,
+      :image_cache,
+      :latitude,
+      :longitude,
+      :price,
+      :approval
+    )
   end
 
   def parking
