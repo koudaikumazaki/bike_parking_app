@@ -26,11 +26,9 @@
           変更を保存する
           \#{f.password_field :current_password, autocomplete: "current-password", class: "border form w-full", placeholder: "現在のパスワード"}
       = f.submit "更新", class: "button w-full"
-    - =begin
-    .my-20
-      %h2.text-center.text-xl.sm:text-2xl.my-5 アカウントを削除したい方
-      %p= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "button w-full"
-    - =end
+    -# .my-20
+    -#   %h2.text-center.text-xl.sm:text-2xl.my-5 アカウントを削除したい方
+    -#   %p= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？" }, method: :delete, class: "button w-full"
   .my-10
     %h2.text-xl.sm:text-2xl 投稿した駐輪場
     .mx-auto{:class => "w-11/12"}
