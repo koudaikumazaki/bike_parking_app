@@ -58,5 +58,4 @@
         }
     });
   }
-%script{:src => "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_KEY']}=initMap"}
--# %script{:src => "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.googleapikey}=initMap"}
+%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['GOOGLE_API_KEY']}&callback=initMap"}
