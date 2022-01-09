@@ -96,16 +96,20 @@ class ParkingsController < ApplicationController
   end
 
   def permit_update_delete
-    unless parking.user_id == current_user.id
+    unless posted_parking?
       flash[:notice] = "投稿者以外の編集・削除はできません。"
       redirect_to root_path
     end
   end
 
   def permit_show
-    unless user_signed_in? && parking.user_id == current_user.id || parking.approval == true
+    unless user_signed_in? && posted_parking? || parking.approval == true
       flash[:notice] = '投稿が未承認のため、閲覧できません。'
       redirect_to root_path
     end
+  end
+
+  def posted_parking?
+    parking.user_id == current_user.id
   end
 end
