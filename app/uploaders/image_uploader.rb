@@ -2,7 +2,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # FIXME: 条件を1つにまとめる。
-  if Rails.env.development?
+  sif Rails.env.development?
     storage :file
   elsif Rails.env.test?
     storage :file
