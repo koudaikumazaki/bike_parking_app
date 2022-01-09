@@ -38,6 +38,7 @@ class Parking < ApplicationRecord
 
   validates :name, :fee, :price, :address, :capacity, :user_id, :latitude, :longitude, :time, presence: true
   validates :name, length: { maximum: 30 }
+  # 整数カラムなのに、lengthで指定しているのが違和感。。
   validates :fee, length: { maximum: 20 }
   validates :price, length: { maximum: 20 }
   validates :address, length: { maximum: 100 }

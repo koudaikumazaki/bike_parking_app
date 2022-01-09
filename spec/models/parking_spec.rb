@@ -3,49 +3,25 @@ require 'rails_helper'
 RSpec.describe Parking, type: :model do
   let(:parking) { create(:parking) }
 
-  it "駐輪場名、駐輪料金、駐輪台数、投稿者名、緯度、経度が存在すれば投稿できる" do
-    parking.others = nil
-    expect(parking).to be_valid
-  end
-
-  it "駐輪場名が存在しない場合投稿が失敗する" do
-    parking.name = nil
-    parking.valid?
-    expect(parking.errors[:name]).to include("を入力してください")
-  end
-
-  it "駐輪場名が30文字以下の場合投稿できる" do
-    parking.name = 'a' * 30
-    expect(parking).to be_valid
-  end
-
-  it "駐輪場名が31文字以上の場合投稿が失敗する" do
-    parking.name = 'a' * 31
-    parking.valid?
-    expect(parking.errors[:name]).to include("は30文字以内で入力してください")
-  end
-
-  it "所在地が存在しない場合投稿が失敗する" do
-    parking.address = nil
-    parking.valid?
-    expect(parking.errors[:address]).to include("を入力してください")
-  end
-
-  it "所在地が100文字以下の場合投稿できる" do
-    parking.address = 'a' * 100
-    expect(parking).to be_valid
-  end
-
-  it "所在地が101文字以上の場合投稿が失敗する" do
-    parking.address = 'a' * 101
-    parking.valid?
-    expect(parking.errors[:address]).to include("は100文字以内で入力してください")
-  end
-
-  it "駐輪料金が存在しない場合投稿が失敗する" do
-    parking.fee = nil
-    parking.valid?
-    expect(parking.errors[:fee]).to include("を入力してください")
+  describe "#valid" do
+    it do
+      is_expected.to validate_presence_of(:name)
+      is_expected.to validate_presence_of(:address)
+      is_expected.to validate_presence_of(:fee)
+      is_expected.to validate_presence_of(:price)
+      is_expected.to validate_presence_of(:capacity)
+      is_expected.to validate_presence_of(:user_id)
+      is_expected.to validate_presence_of(:latitude)
+      is_expected.to validate_presence_of(:longitude)
+      is_expected.to validate_presence_of(:time)
+      is_expected.to validate_length_of(:name).is_at_most(30)
+      # is_expected.to validate_length_of(:fee).is_at_most(20)
+      # is_expected.to validate_length_of(:price).is_at_most(20)
+      is_expected.to validate_length_of(:address).is_at_most(100)
+      # is_expected.to validate_length_of(:capacity).is_at_most(20)
+      is_expected.to validate_length_of(:others).is_at_most(150)
+      # is_expected.to validate_length_of(:time).is_at_most(20)
+    end
   end
 
   it "駐輪料金が20文字以下の場合投稿できる" do
@@ -59,12 +35,6 @@ RSpec.describe Parking, type: :model do
     expect(parking.errors[:fee]).to include("は20文字以内で入力してください")
   end
 
-  it "駐輪台数が存在しない場合投稿が失敗する" do
-    parking.capacity = nil
-    parking.valid?
-    expect(parking.errors[:capacity]).to include("を入力してください")
-  end
-
   it "駐輪台数が20文字以下の場合投稿できる" do
     parking.capacity = '1' * 20
     expect(parking).to be_valid
@@ -74,41 +44,6 @@ RSpec.describe Parking, type: :model do
     parking.capacity = '1' * 21
     parking.valid?
     expect(parking.errors[:capacity]).to include("は20文字以内で入力してください")
-  end
-
-  it "投稿者名が存在しない場合投稿が失敗する" do
-    parking.user_id = nil
-    parking.valid?
-    expect(parking.errors[:user_id]).to include("を入力してください")
-  end
-
-  it "備考欄が150文字以下の場合投稿できる" do
-    parking.others = 'a' * 150
-    expect(parking).to be_valid
-  end
-
-  it "備考欄が151文字以上の場合投稿が失敗する" do
-    parking.others = 'a' * 151
-    parking.valid?
-    expect(parking.errors[:others]).to include("は150文字以内で入力してください")
-  end
-
-  it '緯度が空欄の場合、投稿が失敗する' do
-    parking.latitude = nil
-    parking.valid?
-    expect(parking.errors[:latitude]).to include("を入力してください")
-  end
-
-  it '経度が空欄の場合、投稿が失敗する' do
-    parking.longitude = nil
-    parking.valid?
-    expect(parking.errors[:longitude]).to include("を入力してください")
-  end
-
-  it '単位時間が空欄の場合、投稿が失敗する' do
-    parking.time = nil
-    parking.valid?
-    expect(parking.errors[:time]).to include("を入力してください")
   end
 
   it "単位時間が20文字以下の場合投稿できる" do
@@ -122,13 +57,7 @@ RSpec.describe Parking, type: :model do
     expect(parking.errors[:time]).to include("は20文字以内で入力してください")
   end
 
-   it '１時間当たりの駐輪料金が空欄の場合、投稿が失敗する' do
-     parking.price = nil
-     parking.valid?
-     expect(parking.errors[:price]).to include("を入力してください")
-   end
-
-   it "１時間当たりの駐輪料金が20文字以内の場合、投稿が失敗する" do
+  it "１時間当たりの駐輪料金が20文字以内の場合、投稿が失敗する" do
     parking.time = '1' * 20
     expect(parking).to be_valid
   end
