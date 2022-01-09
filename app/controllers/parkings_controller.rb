@@ -1,8 +1,9 @@
 class ParkingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites]
   before_action :permit_update_delete, only: [:edit, :destroy, :update]
-  before_action :permit_show, only: [:show]
+  before_action :permit_show, only: :show
   before_action :parking, only: [:new, :create, :show, :edit, :update, :destroy]
+  before_action :favorite_parkings, only: :favorites
 
   def index
     @parkings = Parking.approval.paginate(params).order("updated_at DESC")
@@ -43,10 +44,7 @@ class ParkingsController < ApplicationController
     redirect_to root_path
   end
 
-  def favorites
-    @parkings = current_user.favorite_parkings
-    @parkings = @parkings.approval.paginate(params).order("updated_at DESC")
-  end
+  def favorites; end
 
   # FIXME: クエリビルダーに切り出す。
   def search
@@ -93,6 +91,13 @@ class ParkingsController < ApplicationController
 
   def parking
     @parking ||= Parking.find_or_initialize_by(id: params[:id])
+  end
+
+  def favorite_parkings
+    @favorite_parkings ||= current_user.favorite_parkings
+                                       .approval
+                                       .paginate(params)
+                                       .order("updated_at DESC")
   end
 
   def permit_update_delete
