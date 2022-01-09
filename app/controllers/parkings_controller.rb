@@ -2,14 +2,13 @@ class ParkingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites]
   before_action :permit_update_delete, only: [:edit, :destroy, :update]
   before_action :permit_show, only: [:show]
+  before_action :parking, only: [:new, :create, :show, :edit, :update, :destroy]
 
   def index
     @parkings = Parking.approval.paginate(params).order("updated_at DESC")
   end
 
-  def new
-    parking
-  end
+  def new; end
 
   def create
     parking.assign_attributes(parking_params)
@@ -29,9 +28,7 @@ class ParkingsController < ApplicationController
     gon.longitude = parking.longitude
   end
 
-  def edit
-    parking
-  end
+  def edit; end
 
   def update
     if parking.update(parking_params)
@@ -88,7 +85,6 @@ class ParkingsController < ApplicationController
   end
 
   def permit_update_delete
-    parking = Parking.find(params[:id])
     unless parking.user_id == current_user.id
       flash[:notice] = "投稿者以外の編集・削除はできません。"
       redirect_to root_path
@@ -96,8 +92,7 @@ class ParkingsController < ApplicationController
   end
 
   def permit_show
-    @parking = Parking.find(params[:id])
-    unless user_signed_in? && @parking.user_id == current_user.id || @parking.approval == true
+    unless user_signed_in? && parking.user_id == current_user.id || parking.approval == true
       flash[:notice] = '投稿が未承認のため、閲覧できません。'
       redirect_to root_path
     end
