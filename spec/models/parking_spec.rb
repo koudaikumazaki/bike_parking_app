@@ -15,56 +15,20 @@ RSpec.describe Parking, type: :model do
       is_expected.to validate_presence_of(:longitude)
       is_expected.to validate_presence_of(:time)
       is_expected.to validate_length_of(:name).is_at_most(30)
-      # is_expected.to validate_length_of(:fee).is_at_most(20)
-      # is_expected.to validate_length_of(:price).is_at_most(20)
+      is_expected.to validate_numericality_of(:fee).only_integer
+      is_expected.to validate_numericality_of(:price).only_integer
+      is_expected.to validate_numericality_of(:capacity).only_integer
+      is_expected.to validate_numericality_of(:time).only_integer
       is_expected.to validate_length_of(:address).is_at_most(100)
-      # is_expected.to validate_length_of(:capacity).is_at_most(20)
       is_expected.to validate_length_of(:others).is_at_most(150)
-      # is_expected.to validate_length_of(:time).is_at_most(20)
     end
   end
-
-  it "駐輪料金が20文字以下の場合投稿できる" do
-    parking.fee = '1' * 20
-    expect(parking).to be_valid
+  describe "#favorited_by(user)?" do
+    context "favarite exists" do
+    end
+    context "favarite not exists" do
+    end
   end
-
-  it "駐輪料金が21文字以上の場合投稿が失敗する" do
-    parking.fee = '1' * 21
-    parking.valid?
-    expect(parking.errors[:fee]).to include("は20文字以内で入力してください")
-  end
-
-  it "駐輪台数が20文字以下の場合投稿できる" do
-    parking.capacity = '1' * 20
-    expect(parking).to be_valid
-  end
-
-  it "駐輪台数が21文字以上の場合投稿が失敗する" do
-    parking.capacity = '1' * 21
-    parking.valid?
-    expect(parking.errors[:capacity]).to include("は20文字以内で入力してください")
-  end
-
-  it "単位時間が20文字以下の場合投稿できる" do
-    parking.time = '1' * 20
-    expect(parking).to be_valid
-  end
-
-  it "単位時間が21文字以上の場合投稿が失敗する" do
-    parking.time = '1' * 21
-    parking.valid?
-    expect(parking.errors[:time]).to include("は20文字以内で入力してください")
-  end
-
-  it "１時間当たりの駐輪料金が20文字以内の場合、投稿が失敗する" do
-    parking.time = '1' * 20
-    expect(parking).to be_valid
-  end
-
-  it "１時間当たりの駐輪料金21文字以上の場合、投稿が失敗する" do
-    parking.time = '1' * 21
-    parking.valid?
-    expect(parking.errors[:time]).to include("は20文字以内で入力してください")
+  describe "#self.within_box" do
   end
 end

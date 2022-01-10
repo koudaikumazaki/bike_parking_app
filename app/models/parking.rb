@@ -1,31 +1,3 @@
-# == Schema Information
-#
-# Table name: parkings
-#
-#  id         :bigint           not null, primary key
-#  address    :text(65535)
-#  approval   :boolean          default(FALSE)
-#  capacity   :integer
-#  fee        :integer
-#  image      :string(191)
-#  latitude   :float(24)
-#  longitude  :float(24)
-#  name       :text(65535)
-#  others     :text(65535)
-#  price      :integer
-#  time       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint
-#
-# Indexes
-#
-#  index_parkings_on_user_id  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 class Parking < ApplicationRecord
   include Paginate
   mount_uploader :image, ImageUploader
@@ -38,13 +10,12 @@ class Parking < ApplicationRecord
 
   validates :name, :fee, :price, :address, :capacity, :user_id, :latitude, :longitude, :time, presence: true
   validates :name, length: { maximum: 30 }
-  # 整数カラムなのに、lengthで指定しているのが違和感。。
-  validates :fee, length: { maximum: 20 }
-  validates :price, length: { maximum: 20 }
+  validates :fee, numericality: { only_integer: true }
+  validates :price, numericality: { only_integer: true }
   validates :address, length: { maximum: 100 }
-  validates :capacity, length: { maximum: 20 }
+  validates :capacity, numericality: { only_integer: true }
   validates :others, length: { maximum: 150 }
-  validates :time, length: { maximum: 20 }
+  validates :time, numericality: { only_integer: true }
 
   scope :approval, -> { where(approval: true) }
 
