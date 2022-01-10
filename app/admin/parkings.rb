@@ -5,12 +5,12 @@ ActiveAdmin.register Parking do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :address, :user_id, :fee, :capacity, :others, :image, :latitude, :longitude, :time, :price, :approval
+  permit_params :name, :address, :user_id, :fee, :capacity, :others, :image, :latitude, :longitude, :time, :fee_per_hour, :approval
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :address, :user_id, :fee, :capacity, :others, :image, :latitude, :longitude, :time, :price]
+  #   permitted = [:name, :address, :user_id, :fee, :capacity, :others, :image, :latitude, :longitude, :time, :fee_per_hour]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

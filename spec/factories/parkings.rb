@@ -8,7 +8,7 @@ FactoryBot.define do
     others   { '特になし' }
     latitude { '35.6812362' }
     longitude { '139.7649361' }
-    price { 400 }
+    fee_per_hour { 400 }
     approval { true }
     association :user
   end
