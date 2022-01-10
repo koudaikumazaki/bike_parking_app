@@ -31,6 +31,7 @@ gem 'activeadmin'
 gem 'spring'
 gem 'env'
 gem 'haml-rails'
+gem 'ridgepole'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

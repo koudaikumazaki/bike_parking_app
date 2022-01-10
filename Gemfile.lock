@@ -144,6 +144,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    diffy (3.4.0)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -383,6 +384,9 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
+    ridgepole (1.0.0)
+      activerecord (>= 5.1, < 7.1)
+      diffy
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -535,6 +539,7 @@ DEPENDENCIES
   rails (~> 6.1.0)
   rails-controller-testing
   rails_12factor
+  ridgepole
   rspec-rails
   rspec_junit_formatter
   rubocop
