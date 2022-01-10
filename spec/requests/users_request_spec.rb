@@ -5,13 +5,13 @@ RSpec.describe "UserAuthentications", type: :request do
   # guest_user用のfactory作ろうとしたが、uninitialized constant GuestUserと出てきたのでやめた。
   let(:user) { create(:user) }
   let(:user_params) { attributes_for(:user) }
-  let(:invalid_user_params) { attributes_for(:user, username: "") }
+  let(:invalid_user_params) { attributes_for(:user, name: "") }
   let(:guest_user) { create(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
   let(:guest_user_params) { attributes_for(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
-  let(:new_user_params) { attributes_for(:user, username: "after_update", current_password: 'password') }
-  let(:invalid_new_user_params) { attributes_for(:user, username: nil, current_password: 'password') }
+  let(:new_user_params) { attributes_for(:user, name: "after_update", current_password: 'password') }
+  let(:invalid_new_user_params) { attributes_for(:user, name: nil, current_password: 'password') }
   let(:new_guest_user_params) do
-    attributes_for(:user, username: "after_update", email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf",
+    attributes_for(:user, name: "after_update", email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf",
                           current_password: "fhjdashfuirhagldjfkajlsf")
   end
 
@@ -132,14 +132,14 @@ RSpec.describe "UserAuthentications", type: :request do
         it "更新が成功する" do
           patch user_registration_path, params: { user: new_user_params }
           user.reload
-          expect(user.username).to eq "after_update"
+          expect(user.name).to eq "after_update"
         end
       end
       context "値が無効の場合" do
         it "更新が失敗する" do
           patch user_registration_path, params: { user: invalid_new_user_params }
           user.reload
-          expect(user.username).to eq "test_user"
+          expect(user.name).to eq "test_user"
         end
         it "編集画面を読み込む" do
           patch user_registration_path, params: { user: invalid_new_user_params }
@@ -156,7 +156,7 @@ RSpec.describe "UserAuthentications", type: :request do
       it "編集が失敗する" do
         patch user_registration_path, params: { user: new_guest_user_params }
         guest_user.reload
-        expect(user.username).to eq "test_user"
+        expect(user.name).to eq "test_user"
       end
       it "トップページにリダイレクトされる" do
         patch user_registration_path, params: { user: new_guest_user_params }

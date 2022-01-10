@@ -18,7 +18,7 @@ ja:
         sign_in_count: ログイン回数
         created_at: 作成日時
       user:
-        username: ユーザー名
+        name: ユーザー名
       parking:
         name: 駐輪場名
         address: 住所

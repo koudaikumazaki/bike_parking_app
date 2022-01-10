@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe "#valid" do
     it do
-      is_expected.to validate_presence_of(:username)
+      is_expected.to validate_presence_of(:name)
       is_expected.to validate_presence_of(:email)
-      is_expected.to validate_length_of(:username).is_at_most(30)
+      is_expected.to validate_length_of(:name).is_at_most(30)
       is_expected.to validate_length_of(:email).is_at_most(100)
       is_expected.to validate_uniqueness_of(:email).case_insensitive
     end
