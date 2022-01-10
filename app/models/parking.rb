@@ -19,8 +19,8 @@ class Parking < ApplicationRecord
 
   scope :approval, -> { where(approval: true) }
 
-  def favorited_by?(user)
-    favorites.where(user_id: user.id).exists?
+  def favorited_by?(current_user)
+    favorites.where(user_id: current_user.id).exists?
   end
 
   def self.within_box(distance, latitude, longitude)

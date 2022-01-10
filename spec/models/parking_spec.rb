@@ -24,9 +24,15 @@ RSpec.describe Parking, type: :model do
     end
   end
   describe "#favorited_by(user)?" do
+    let(:parking) { create(:parking) }
+    let(:user) { create(:user) }
+    subject { parking.favorited_by?(user) }
     context "favarite exists" do
+      it { is_expected.to be_falsey }
     end
     context "favarite not exists" do
+      let!(:favorite) { create(:favorite, user_id: user.id, parking_id: parking.id) }
+      it { is_expected.to be_truthy }
     end
   end
   describe "#self.within_box" do
