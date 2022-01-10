@@ -49,7 +49,7 @@ create_table "parkings", charset: "utf8mb4", force: :cascade do |t|
   t.float "latitude"
   t.float "longitude"
   t.integer "time"
-  t.integer "price"
+  t.integer "fee_per_hour"
   t.boolean "approval", default: false
   t.index ["user_id"], name: "index_parkings_on_user_id"
 end
