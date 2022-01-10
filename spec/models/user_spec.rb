@@ -30,6 +30,15 @@ RSpec.describe User, type: :model do
     end
   end
   describe "#self.guest" do
-    
+    subject { User.guest }
+    context "guest_user not exists" do
+      it { expect { subject }.to change { User.count }.by(1) }
+    end
+    context "guest_user already exists" do
+      before do
+        create(:user,  email: ENV['GUEST_EMAIL'])
+      end
+      it { expect { subject }.to_not change { User.count } }
+    end
   end
 end
