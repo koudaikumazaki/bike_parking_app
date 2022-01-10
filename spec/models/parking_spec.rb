@@ -36,5 +36,16 @@ RSpec.describe Parking, type: :model do
     end
   end
   describe "#self.within_box" do
+    let(:distance) { 1 }
+    let(:latitude) { '35.6812362' }
+    let(:longitude) { '139.7649361' }
+    subject { Parking.within_box(distance, latitude, longitude) }
+    context "exists parking" do
+      let!(:parking) { create(:parking) }
+      it { is_expected.to match_array([parking]) }
+    end
+    context "not exists parking" do
+      it { is_expected.to be_empty }
+    end
   end
 end
