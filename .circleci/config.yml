@@ -62,7 +62,7 @@ jobs:
         name: Databasesetup
         command: |
            bundle exec rake db:create
-           bundle exec rake db:schema:load
+           bundle exec ridgepole -c config/database.yml -E test --apply -f db/Schemafile
   
     - run: bundle exec bin/webpack
 
