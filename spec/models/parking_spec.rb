@@ -23,6 +23,12 @@ RSpec.describe Parking, type: :model do
       is_expected.to validate_length_of(:others).is_at_most(150)
     end
   end
+  describe "#associations" do
+    it do
+      is_expected.to have_many(:favorites)
+      is_expected.to belong_to(:user)
+    end
+  end
   describe "#favorited_by(user)?" do
     let(:parking) { create(:parking) }
     let(:user) { create(:user) }
