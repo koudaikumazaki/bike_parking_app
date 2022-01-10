@@ -46,31 +46,24 @@ class ParkingsController < ApplicationController
 
   def favorites; end
 
-  # FIXME: クエリビルダーに切り出す。
   def search
-    results = Geocoder.search(params[:location])
+    results ||= parking_query.search
     if results.empty?
-      flash[:notice] = "検索フォームに文字が入っていないか、位置情報を取得できる値でない可能性があります。"
       redirect_to root_path
     else
-      selection = params[:keyword]
-      latitude = results.first.coordinates[0]
-      longitude = results.first.coordinates[1]
-      parkings = Parking.approval.within_box(1, latitude, longitude)
-      case selection
-      when 'near'
-        @parkings = Parking.approval.near(results.first.coordinates, 1).paginate(params)
-      when 'inexpensive'
-        @parkings = parkings.order(fee_per_hour: :asc).paginate(params)
-      when 'capacity'
-        @parkings = parkings.order(capacity: :desc).paginate(params)
-      else
-        @parkings = parkings.paginate(params)
-      end
+      @parkings ||= results.paginate(params).order("updated_at DESC")
     end
   end
 
   private
+
+  def parking_query
+    @parking_query ||= ::Parkings::QueryBuilder.new(search_params)
+  end
+
+  def search_params
+    params.permit(::Parkings::QueryBuilder::SEARCH_PARAMS)
+  end
 
   def parking_params
     params.require(:parking).permit(
