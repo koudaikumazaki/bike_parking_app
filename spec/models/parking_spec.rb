@@ -31,7 +31,9 @@ RSpec.describe Parking, type: :model do
       it { is_expected.to be_falsey }
     end
     context "favarite not exists" do
-      let!(:favorite) { create(:favorite, user_id: user.id, parking_id: parking.id) }
+      before do
+        create(:favorite, user_id: user.id, parking_id: parking.id)
+      end
       it { is_expected.to be_truthy }
     end
   end
