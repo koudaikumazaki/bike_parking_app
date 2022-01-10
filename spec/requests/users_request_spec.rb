@@ -2,16 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "UserAuthentications", type: :request do
 
-  # guest_user用のfactory作ろうとしたが、uninitialized constant GuestUserと出てきたのでやめた。
   let(:user) { create(:user) }
   let(:user_params) { attributes_for(:user) }
   let(:invalid_user_params) { attributes_for(:user, name: "") }
-  let(:guest_user) { create(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
-  let(:guest_user_params) { attributes_for(:user, email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf") }
+  let(:guest_user) { create(:user, email: ENV['GUEST_EMAIL'], password: ENV['GUEST_PASSWORD']) }
+  let(:guest_user_params) { attributes_for(:user, email: ENV['GUEST_EMAIL'], password: ENV['GUEST_PASSWORD']) }
   let(:new_user_params) { attributes_for(:user, name: "after_update", current_password: 'password') }
   let(:invalid_new_user_params) { attributes_for(:user, name: nil, current_password: 'password') }
   let(:new_guest_user_params) do
-    attributes_for(:user, name: "after_update", email: "guest@example.com", password: "fhjdashfuirhagldjfkajlsf",
+    attributes_for(:user, name: "after_update", email: ENV['GUEST_EMAIL'], password: ENV['GUEST_PASSWORD'],
                           current_password: "fhjdashfuirhagldjfkajlsf")
   end
 
