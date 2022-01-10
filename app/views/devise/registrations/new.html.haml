@@ -3,9 +3,9 @@
   %h2.text-center.text-2xl.sm:text-3xl.my-10 新規登録
   .text-left.mx-auto.my-10{:class => "w-11/12 sm:w-1/2"}
     .my-5
-      = f.label :username, "ユーザー名"
+      = f.label :name, "ユーザー名"
       %br/
-      = f.text_field :username, class: "border form w-full", placeholder: '30文字以内で入力してください。'
+      = f.text_field :name, class: "border form w-full", placeholder: '30文字以内で入力してください。'
     .my-5
       = f.label :email, "メールアドレス"
       %br/

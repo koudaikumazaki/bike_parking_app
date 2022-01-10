@@ -20,7 +20,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  unconfirmed_email      :string(191)
 #  unlock_token           :string(191)
-#  username               :string(191)
+#  name               :string(191)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -33,7 +33,7 @@
 #
 FactoryBot.define do
   factory :user do
-    username { "test_user" }
+    name { "test_user" }
     sequence(:email) { |n| "tester#{n}@example.com" }
     password { "password" }
     password_confirmation { password }
