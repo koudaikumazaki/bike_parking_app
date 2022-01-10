@@ -25,7 +25,7 @@ RSpec.describe Parking, type: :model do
   end
   describe "#associations" do
     it do
-      is_expected.to have_many(:favorites)
+      is_expected.to have_many(:favorites).dependent(:destroy)
       is_expected.to belong_to(:user)
     end
   end
