@@ -261,7 +261,7 @@ RSpec.describe "Parkings", type: :request do
             expect(response.body).to include '検索結果が見つかりました。'
           end
         end
-        context '検索に引っ掛からなかった場合' do
+        xcontext '検索に引っ掛からなかった場合' do
           it '検索結果はなかったと表示される' do
             geocoder_mock = double('Geocoder')
             geocoder_mock_first = double('Geocoder_first')
