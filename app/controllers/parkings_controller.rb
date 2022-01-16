@@ -61,7 +61,7 @@ class ParkingsController < ApplicationController
       when 'near'
         @parkings = Parking.approval.near(results.first.coordinates, 1).paginate(params)
       when 'inexpensive'
-        @parkings = parkings.order(fee_per_hour: :asc).paginate(params)
+        @parkings = parkings.order(price: :asc).paginate(params)
       when 'capacity'
         @parkings = parkings.order(capacity: :desc).paginate(params)
       else
@@ -84,7 +84,7 @@ class ParkingsController < ApplicationController
       :image_cache,
       :latitude,
       :longitude,
-      :fee_per_hour,
+      :price,
       :approval
     )
   end

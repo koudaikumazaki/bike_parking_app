@@ -8,10 +8,10 @@ class Parking < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
 
-  validates :name, :fee, :fee_per_hour, :address, :capacity, :user_id, :latitude, :longitude, :time, presence: true
+  validates :name, :fee, :price, :address, :capacity, :user_id, :latitude, :longitude, :time, presence: true
   validates :name, length: { maximum: 30 }
   validates :fee, numericality: { only_integer: true }
-  validates :fee_per_hour, numericality: { only_integer: true }
+  validates :price, numericality: { only_integer: true }
   validates :address, length: { maximum: 100 }
   validates :capacity, numericality: { only_integer: true }
   validates :others, length: { maximum: 150 }

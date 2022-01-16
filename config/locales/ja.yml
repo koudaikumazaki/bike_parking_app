@@ -23,7 +23,7 @@ ja:
         name: 駐輪場名
         address: 住所
         fee: 駐輪料金
-        fee_per_hour: 1時間当たりの駐輪料金
+        price: 1時間当たりの駐輪料金
         time: 駐輪時間
         capacity: 収容台数
         longitude: 経度

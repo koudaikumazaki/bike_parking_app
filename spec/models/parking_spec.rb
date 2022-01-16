@@ -8,7 +8,7 @@ RSpec.describe Parking, type: :model do
       is_expected.to validate_presence_of(:name)
       is_expected.to validate_presence_of(:address)
       is_expected.to validate_presence_of(:fee)
-      is_expected.to validate_presence_of(:fee_per_hour)
+      is_expected.to validate_presence_of(:price)
       is_expected.to validate_presence_of(:capacity)
       is_expected.to validate_presence_of(:user_id)
       is_expected.to validate_presence_of(:latitude)
@@ -16,7 +16,7 @@ RSpec.describe Parking, type: :model do
       is_expected.to validate_presence_of(:time)
       is_expected.to validate_length_of(:name).is_at_most(30)
       is_expected.to validate_numericality_of(:fee).only_integer
-      is_expected.to validate_numericality_of(:fee_per_hour).only_integer
+      is_expected.to validate_numericality_of(:price).only_integer
       is_expected.to validate_numericality_of(:capacity).only_integer
       is_expected.to validate_numericality_of(:time).only_integer
       is_expected.to validate_length_of(:address).is_at_most(100)
