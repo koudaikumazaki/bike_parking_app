@@ -20,8 +20,9 @@
   / Googleマップにリンクを飛ばしたのは、そちらの方がルート検索機能が充実していて使いやすいため
   .text-center
     %button.button.my-5
-      %a{:href => "https://www.google.com/maps/search/?api=1=#{@parking.latitude},#{@parking.longitude}"} GoogleMapでルートを検索
+      %a{:href => "https://www.google.com/maps/dir/?api=1&destination=#{@parking.latitude},#{@parking.longitude}"} GoogleMapでルートを検索
 %ul.text-left.mx-auto{:class => "sm:w-2/3 w-11/12"}
+
   %li.my-5
     所在地：#{@parking.address}
   %li.my-5
