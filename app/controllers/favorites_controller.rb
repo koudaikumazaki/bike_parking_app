@@ -12,10 +12,10 @@ class FavoritesController < ApplicationController
   private
 
   def favorite
-    @favorite = Favorite.find_or_initialize_by(user_id: current_user.id, parking_id: parking.id)
+    @favorite ||= Favorite.find_or_initialize_by(user_id: current_user.id, parking_id: parking.id)
   end
 
   def parking
-    @parking = Parking.find_by(id: params[:parking_id])
+    @parking ||= Parking.find_by(id: params[:parking_id])
   end
 end
