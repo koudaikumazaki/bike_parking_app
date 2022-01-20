@@ -16,6 +16,6 @@ class FavoritesController < ApplicationController
   end
 
   def parking
-    @parking ||= Parking.find_or_initialize_by(params[:parking_id])
+    @parking ||= Parking.find_by(id: params[:parking_id])
   end
 end
