@@ -1,6 +1,6 @@
 - if user_signed_in?
   - if @parking.favorited_by?(current_user)
-    = link_to parking_favorites_path(parking_id: @parking.id, id: @parking.favorites[0].id), method: :delete, remote: true do
+    = link_to parking_favorites_path(parking_id: @parking.id), method: :delete, remote: true do
       .vertical_favorite
         %i.fas.fa-star.show_icon
         %span.lightgray.hidden.sm:inline お気に入りを解除
