@@ -1,1 +1,1 @@
-$('#favorites_buttons#{@parking.id}').html("#{j(render partial: 'favorites/favorite', locals: {parking: @parking,favorite: @favorite})}");
+$('#favorites_buttons#{@parking.id}').html("#{escape_javascript(render partial: 'favorites/favorite', locals: {parking: @parking,favorite: @favorite})}");
