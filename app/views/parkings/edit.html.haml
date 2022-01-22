@@ -1,4 +1,5 @@
 %div
+  -# - binding.pry
   - if @form.errors.any?
     .alert
       .mx-auto{:class => "w-11/12 sm:w-1/2"}
@@ -8,3 +9,4 @@
   %h1.text-center.text-2xl.sm:text-3xl.my-10 駐輪場情報を編集する
   .text-right
   = render partial: 'form', locals: { post: @form}
+ 

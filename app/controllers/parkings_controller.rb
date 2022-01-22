@@ -70,7 +70,21 @@ class ParkingsController < ApplicationController
   end
 
   def form_params
-    params.permit(
+    # params.permit(
+    #   :name,
+    #   :address,
+    #   :fee,
+    #   :time,
+    #   :capacity,
+    #   :others,
+    #   :image,
+    #   :image_cache,
+    #   :latitude,
+    #   :longitude,
+    #   :fee_per_hour,
+    #   :approval
+    # )
+    params.fetch(:parkings_form, {}).permit(
       :name,
       :address,
       :fee,
@@ -84,6 +98,20 @@ class ParkingsController < ApplicationController
       :fee_per_hour,
       :approval
     )
+    # params.require(:parking).permit(
+    #   :name,
+    #   :address,
+    #   :fee,
+    #   :time,
+    #   :capacity,
+    #   :others,
+    #   :image,
+    #   :image_cache,
+    #   :latitude,
+    #   :longitude,
+    #   :fee_per_hour,
+    #   :approval
+    # )
   end
 
   def parking
