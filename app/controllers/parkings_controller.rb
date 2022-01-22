@@ -12,9 +12,7 @@ class ParkingsController < ApplicationController
   def new; end
 
   def create
-    parking.assign_attributes(parking_params)
-    parking.user_id = current_user.id
-    if parking.save
+    if form.save
       flash[:notice] = "管理者に承認されるまでは表示されません。承認されるまでに編集・削除を行う場合にはユーザー情報の、投稿した駐輪場から操作をお願いいたします。"
       redirect_to root_path
     else
@@ -30,7 +28,7 @@ class ParkingsController < ApplicationController
   def edit; end
 
   def update
-    if parking.update(parking_params)
+    if form.save
       flash[:notice] = "「#{parking.name}」の情報が更新されました!"
       redirect_to root_path
     else
@@ -58,6 +56,10 @@ class ParkingsController < ApplicationController
 
   private
 
+  def form
+    @form ||= ::Parkings::Form.new(parking, current_user.id, form_params)
+  end
+
   def parking_query
     @parking_query ||= ::Parkings::QueryBuilder.new(search_params)
   end
@@ -66,7 +68,7 @@ class ParkingsController < ApplicationController
     params.permit(::Parkings::QueryBuilder::SEARCH_PARAMS)
   end
 
-  def parking_params
+  def form_params
     params.require(:parking).permit(
       :name,
       :address,
