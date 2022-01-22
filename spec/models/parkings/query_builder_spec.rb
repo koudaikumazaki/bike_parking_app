@@ -11,10 +11,8 @@ RSpec.describe Parkings::QueryBuilder, type: :model do
     context "keyword is near" do
     end
     context "keyword is inexpensive" do
-      
     end
     context "keyword is capacity" do
-      
     end
   end
 end

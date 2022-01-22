@@ -49,6 +49,7 @@ class ParkingsController < ApplicationController
   def search
     results ||= parking_query.search
     if results.empty?
+      flash[:notice] = "検索結果が見つかりませんでした。"
       redirect_to root_path
     else
       @parkings ||= results.paginate(params).order("updated_at DESC")
