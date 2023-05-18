@@ -2,7 +2,8 @@ class ParkingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update, :search, :favorites]
   before_action :permit_update_delete, only: [:edit, :destroy, :update]
   before_action :permit_show, only: :show
-  before_action :parking, only: [:new, :create, :show, :edit, :update, :destroy]
+  before_action :parking, only: [:show, :destroy]
+  before_action :form, only: [:new, :create, :edit, :update]
   before_action :favorite_parkings, only: :favorites
 
   def index
@@ -69,7 +70,21 @@ class ParkingsController < ApplicationController
   end
 
   def form_params
-    params.require(:parking).permit(
+    # params.permit(
+    #   :name,
+    #   :address,
+    #   :fee,
+    #   :time,
+    #   :capacity,
+    #   :others,
+    #   :image,
+    #   :image_cache,
+    #   :latitude,
+    #   :longitude,
+    #   :fee_per_hour,
+    #   :approval
+    # )
+    params.fetch(:parkings_form, {}).permit(
       :name,
       :address,
       :fee,
@@ -83,6 +98,20 @@ class ParkingsController < ApplicationController
       :fee_per_hour,
       :approval
     )
+    # params.require(:parking).permit(
+    #   :name,
+    #   :address,
+    #   :fee,
+    #   :time,
+    #   :capacity,
+    #   :others,
+    #   :image,
+    #   :image_cache,
+    #   :latitude,
+    #   :longitude,
+    #   :fee_per_hour,
+    #   :approval
+    # )
   end
 
   def parking

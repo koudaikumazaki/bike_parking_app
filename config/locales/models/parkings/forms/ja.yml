@@ -1,0 +1,20 @@
+ja:
+  activemodel:
+    models:
+      parkings/form: フォーム
+    attributes:
+      parkings/form:
+        name: 駐輪場名
+        address: 住所
+        fee: 駐輪料金
+        fee_per_hour: 1時間当たりの駐輪料金
+        time: 駐輪時間
+        capacity: 収容台数
+        longitude: 経度
+        latitude: 緯度
+        user_id: ユーザーID
+        others: その他
+        image: 画像
+        approval: 承認ずみか？
+        created_at: 作成日時
+        updated_at: 更新日時
